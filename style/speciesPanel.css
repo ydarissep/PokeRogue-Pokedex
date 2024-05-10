@@ -4,6 +4,11 @@
 	font-size: min(max(2vw, 13px), 16px) !important;
 }
 
+.starterCost {
+	font-weight: bold;
+	font-size: 25px;
+}
+
 @media 
 only screen and (max-width: 650px) {
 	#speciesPanelMainContainer {
@@ -16,5 +21,20 @@ only screen and (max-width: 650px) {
 only screen and (max-width: 600px) {
 	.speciesPanelLearnsetsEffect {
 		display: none;
+	}
+}
+
+@media 
+only screen and (max-width: 380px) {
+	#speciesSprite {
+		padding-right: 10px !important;
+	}
+}
+
+@media 
+only screen and (max-width: 375px) {
+	#speciesSprite {
+		width: 128px !important;
+		height: 128px !important;
 	}
 }

@@ -13,6 +13,7 @@ fetch("https://raw.githubusercontent.com/ydarissep/dex-core/main/src/speciesPane
     }
 
     text = text.replace("speciesAbilitiesMainContainer.classList.remove(\"hide\")", "prependAbilityStarterEl(name)\nspeciesAbilitiesMainContainer.classList.remove(\"hide\")")
+    text = text.replace("speciesEggGroups.append(eggGroup1)", "speciesEggGroups.append(eggGroup1)\nconst starterCost = document.createElement(\"div\");starterCost.innerText = species[name][\"starterCost\"];starterCost.classList = \"starterCost\";speciesEggGroups.prepend(starterCost)")
     
     eval.call(window,text)
 }).catch(error => {

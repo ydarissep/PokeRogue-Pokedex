@@ -1,5 +1,5 @@
 window.repo = "pagefaultgames/pokerogue/main"
-window.checkUpdate = "2 PR"
+window.checkUpdate = "3 PR"
 
 
 fetch('https://raw.githubusercontent.com/ydarissep/dex-core/main/index.html').then(async response => {
@@ -16,7 +16,7 @@ fetch('https://raw.githubusercontent.com/ydarissep/dex-core/main/index.html').th
     document.getElementById("footerName").innerText = "PokeRogue\nYdarissep Pokedex"
 
     document.getElementById("speciesPanelTutorTable").classList.add("hide")
-    document.getElementById("speciesEggGroupsContainer").classList.add("hide")
+    document.getElementById("speciesEggGroupsText").innerText = "Starter Cost:"
 
     document.getElementById("speciesPanelTablesContainer").insertBefore(document.getElementById("speciesPanelEggMovesTable"), document.getElementById("speciesPanelLevelUpFromPreviousEvoTable"))
 

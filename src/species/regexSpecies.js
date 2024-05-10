@@ -145,14 +145,26 @@ function regexBaseStats(textBaseStats, species){
 
 
 function regexStarterAbility(textBaseStats, species){
-    const textBaseStatsMatch = textBaseStats.match(/Species\.\w+\s*\].*?Abilities\.\w+/ig)
-    if(textBaseStatsMatch){
-        textBaseStatsMatch.forEach(starterAbilitity => {
+    const textStarterAbilityMatch = textBaseStats.match(/Species\.\w+\s*\].*?Abilities\.\w+/ig)
+    if(textStarterAbilityMatch){
+        textStarterAbilityMatch.forEach(starterAbilitity => {
             const speciesName = starterAbilitity.match(/Species\.\w+/)[0].toUpperCase().replace(".", "_")
             const abilityName = starterAbilitity.match(/Abilities\.\w+/)[0].toUpperCase().replace("ABILITIES.", "ABILITY_")
 
             if(speciesName in species && abilityName in abilities){
                 species[speciesName]["starterAbility"] = abilityName
+            }
+        })
+    }
+
+    const textStarterCostMatch = textBaseStats.match(/Species\.\w+\s*\]\s*:\s*\d+/ig)
+    if(textStarterCostMatch){
+        textStarterCostMatch.forEach(starterCost => {
+            const speciesName = starterCost.match(/Species\.\w+/)[0].toUpperCase().replace(".", "_")
+            const cost = parseInt(starterCost.match(/:\s*(\d+)/)[1])
+
+            if(speciesName in species && cost){
+                species[speciesName]["starterCost"] = cost
             }
         })
     }
@@ -536,7 +548,7 @@ async function getEvolutionLine(species){
         species[name]["evolutionLine"] = Array.from(new Set(species[name]["evolutionLine"])) // remove duplicates
     }
 
-    //Propagate starterAbility through evolutionLine
+    //Propagate starterAbility and starterCost through evolutionLine
     Object.keys(species).forEach(speciesName => {
         let targetSpecies = speciesName
         if(species[targetSpecies]["forms"][0]){
@@ -547,6 +559,7 @@ async function getEvolutionLine(species){
         }
 
         species[speciesName]["starterAbility"] = species[targetSpecies]["starterAbility"]
+        species[speciesName]["starterCost"] = species[targetSpecies]["starterCost"]
     })
 
     return species

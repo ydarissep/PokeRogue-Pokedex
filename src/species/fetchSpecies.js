@@ -4,7 +4,7 @@ async function getBaseStats(species){
     const textBaseStats = await rawBaseStats.text()
 
     species = regexBaseStats(textBaseStats, species)
-    
+
     return regexStarterAbility(textBaseStats, species)
 }
 
@@ -78,6 +78,7 @@ function initializeSpeciesObj(speciesObj){
     speciesObj["eggGroup1"] = ""
     speciesObj["eggGroup2"] = ""
     speciesObj["changes"] = []
+    speciesObj["starterCost"] = 0
     speciesObj["levelUpLearnsets"] = []
     speciesObj["TMHMLearnsets"] = []
     speciesObj["eggMovesLearnsets"] = []
