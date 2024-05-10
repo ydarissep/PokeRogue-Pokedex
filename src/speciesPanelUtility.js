@@ -8,7 +8,7 @@ fetch("https://raw.githubusercontent.com/ydarissep/dex-core/main/src/speciesPane
             const el = srcMatch.match(/(\w+)\./)[1]
             const speciesNameTemp = srcMatch.match(/getSpeciesSpriteSrc\((.*?)\)/)[1].trim()
 
-            text = text.replaceAll(srcMatch, `if(species[${speciesNameTemp}]["spriteScale"]){${el}.style.transform = \`scale(\${species[${speciesNameTemp}]["spriteScale"]})\`}\n${srcMatch}`)
+            text = text.replaceAll(srcMatch, `if(spritesInfo[\`spriteInfo\${${speciesNameTemp}}\`]){${el}.style.transform = \`scale(\${spritesInfo[\`spriteInfo\${${speciesNameTemp}}\`]})\`}\n${srcMatch}`)
         })
     }
     

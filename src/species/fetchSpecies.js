@@ -93,17 +93,21 @@ async function fetchSpeciesObj(){
 
     window.sprites = {}
     window.speciesTracker = []
+    window.spritesInfo = {}
 
     Object.keys(species).forEach(async name => {
         if(localStorage.getItem(name)){
             sprites[name] = await LZString.decompressFromUTF16(localStorage.getItem(name))
-            if(sprites[name].length < 500 || !species[name]["spriteScale"]){
+            if(sprites[name].length < 500){
                 localStorage.removeItem(name)
                 spriteRemoveBgReturnBase64(name, species)
             }
         }
-        
+        if(localStorage.getItem(`spriteInfo${name}`)){
+            spritesInfo[`spriteInfo${name}`] = await LZString.decompressFromUTF16(localStorage.getItem(`spriteInfo${name}`))
+        }
     })
+
     for(let i = 0, j = Object.keys(species).length; i < j; i++){
         speciesTracker[i] = {}
         speciesTracker[i]["key"] = Object.keys(species)[i]

@@ -8,7 +8,7 @@ fetch("https://raw.githubusercontent.com/ydarissep/dex-core/main/src/species/dis
             const el = srcMatch.match(/(\w+)\./)[1]
             const speciesNameTemp = srcMatch.match(/getSpeciesSpriteSrc\((.*?)\)/)[1].trim()
 
-            text = text.replaceAll(srcMatch, `if(species[${speciesNameTemp}]["spriteScale"]){${el}.style.transform = \`scale(\${species[${speciesNameTemp}]["spriteScale"]})\`}\n${srcMatch}`)
+            text = text.replaceAll(srcMatch, `if(spritesInfo[\`spriteInfo\${${speciesNameTemp}}\`]){${el}.style.transform = \`scale(\${spritesInfo[\`spriteInfo\${${speciesNameTemp}}\`]})\`}\n${srcMatch}`)
         })
     }
 
@@ -18,9 +18,6 @@ fetch("https://raw.githubusercontent.com/ydarissep/dex-core/main/src/species/dis
 })
 
 
-
-let localStorageSpecies
-let localStorageInterval = 5000
 
 
 
@@ -76,10 +73,10 @@ async function spriteRemoveBgReturnBase64(speciesName, species){
         })
 
         if(canvasWidth > canvasHeight){
-            species[speciesName]["spriteScale"] = `1, ${1 / (canvasWidth / canvasHeight)}`
+            spritesInfo[`spriteInfo${speciesName}`] = `1, ${1 / (canvasWidth / canvasHeight)}`
         }
         else{
-            species[speciesName]["spriteScale"] = `${1 / (canvasHeight / canvasWidth)}, 1`
+            spritesInfo[`spriteInfo${speciesName}`] = `${1 / (canvasHeight / canvasWidth)}, 1`
         }
     }
 
@@ -116,17 +113,13 @@ async function spriteRemoveBgReturnBase64(speciesName, species){
         if(!localStorage.getItem(`${speciesName}`)){
             await localStorage.setItem(`${speciesName}`, LZString.compressToUTF16(canvas.toDataURL()))
             sprites[speciesName] = canvas.toDataURL()
-
-            clearTimeout(localStorageSpecies)
-            localStorageSpecies = setTimeout(function(){
-                localStorage.setItem("species", LZString.compressToUTF16(JSON.stringify(species)))
-            }, localStorageInterval)
+            localStorage.setItem(`spriteInfo${speciesName}`, LZString.compressToUTF16(spritesInfo[`spriteInfo${speciesName}`]))
         }
         if(document.getElementsByClassName(`sprite${speciesName}`).length > 0){
             const els = document.getElementsByClassName(`sprite${speciesName}`)
             for(let i = 0; i < els.length; i++){
                 els[i].src = canvas.toDataURL()
-                els[i].style.transform = `scale(${species[speciesName]["spriteScale"]})`
+                els[i].style.transform = `scale(${spritesInfo[`spriteInfo${speciesName}`]})`
             }
         }
     }
