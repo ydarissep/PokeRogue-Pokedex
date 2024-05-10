@@ -12,12 +12,12 @@ fetch("https://raw.githubusercontent.com/ydarissep/dex-core/main/src/species/dis
         })
     }
 
+    text = text.replace("row.append(abilitiesContainer)", "const starterAbility = document.createElement(\"div\");starterAbility.innerText = abilities[species[speciesName][\"starterAbility\"]][\"ingameName\"];starterAbility.classList = \"starterAbility\";abilitiesContainer.prepend(starterAbility)\nrow.append(abilitiesContainer)")
+
     eval.call(window,text)
 }).catch(error => {
     console.warn(error)
 })
-
-
 
 
 

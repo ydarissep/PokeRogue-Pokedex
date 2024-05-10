@@ -2,7 +2,10 @@ async function getBaseStats(species){
     footerP("Fetching species")
     const rawBaseStats = await fetch(`https://raw.githubusercontent.com/${repo}/src/data/pokemon-species.ts`)
     const textBaseStats = await rawBaseStats.text()
-    return regexBaseStats(textBaseStats, species)
+
+    species = regexBaseStats(textBaseStats, species)
+    
+    return regexStarterAbility(textBaseStats, species)
 }
 
 async function getLevelUpLearnsets(species){
@@ -67,6 +70,7 @@ function initializeSpeciesObj(speciesObj){
     speciesObj["baseSpeed"] = 0
     speciesObj["BST"] = 0
     speciesObj["abilities"] = []
+    speciesObj["starterAbility"] = "ABILITY_NONE"
     speciesObj["type1"] = ""
     speciesObj["type2"] = ""
     speciesObj["item1"] = ""

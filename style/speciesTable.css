@@ -1,1 +1,10 @@
 @import url(https://ydarissep.github.io/dex-core/style/speciesTable.css);
+
+.starterAbility {
+	font-weight: bold;
+	color: #f24df2;
+}
+
+.abilities {
+	font-size: 17.5px !important;
+}

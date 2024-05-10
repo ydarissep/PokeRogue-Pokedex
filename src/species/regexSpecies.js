@@ -144,6 +144,29 @@ function regexBaseStats(textBaseStats, species){
 
 
 
+function regexStarterAbility(textBaseStats, species){
+    const textBaseStatsMatch = textBaseStats.match(/Species\.\w+\s*\].*?Abilities\.\w+/ig)
+    if(textBaseStatsMatch){
+        textBaseStatsMatch.forEach(starterAbilitity => {
+            const speciesName = starterAbilitity.match(/Species\.\w+/)[0].toUpperCase().replace(".", "_")
+            const abilityName = starterAbilitity.match(/Abilities\.\w+/)[0].toUpperCase().replace("ABILITIES.", "ABILITY_")
+
+            if(speciesName in species && abilityName in abilities){
+                species[speciesName]["starterAbility"] = abilityName
+            }
+        })
+    }
+
+    return species
+}
+
+
+
+
+
+
+
+
 
 
 function regexLevelUpLearnsets(textLevelUpLearnsets, species){
@@ -512,6 +535,19 @@ async function getEvolutionLine(species){
     for(const name of Object.keys(species)){
         species[name]["evolutionLine"] = Array.from(new Set(species[name]["evolutionLine"])) // remove duplicates
     }
+
+    //Propagate starterAbility through evolutionLine
+    Object.keys(species).forEach(speciesName => {
+        let targetSpecies = speciesName
+        if(species[targetSpecies]["forms"][0]){
+            targetSpecies = species[speciesName]["forms"][0]
+        }
+        if(species[targetSpecies]["evolutionLine"][0]){
+            targetSpecies = species[targetSpecies]["evolutionLine"][0]
+        }
+
+        species[speciesName]["starterAbility"] = species[targetSpecies]["starterAbility"]
+    })
 
     return species
 }
