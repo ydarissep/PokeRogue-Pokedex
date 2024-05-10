@@ -11,6 +11,8 @@ fetch("https://raw.githubusercontent.com/ydarissep/dex-core/main/src/speciesPane
             text = text.replaceAll(srcMatch, `if(spritesInfo[\`spriteInfo\${${speciesNameTemp}}\`]){${el}.style.transform = \`scale(\${spritesInfo[\`spriteInfo\${${speciesNameTemp}}\`]})\`}\n${srcMatch}`)
         })
     }
+
+    text = text.replace("speciesAbilitiesMainContainer.classList.remove(\"hide\")", "prependAbilityStarterEl(name)\nspeciesAbilitiesMainContainer.classList.remove(\"hide\")")
     
     eval.call(window,text)
 }).catch(error => {
@@ -31,4 +33,29 @@ function returnMoveDescription(move){
     })
 
     return movedescriptionContainer
+}
+
+
+
+
+function prependAbilityStarterEl(name){
+    const abilityContainer = document.createElement("div"); abilityContainer.className = "flex wrap"
+    const abilityName = document.createElement("span"); abilityName.innerText = abilities[species[name]["starterAbility"]]["ingameName"]; abilityName.classList = "hyperlink starterAbility"
+    const abilityDescription = document.createElement("span"); abilityDescription.innerText = abilities[species[name]["starterAbility"]]["description"]; abilityDescription.className = "speciesPanelAbilitiesDescriptionPadding"
+
+    abilityName.addEventListener("click", async() => {
+        if(!speciesButton.classList.contains("activeButton")){
+            tracker = speciesTracker
+            await tableButtonClick("species")
+        }
+        deleteFiltersFromTable()
+
+        createFilter(abilities[species[name]["starterAbility"]]["ingameName"], "Ability")
+        speciesPanel("hide")
+        window.scrollTo({ top: 0})
+    })
+
+    abilityContainer.append(abilityName)
+    abilityContainer.append(abilityDescription)
+    speciesAbilities.prepend(abilityContainer)
 }
