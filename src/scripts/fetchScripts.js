@@ -81,7 +81,7 @@ async function buildScriptsObjs(){
 
     localStorage.setItem("trainers", LZString.compressToUTF16(JSON.stringify(trainers)))
     localStorage.setItem("items", LZString.compressToUTF16(JSON.stringify(items)))
-    localStorage.setItem("locations", LZString.compressToUTF16(JSON.stringify(locations)))
+    //localStorage.setItem("locations", LZString.compressToUTF16(JSON.stringify(locations)))
 }
 
 

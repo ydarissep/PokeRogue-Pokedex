@@ -27,6 +27,17 @@ async function buildMovesObj(){
         else if(moves[move]["priority"] < 0){
             moves[move]["flags"].push(`FLAG_PRIORITY_MINUS_${Math.abs(moves[move]["priority"])}`)
         }
+
+        if(moves[move]["flags"].includes("FLAG_PARTIAL")){
+            if(moves[move]["ingameName"]){
+                moves[move]["ingameName"] += " (P)"
+            }
+        }
+        else if(moves[move]["flags"].includes("FLAG_UNIMPLEMENTED")){
+            if(moves[move]["ingameName"]){
+                moves[move]["ingameName"] += " (N)"
+            }
+        }
     })
 
     await localStorage.setItem("moves", LZString.compressToUTF16(JSON.stringify(moves)))

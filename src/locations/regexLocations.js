@@ -1,117 +1,55 @@
-function regexWildLocations(jsonWildLocations, locations){
+function regexBiomes(textBiomes, locations){
+	const biomesMatch = textBiomes.match(/Biome\.\w+\s*]\s*:\s*{\s*\[\s*BiomePoolTier\.\w+\s*\]\s*:\s*{\s*\[\s*TimeOfDay.\w+.*?(?=Biome\.\w+\s*]|}\s*;)/igs)
+	if(biomesMatch){
+		biomesMatch.forEach(biome => {
 
-	const wildEncounters = jsonWildLocations["wild_encounter_groups"][0]["encounters"]
-	const methodArrayWild = ["land_mons", "water_mons", "rock_smash_mons", "fishing_mons", "honey_mons"]
+			let biomeName = biome.match(/Biome\.(\w+)/i)
+			if(biomeName){
 
-	for(let i = 0; i < wildEncounters.length; i++)
-	{
-		let zone = "Placeholder"
+				biomeName = sanitizeString(biomeName[1])
 
-		if("base_label" in wildEncounters[i]){
-			zone = wildEncounters[i]["base_label"].replace(/^g|_/g, "").replace(/([A-Z])/g, " $1").replace(/(\d+)/g, " $1").trim()
+				const biomePoolTierMatch = biome.match(/BiomePoolTier\.\w+.*?(?=BiomePoolTier\.\w+|$)/igs)
+				if(biomePoolTierMatch){
+					biomePoolTierMatch.forEach(biomePoolTier => {
 
-			if(!(zone in locations)){
-				locations[zone] = {}
-			}
+						const tier = sanitizeString(biomePoolTier.match(/BiomePoolTier\.(\w+)/i)[1])
 
-			for(let j = 0; j < methodArrayWild.length; j++){
-				if(methodArrayWild[j] in wildEncounters[i]){
-					for(let k = 0; k < wildEncounters[i][methodArrayWild[j]]["mons"].length; k++){
+						const timeOfDayMatch = biomePoolTier.match(/TimeOfDay\.\w+.*?(?=TimeOfDay\.\w+|$)/igs)
+						if(timeOfDayMatch){
+							timeOfDayMatch.forEach(timeOfDayPool => {
 
-						const method = replaceMethodString(methodArrayWild[j], k)
-						const name = wildEncounters[i][methodArrayWild[j]]["mons"][k]["species"]
+								const timeOfDay = sanitizeString(timeOfDayPool.match(/TimeOfDay\.(\w+)/)[1])
 
-						if(!(method in locations[zone])){
-							locations[zone][method] = {}
+								const speciesNameMatch = timeOfDayPool.match(/Species\.\w+/igs)
+								if(speciesNameMatch){
+									speciesNameMatch.forEach(speciesName => {
+
+										speciesName = speciesName.toUpperCase().replace(".", "_")
+
+										if(speciesName in species){
+
+											if(!(biomeName in locations)){
+												locations[biomeName] = {}
+											}
+
+											if(!(timeOfDay in locations[biomeName])){
+												locations[biomeName][timeOfDay] = {}
+											}
+
+											locations[biomeName][timeOfDay][speciesName] = tier
+										}
+									})
+								}
+							})
 						}
-
-
-						if(name in locations[zone][method]){
-			    			locations[zone][method][name] += returnRarity(method, k)
-			    		}
-			    		else{
-			    			locations[zone][method][name] = returnRarity(method, k)
-			    		}
-
-					}
+					})
 				}
 			}
-		}
-		else{
-			console.log("missing \"base_label\" in wildEncounters[", i, "] (regexWildLocations)")
-			continue
-		}
-	}
-
-
-	const berryEncounters = jsonWildLocations["wild_encounter_groups"][3]["encounters"]
-	const key = "land_mons"
-
-
-	for(let i = 0; i < berryEncounters.length; i++)
-	{
-		const zone = "Berry stage: "
-
-		if("base_label" in berryEncounters[i]){
-
-			if(!(zone in locations)){
-				locations[zone] = {}
-			}
-
-			if("base_label" in berryEncounters[i]){
-				const method = berryEncounters[i]["base_label"].replace(/^gBerryStage|_/g, "").replace(/([A-Z])/g, " $1").replace(/(\d+)/g, " $1").trim()
-
-
-				for(let j = 0; j < berryEncounters[i][key]["mons"].length; j++){
-
-					const name = berryEncounters[i][key]["mons"][j]["species"]
-
-					if(!(method in locations[zone])){
-						locations[zone][method] = {}
-					}
-
-
-					if(name in locations[zone][method]){
-				    	locations[zone][method][name] += returnRarity(key, j)
-				    }
-				    else{
-				    	locations[zone][method][name] = returnRarity(key, j)
-				    }
-				}
-			}
-		}
-		else{
-			console.log("missing \"base_label\" in berryEncounters[", i, "] (regexWildLocations)")
-			continue
-		}
-	}
-
-
-    return locations
-}
-
-
-
-function regexGameCornerLocations(textGameCornerLocations, locations){
-	const zone = "Mauville City", method = "Game Corner"
-	
-	if(!(zone in locations)){
-		locations[zone] = {}
-	}
-
-	if(!(method in locations[zone])){
-		locations[zone][method] = {}
-	}
-
-	const speciesArray = textGameCornerLocations.match(/SPECIES_\w+/g)
-
-	for(let i = 0; i < speciesArray.length; i++){
-		locations[zone][method][speciesArray[i]] = 100
+		})
 	}
 
     return locations
 }
-
 
 
 

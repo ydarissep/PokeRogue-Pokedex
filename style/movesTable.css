@@ -1,1 +1,16 @@
 @import url(https://ydarissep.github.io/dex-core/style/movesTable.css);
+
+#movesTableTbody tr[id*="MOVE_"] {
+    height: 50px;
+}
+
+#movesTableThead th.effect {
+    width: 600px !important;
+}
+
+@media 
+only screen and (max-width: 600px) {
+	#movesTableTbody tr[id*="MOVE_"] {
+        height: unset !important;
+    }
+}

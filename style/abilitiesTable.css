@@ -1,1 +1,9 @@
 @import url(https://ydarissep.github.io/dex-core/style/abilitiesTable.css);
+
+#abilitiesTable tr[id*="ABILITY_"] {
+    height: 40px;
+}
+
+#abilitiesTable .description {
+    width: 650px;
+}

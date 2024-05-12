@@ -1,7 +1,8 @@
 @import url(https://ydarissep.github.io/dex-core/style/speciesPanel.css);
 
-.speciesPanelLearnsetsEffect {
-	font-size: min(max(2vw, 13px), 16px) !important;
+tbody .speciesPanelLearnsetsEffect {
+	font-size: 17px !important;
+	height: 50px;
 }
 
 .starterCost {
@@ -10,15 +11,26 @@
 }
 
 @media 
-only screen and (max-width: 650px) {
+only screen and (max-width: 800px) {
 	#speciesPanelMainContainer {
 		max-width: revert !important;
 		border: none !important;
 	}
+
+	.speciesPanelLearnsetsEffect {
+		font-size: 16px !important;
+	}
 }
 
 @media 
-only screen and (max-width: 600px) {
+only screen and (max-width: 650px) {
+	.speciesPanelLearnsetsEffect {
+		font-size: 14px !important;
+	}
+}
+
+@media 
+only screen and (max-width: 550px) {
 	.speciesPanelLearnsetsEffect {
 		display: none;
 	}

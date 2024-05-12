@@ -1,26 +1,15 @@
-async function getWildLocations(locations){
-    footerP("Fetching wild locations")
-    const rawWildLocations = await fetch(`https://raw.githubusercontent.com/${repo}/src/data/wild_encounters.json`)
-    const jsonWildLocations = await rawWildLocations.json()
+async function getBiomes(locations){
+    footerP("Fetching biomes")
+    const rawBiomes = await fetch(`https://raw.githubusercontent.com/${repo}/src/data/biomes.ts`)
+    const textBiomes = await rawBiomes.text()
 
-    return regexWildLocations(jsonWildLocations, locations)   
-}
-
-async function getGameCornerLocations(locations){
-    footerP("Fetching game corner locations")
-    const rawGameCornerLocations = await fetch(`https://raw.githubusercontent.com/${repo}/data/maps/MauvilleCity_GameCorner/scripts.inc`)
-    const textGameCornerLocations = await rawGameCornerLocations.text()
-
-    return regexGameCornerLocations(textGameCornerLocations, locations)   
+    return regexBiomes(textBiomes, locations)   
 }
 
 async function buildLocationsObj(){
     let locations = {}
 
-    /*
-    locations = await getWildLocations(locations)
-    locations = await getGameCornerLocations(locations)
-    */
+    locations = await getBiomes(locations)
 
     await localStorage.setItem("locations", LZString.compressToUTF16(JSON.stringify(locations)))
     return locations

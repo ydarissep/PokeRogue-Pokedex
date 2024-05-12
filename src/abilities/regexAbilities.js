@@ -8,6 +8,7 @@ function regexAbilities(textAbilities, abilities){
                 abilities[abilityName] = {}
                 abilities[abilityName]["name"] = abilityName
                 abilities[abilityName]["ingameName"] = sanitizeString(abilityName)
+                abilities[abilityName]["flags"] = []
 
                 const abilityIngameNameMatch = abilityMatch.match(/name:\s*"(.*?)"/i)
                 if(abilityIngameNameMatch){
@@ -21,5 +22,26 @@ function regexAbilities(textAbilities, abilities){
         })
     }
 
+    return abilities
+}
+
+
+
+
+
+function regexAbilitiesFlags(textAbilitiesFlags, abilities){
+    const textAbilitiesFlagsMatch = textAbilitiesFlags.match(/new\s*Ability\s*\(\s*Abilities\.\w+.*?(?=new\s*Ability\s*\(\s*Abilities\.\w+|\)\s*;)/igs)
+    if(textAbilitiesFlagsMatch){
+        textAbilitiesFlagsMatch.forEach(abilityMatch => {
+            const abilityName = abilityMatch.match(/Abilities\.\w+/i)[0].toUpperCase().replace("ABILITIES.", "ABILITY_")
+            if(abilityName in abilities){
+                const flagMatch = abilityMatch.match(/\.partial|\.unimplemented/i)
+                if(flagMatch){
+                    abilities[abilityName]["flags"].push(`FLAG_${flagMatch[0].replace(".", "").toUpperCase()}`)
+                }
+            }
+        })
+    }
+    
     return abilities
 }

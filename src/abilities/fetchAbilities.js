@@ -6,14 +6,36 @@ async function getAbilities(abilities){
     return regexAbilities(textAbilities, abilities)
 }
 
+async function getAbilitiesFlags(abilities){
+    const rawAbilitiesFlags = await fetch(`https://raw.githubusercontent.com/${repo}/src/data/ability.ts`)
+    const textAbilitiesFlags = await rawAbilitiesFlags.text()
+
+    return regexAbilitiesFlags(textAbilitiesFlags, abilities)
+}
+
 async function buildAbilitiesObj(){
     let abilities = {}
     abilities = await getAbilities(abilities)
+    abilities = await getAbilitiesFlags(abilities)
 
     abilities["ABILITY_NONE"] = {}
     abilities["ABILITY_NONE"]["name"] = "ABILITY_NONE"
     abilities["ABILITY_NONE"]["ingameName"] = "None"
     abilities["ABILITY_NONE"]["description"] = ""
+    abilities["ABILITY_NONE"]["flags"] = []
+
+    Object.keys(abilities).forEach(ability => {
+        if(abilities[ability]["flags"].includes("FLAG_PARTIAL")){
+            if(abilities[ability]["ingameName"]){
+                abilities[ability]["ingameName"] += " (P)"
+            }
+        }
+        else if(abilities[ability]["flags"].includes("FLAG_UNIMPLEMENTED")){
+            if(abilities[ability]["ingameName"]){
+                abilities[ability]["ingameName"] += " (N)"
+            }
+        }
+    })
 
     await localStorage.setItem("abilities", LZString.compressToUTF16(JSON.stringify(abilities)))
     return abilities
