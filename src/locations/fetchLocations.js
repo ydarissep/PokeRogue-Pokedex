@@ -3,7 +3,12 @@ async function getBiomes(locations){
     const rawBiomes = await fetch(`https://raw.githubusercontent.com/${repo}/src/data/biomes.ts`)
     const textBiomes = await rawBiomes.text()
 
-    return regexBiomes(textBiomes, locations)   
+    const rawBiomesForms = await fetch(`https://raw.githubusercontent.com/${repo}/src/field/arena.ts`)
+    const textBiomesForms = await rawBiomesForms.text()
+
+    const conversionTable = await getBiomesFormsConverionTable(textBiomesForms)
+
+    return regexBiomes(textBiomes, locations, conversionTable)
 }
 
 async function buildLocationsObj(){

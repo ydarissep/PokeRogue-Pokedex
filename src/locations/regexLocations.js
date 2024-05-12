@@ -1,4 +1,4 @@
-function regexBiomes(textBiomes, locations){
+function regexBiomes(textBiomes, locations, conversionTable){
 	const biomesMatch = textBiomes.match(/Biome\.\w+\s*]\s*:\s*{\s*\[\s*BiomePoolTier\.\w+\s*\]\s*:\s*{\s*\[\s*TimeOfDay.\w+.*?(?=Biome\.\w+\s*]|}\s*;)/igs)
 	if(biomesMatch){
 		biomesMatch.forEach(biome => {
@@ -36,6 +36,17 @@ function regexBiomes(textBiomes, locations){
 												locations[biomeName][timeOfDay] = {}
 											}
 
+											if(`${speciesName}${biomeName}` in conversionTable){
+												if(species[speciesName]["forms"][conversionTable[`${speciesName}${biomeName}`]]){
+													speciesName = species[speciesName]["forms"][conversionTable[`${speciesName}${biomeName}`]]
+												}
+											}
+											if(`${speciesName}${timeOfDay}` in conversionTable){
+												if(species[speciesName]["forms"][conversionTable[`${speciesName}${timeOfDay}`]]){
+													speciesName = species[speciesName]["forms"][conversionTable[`${speciesName}${timeOfDay}`]]
+												}
+											}
+											
 											locations[biomeName][timeOfDay][speciesName] = tier
 										}
 									})
@@ -55,113 +66,53 @@ function regexBiomes(textBiomes, locations){
 
 
 
-function replaceMethodString(method, index){
-	if(method.match(/fish/i)){
-		if(index >=0 && index <= 1)
-			return "Old Rod"
-		else if(index >= 2 && index <= 4)
-			return "Good Rod"
-		else if(index >= 5 && index <= 9)
-			return "Super Rod"
-		else
-			return "Fishing"
-	}
-	else if(method.match(/water/i)){
-		return "Surfing"
-	}
-	else if(method.match(/smash/i)){
-		return "Rock Smash"
-	}
-	else if(method.match(/land/i)){
-		return "Land"
-	}
-	else if(method.match(/honey/i)){
-		return "Honey"
-	}
-    else{
-    	console.log(method)
-        return method
-    }
-}
 
 
-function returnRarity(method, index){
-	if(method === "Land" || method === "land_mons"){
-		if(index === 0 || index === 1)
-			return 20
-		else if(index >= 2 && index <= 5){
-			return 10
-		}
-		else if(index >= 6 && index <= 7){
-			return 5
-		}
-		else if(index >= 8 && index <= 9){
-			return 4
-		}
-		else if(index >= 10 || index <= 11){
-			return 1
-		}
-		else
-			return 100
+async function getBiomesFormsConverionTable(textBiomesForms){
+	let conversionTable = {}
+	const textBiomesFormsMatch = textBiomesForms.match(/getSpeciesFormIndex.*?getTypeForBiome/is)
+	if(textBiomesFormsMatch){
+		let stop = false
+		let speciesArray = []
+		let biomesObj = {}
+		let currentBiome = null
+
+		const lines = textBiomesFormsMatch[0].split("\n")
+		lines.forEach(line => {
+			let speciesMatch = line.match(/Species\.\w+/i)
+			if(speciesMatch){
+				speciesMatch = speciesMatch[0].toUpperCase().replace(".", "_")
+				if(speciesMatch in species){
+					if(stop){
+						speciesArray = []
+						biomesObj = {}
+						currentBiome = null
+						stop = false
+					}
+					speciesArray.push(speciesMatch)
+				}
+			}
+			let biomeMatch = line.match(/(?:Biome|TimeOfDay)\.(\w+)/i)
+			if(biomeMatch){
+				currentBiome = sanitizeString(biomeMatch[1])
+			}
+			let intMatch = line.match(/return\s*(\d+)/i)
+			if(intMatch){
+				intMatch = parseInt(intMatch[1])
+				stop = true
+			}
+
+			if((Number.isInteger(intMatch) && currentBiome)){
+				biomesObj[currentBiome] = intMatch
+				currentBiome = null
+				speciesArray.forEach(speciesName => {
+					Object.keys(biomesObj).forEach(biome => {
+						conversionTable[`${speciesName}${biome}`] = biomesObj[biome]
+					})
+				})
+			}
+		})
 	}
-	if(method === "Honey"){
-		if(index === 0)
-			return 50
-		else if(index >= 1 && index <= 2){
-			return 15
-		}
-		else if(index === 3){
-			return 10
-		}
-		else if(index >= 4 && index <= 5){
-			return 5
-		}
-		else
-			return 100
-	}
-	else if(method === "Surfing" || method === "Rock Smash"){
-		if(index === 0)
-			return 60
-		else if(index === 1)
-			return 30
-		else if(index === 2)
-			return 5
-		else if(index === 3)
-			return 5
-		else
-			return 100
-	}
-	else if(method === "Old Rod"){
-		if(index === 0)
-			return 60
-		else if(index === 1)
-			return 40
-		else 
-			return 100
-	}
-	else if(method === "Good Rod"){
-		if(index === 2)
-			return 60
-		else if(index === 3 || index === 4)
-			return 20
-		else 
-			return 100
-	}
-	else if(method === "Super Rod"){
-		if(index === 5)
-			return 40
-		else if(index === 6)
-			return 30
-		else if(index === 7)
-			return 15
-		else if(index === 8)
-			return 10
-		else if(index === 9)
-			return 5
-		else 
-			return 100
-	}
-    else{
-        return 100
-    }
+
+	return conversionTable
 }
