@@ -54,7 +54,7 @@ function filterLocationsTableInputNew(input, obj, keyArray){
             }
             for(splitInput of arraySanitizedInput){
                 if(!compareString.includes(splitInput.toLowerCase())){
-                    if(!locations[zone][method][name].match(new RegExp(`^${input.trim()}`, "i"))){
+                    if(!locations[zone][method][name].match(new RegExp(`^${splitInput}`, "i"))){
                         tracker[i]["filter"].push("input")
                         continue mainLoop
                     }
