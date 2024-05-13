@@ -42,6 +42,13 @@ async function getEggMovesLearnsets(species){
     return regexEggMovesLearnsets(textEggMoves, species)
 }
 
+async function getChanges(species){
+    const rawChanges = await fetch("https://raw.githubusercontent.com/smogon/pokemon-showdown/master/data/pokedex.ts")
+    const textChanges = await rawChanges.text()
+
+    return regexChanges(textChanges, species)
+}
+
 
 
 
@@ -55,6 +62,7 @@ async function buildSpeciesObj(){
     species = await getLevelUpLearnsets(species)
     species = await getTMHMLearnsets(species)
     species = await getEggMovesLearnsets(species)
+    species = await getChanges(species)
 
     await localStorage.setItem("species", LZString.compressToUTF16(JSON.stringify(species)))
     return species

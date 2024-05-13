@@ -115,6 +115,15 @@ function regexBaseStats(textBaseStats, species){
                                 species[speciesName]["abilities"].push(abilityName)
                             }
                         }
+                        while(species[speciesName]["abilities"].length < 3){
+                            species[speciesName]["abilities"].push("ABILITY_NONE")
+                        }
+                        if(species[speciesName]["abilities"][1] == "ABILITY_NONE"){
+                            species[speciesName]["abilities"][1] = species[speciesName]["abilities"][0]
+                        }
+                        if(species[speciesName]["abilities"][2] == "ABILITY_NONE" && species[speciesName]["abilities"][0] == species[speciesName]["abilities"][1]){
+                            species[speciesName]["abilities"][2] = species[speciesName]["abilities"][0]
+                        }
                     }
 
                     const statsMatch = speciesInit.match(/\d+\s*,\s*\d+\s*,\s*\d+\s*,\s*\d+\s*,\s*\d+\s*,\s*\d+\s*,\s*\d+/)
@@ -136,6 +145,124 @@ function regexBaseStats(textBaseStats, species){
     
     return species
 }
+
+
+
+
+
+
+
+function regexChanges(textChanges, species){
+    const conversionTable = {}
+    Object.keys(abilities).forEach(abilityName => {
+        conversionTable[abilities[abilityName]["ingameName"].replaceAll(/ \(P\)| \(N\)/g, "")] = abilityName
+    })
+
+    const statsOrder = ["baseHP", "baseAttack", "baseDefense", "baseSpAttack", "baseSpDefense", "baseSpeed"]
+    const textChangesMatch = textChanges.match(/name\s*:.*?(?=name\s*:|$)/igs)
+    if(textChangesMatch){
+        textChangesMatch.forEach(speciesInfo => {
+            let speciesName = speciesInfo.match(/name\s*:\s*"(.*?)"/i)
+            if(speciesName){
+                speciesName = `SPECIES_${speciesName[1].replaceAll(/ |-/g, "_")/*.replace(/GMAX$/i, "GIGANTAMAX")*/.toUpperCase().replaceAll(/\\U2019|\\U0301|\.|%/g, "")}`
+                if(!(speciesName in species)){
+                    speciesName = tryToFixSpeciesName(speciesName, species)
+                }
+                if(speciesName in species){
+                    const typesMatch = speciesInfo.match(/types\s*:.*/i)
+                    if(typesMatch){
+                        const types = typesMatch[0].match(/\w+(?=\s*")/g)
+                        if(types[0]){
+                            const type1 = `TYPE_${types[0].toUpperCase()}`
+                            if(type1 != species[speciesName]["type1"] && type1 != species[speciesName]["type2"]){
+                                species[speciesName]["changes"].push(["type1", type1])
+                            }
+                        }
+                        if(types[1]){
+                            const type2 = `TYPE_${types[1].toUpperCase()}`
+                            if(type2 != species[speciesName]["type1"] && type2 != species[speciesName]["type2"]){
+                                species[speciesName]["changes"].push(["type2", type2])
+                            }
+                        }
+                    }
+                    
+                    const baseStatsMatch = speciesInfo.match(/baseStats\s*:.*/i)
+                    if(baseStatsMatch){
+                        const baseStats = baseStatsMatch[0].match(/\d+/g)
+                        if(baseStats){
+                            for(let i = 0; i < baseStats.length || i < 6; i++){
+                                if(species[speciesName][statsOrder[i]] != baseStats[i]){
+                                    species[speciesName]["changes"].push([statsOrder[i], parseInt(baseStats[i])])
+                                }
+                            }
+                        }
+                    }
+
+                    const abilitiesMatch = speciesInfo.match(/abilities\s*:.*/i)
+                    if(abilitiesMatch){
+                        let abilitiesArray = []
+                        const ability1 = abilitiesMatch[0].match(/0\s*:\s*"(.*?)"/)
+                        if(ability1){
+                            abilitiesArray.push(ability1[1])
+
+                            const ability2 = abilitiesMatch[0].match(/1\s*:\s*"(.*?)"/)
+                            if(ability2){
+                                abilitiesArray.push(ability2[1])
+                            }
+                            else{
+                                abilitiesArray.push("None")
+                            }
+                            const abilityHA = abilitiesMatch[0].match(/H\s*:\s*"(.*?)"/i)
+                            if(abilityHA){
+                                abilitiesArray.push(abilityHA[1])
+                            }
+                            else{
+                                abilitiesArray.push("None")
+                            }
+
+                            for(let i = 0; i < abilitiesArray.length; i++){
+                                if(/as(?:-|_| )one/i.test(abilitiesArray[i])){
+                                    abilitiesArray = species[speciesName]["abilities"]
+                                }
+
+                                if(abilitiesArray[i] in conversionTable){
+                                    abilitiesArray[i] = conversionTable[abilitiesArray[i]]
+                                }
+                            }
+                            if(abilitiesArray[1] == "ABILITY_NONE"){
+                                abilitiesArray[1] = abilitiesArray[0]
+                            }
+                            if(abilitiesArray[2] == "ABILITY_NONE" && abilitiesArray[0] == abilitiesArray[1]){
+                                abilitiesArray[2] = abilitiesArray[0]
+                            }
+
+                            if(JSON.stringify(species[speciesName]["abilities"]) != JSON.stringify(abilitiesArray)){
+                                species[speciesName]["changes"].push(["abilities", abilitiesArray])
+                            }
+                        }
+                    }
+                }
+            }
+        })
+    }
+
+    return species
+}
+function tryToFixSpeciesName(speciesName, species){
+    const region = speciesName.match(/_(ALOLA|GALAR|HISUI|PALDEA)$/i)
+    if(region){
+        speciesName = speciesName.replace(region[0], "").replace("SPECIES_", `SPECIES${region[0]}_`)
+        if(!(speciesName in species)){
+            speciesName = speciesName.replace(region[0], "")
+        }
+    }
+    if(speciesName.replace(/_F$/i, "_FEMALE") in species){
+        speciesName = speciesName.replace(/_F$/i, "_FEMALE")
+    }
+
+    return speciesName
+}
+
 
 
 
