@@ -14,7 +14,7 @@ function regexAbilities(textAbilities, abilities){
                 if(abilityIngameNameMatch){
                     abilities[abilityName]["ingameName"] = abilityIngameNameMatch[1]
                 }
-                const abilityDescMatch = abilityMatch.match(/description\s*:\s*\W(.*?)\W\s*,/i)
+                const abilityDescMatch = abilityMatch.match(/description\s*:\s*\W(.*)\W\s*,/i)
                 if(abilityDescMatch){
                     abilities[abilityName]["description"] = abilityDescMatch[1]
                 }
