@@ -52,9 +52,12 @@ function filterLocationsTableInputNew(input, obj, keyArray){
             for (let k = 0; k < keyArray.length; k++){
                 compareString += (obj[name][keyArray[k]] + ",").replaceAll(/-|'| |_|species/gi, "").toLowerCase()
             }
-            for(splitInput of arraySanitizedInput){
+            testLoop:for(splitInput of arraySanitizedInput){
                 if(!compareString.includes(splitInput.toLowerCase())){
-                    if(!locations[zone][method][name].match(new RegExp(`^${splitInput}`, "i"))){
+                    if(!locations[zone][method][name].match(new RegExp(`(?:\s+|^)${splitInput}`, "i"))){
+                        if(/(?:\s+|^)boss/i.test(input) && new RegExp(splitInput, "i").test(locations[zone][method][name])){
+                            continue testLoop
+                        }
                         tracker[i]["filter"].push("input")
                         continue mainLoop
                     }

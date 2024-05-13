@@ -9,6 +9,12 @@
     font-size: 15px !important;
 }
 
+@media only screen and (max-width: 1125px) {
+    .locationSpriteContainer {
+      width: 65% !important;
+    }
+  }
+
 @media 
 only screen and (max-width: 800px) {
     .locationRarity {
