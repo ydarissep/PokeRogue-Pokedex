@@ -1,123 +1,16 @@
-.locationTable {
-    display: block !important;
-	margin-bottom: 100px;
-    width: 1500px;
-}
-
-.locationTableThead {
-    display: inline-block !important;
-    background: none;
-}
-
-.locationTableTbody {
-    width: 100%;
-    display: inline-table !important;
-}
+@import url(https://ydarissep.github.io/dex-core/style/locationsTable.css);
 
 .methodTable {
-    border: 2px solid rgba(85, 85, 85);
-    width: 16.66%;
-    font-weight: 700;
-    box-sizing: border-box;
-    display: inline-block !important;
-    height: 100%;
-}
-
-.methodTableThead {
-    height: 75px;
-	font-weight: 700;
-	cursor: default !important;
-    width: 100%;
-    display: inline-table !important;
-    font-size: 25px;
-}
-
-.methodTableTbody {
-    width: 100%;
-    display: table !important;
-}
-
-#locationsTable table, #locationsTable {
-	box-shadow: none !important;
-}
-
-#locationsTable .miniSprite3 {
-    padding: 0 !important;
-    margin: 0 !important;
-}
-
-.locationSpeciesRow:hover {
-    background: rgba(255, 255, 255, 0.2) !important;
-    cursor: pointer;
-}
-
-.locationSpriteContainer {
-    width: 48px;
-    height: 48px;
-}
-
-.locationSprite {
-    width: 42px;
-    height: 42px;
-    image-rendering: pixelated;
+    width: 20%;
+    max-width: 250px;
 }
 
 .locationRarity {
-    padding-left: 5px;
-    font-size: 17px !important;
+    font-size: 15px !important;
 }
 
 @media 
-only screen and (max-width: 1525px) {
-    .locationTable {
-        width: unset !important;
-    }
-
-    #locationsTable {
-        width: 100%;
-    }
-}
-
-@media 
-only screen and (max-width: 1125px) {
-    .locationSpriteContainer {
-        width: 100% !important;
-    }
-    .locationSpeciesName {
-        display: none;
-    }
-
-    .locationSpeciesName {
-        display: none;
-    }
-
-    .locationSpeciesNameHidden {
-        display: block !important;
-        font-size: 15px;
-    }
-}
-
-@media 
-only screen and (max-width: 1000px) {
-    .methodTableTheadRow {
-        display: grid;
-    }
-
-    .methodTableThead {
-        /*height: 150px;*/
-        font-size: 15px;
-    }
-}
-
-@media 
-only screen and (max-width: 900px) {
-    .locationSpeciesRow {
-        height: 115px;
-    }
-}
-
-@media 
-only screen and (max-width: 750px) {
+only screen and (max-width: 800px) {
     .locationRarity {
         display: none;
     }
@@ -129,28 +22,11 @@ only screen and (max-width: 750px) {
 
 @media 
 only screen and (max-width: 550px) {
-    .locationSpeciesNameHidden {
-        font-size: 10px !important;
-    }
-
-    .locationSpeciesRow, .methodTableThead {
-        height: 105px;
-    }
-}
-
-@media 
-only screen and (max-width: 350px) {
-    .locationSpeciesNameHidden {
-        display: none !important;
+    .locationSpeciesNameHidden, .locationRarity {
+        font-size: 12px !important;
     }
 
     .methodTableThead {
-        height: 100px;
-        font-size: 13px;
-    }
-
-    #locationsTable .miniSprite3 {
-        width: 42px !important;
-        height: 42px !important;
+        height: unset !important;
     }
 }
