@@ -4,42 +4,17 @@
     width: 20%;
 }
 
-
-@media 
-only screen and (max-width: 1200px) {
-    .locationSpeciesRow {
-        font-size: 16px !important;
-    }
-
-    .locationRarity {
-        font-size: 14px !important;
-    }
+.locationRarity {
+    font-size: 15px !important;
 }
 
 @media 
-only screen and (max-width: 1050px) {
-    .methodTable {
-        width: 25% !important;
+only screen and (max-width: 550px) {
+    .locationSpeciesNameHidden, .locationRarity {
+        font-size: 12px !important;
     }
-}
 
-@media 
-only screen and (max-width: 875px) {
-    .methodTable {
-        width: 33% !important;
-    }
-}
-
-@media 
-only screen and (max-width: 675px) {
-    .methodTable {
-        width: 50% !important;
-    }
-}
-
-@media 
-only screen and (max-width: 450px) {
-    .methodTable {
-        width: 100% !important;
+    .methodTableThead {
+        height: unset !important;
     }
 }
