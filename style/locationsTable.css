@@ -9,6 +9,17 @@
 }
 
 @media 
+only screen and (max-width: 800px) {
+    .locationRarity {
+        display: none;
+    }
+
+    .locationRarityHidden {
+        display: block !important;
+    }
+}
+
+@media 
 only screen and (max-width: 550px) {
     .locationSpeciesNameHidden, .locationRarity {
         font-size: 12px !important;
