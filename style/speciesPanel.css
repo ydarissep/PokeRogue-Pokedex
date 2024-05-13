@@ -1,31 +1,367 @@
-@import url(https://ydarissep.github.io/dex-core/style/speciesPanel.css);
-
-tbody .speciesPanelLearnsetsEffect {
-	font-size: 17px !important;
-	height: 50px;
+#overlaySpeciesPanel {
+	display: none;
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	z-index: 9000;
+	overflow-y: scroll;
+	background-color: rgba(0, 0, 0, 0.35);
 }
 
-.starterCost {
-	font-weight: bold;
-	font-size: 25px;
+#speciesPanelMainContainer {
+	justify-content: center;
+	max-width: min(1000px, 90%);
+	margin: auto;
+	background: #1b1c1f;
+	border: 2px solid #ccc;
+  	border-radius: 14px;
+}
+
+#speciesPanelHistoryContainer {
+    margin: 10px 0px 5px 0px;
+    user-select: none;
+}
+
+#speciesPanelHistoryContainer.speciesPanelHistorySticky {
+    position: sticky;
+    top: 0;
+    background: #1b1c1f;
+    z-index: 100;
+}
+
+.historyAnimation {
+    margin: 0px 2px 0px 2px;
+    padding: 5px;
+    border: 2px solid grey;
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 15%;
+    position: relative;
+    cursor: pointer;
+	width: 64px;
+	height: 64px;
+	display: inline-flex;
+}
+
+.historyAnimation > img {
+    width: 64px;
+    height: 64px;
+}
+
+.historyActive {
+    border: 2px solid green !important;
+}
+
+.historyAnimation.clicked:not(.locked) {
+    animation: lockAnimation 0.75s forwards;
+}
+
+.historyAnimation.clicked.locked {
+    animation: unlockAnimation 0.75s forwards;
+}
+
+.historyAnimation:hover:not(.historyActive) {
+    border: 2px solid var(--theme-color) !important;
+    transition: border 0.1s ease-in-out;
+}
+
+.locked {
+    background-color: rgba(0, 0, 0, 0.3);
+}
+
+@keyframes lockAnimation {
+    100% {
+        background-color: rgba(0, 0, 0, 0.3);
+    }
+}
+
+@keyframes unlockAnimation {
+    100% {
+        background-color: rgba(255, 255, 255, 0.1);
+    }
+}
+
+@media only screen and (max-width: 500px) {
+    .historyAnimation {
+        width: 50px !important;
+        height: 50px !important;
+    }
+
+	.historyAnimation > img {
+		width: 50px !important;
+		height: 50px !important;
+	}
+}
+
+@media only screen and (max-width: 425px) {
+    .historyAnimation {
+        width: 45px !important;
+        height: 45px !important;
+    }
+
+	.historyAnimation > img {
+		width: 45px !important;
+		height: 45px !important;
+	}
+}
+
+@media only screen and (max-width: 400px) {
+    .historyAnimation {
+        margin: 0px !important;
+    }
+}
+
+@media only screen and (max-width: 375px) {
+    .historyAnimation {
+        padding: 3px !important;
+    }
+}
+
+#speciesAbilitiesMainContainer {
+    padding-top: 20px;
+}
+
+#speciesPanelSubcontainer1, #speciesPanelSubcontainer2, #speciesBaseStatsGraphContainer, #speciesEvolutionsText, #speciesFormesText, #speciesChangesContainer {
+	margin-left: 20px;
+}
+
+#speciesPanelSubcontainer1, #speciesPanelSubcontainer3, #speciesAbilitiesMainContainer, #speciesInnatesMainContainer, #speciesEvolutionsText, #speciesChangesContainer, #speciesFormesContainer {
+	text-align: left !important;
+}
+
+#speciesName {
+	font-size: 20pt !important;
+}
+
+#speciesID {
+	font-size: 13pt !important;
+	margin-left: 5px;
+	color: #999999;
+}
+
+#speciesSprite {
+	padding-right: 10px;
+	width: 128px;
+	height: 128px;
+	image-rendering: pixelated;
+}
+
+.speciesPanelText {
+	margin-bottom: 5px;
+	font-size: 11.1pt !important;
+	font-weight: 700;
+	color: var(--theme-color);	
+}
+
+#speciesHeldItems, #speciesEggGroups {
+	font-size: 15px;
+}
+
+#speciesPanelSubcontainer1, #speciesPanelSubcontainer2, #speciesEvolutionsMainContainer {
+	padding: 15px 0px 0px 0px;
+}
+
+.speciesPanelTextPadding {
+	padding: 2px 0px 7px 15px;
+}
+.speciesPanelAbilitiesDescriptionPadding {
+	padding: 0px 0px 7px 15px;
+}
+
+#speciesChanges {
+	width: max-content;
+}
+
+#speciesChangesContainer {
+	margin-top: 16px;
+}
+
+.nerf {
+	color: #ef5350;
+}
+
+.buff {
+	color: #64dd17;
+}
+
+.changeTextAlignFlex {
+	flex: 1;
+	text-align: right;
+}
+
+.speciesPanelStatPadding {
+	padding-right: 15px;
+}
+
+
+.evoMethod {
+	display: flex;
+	align-items: center;
+	cursor: pointer;
+	padding: 5px 0px 5px 0px;
+}
+
+#speciesEvoTable {
+	background: none !important;
+	border: none !important;
+}
+
+
+#speciesEvoTableContainer {
+	box-shadow: none !important;
+	margin: 0% !important;
+}
+
+#statsSection {
+  justify-content: center;
+  padding: 10px 0px 25px 0px;
+}
+
+#statsNames {
+  display: grid;
+  grid-template-rows: repeat(1fr);
+  font-size: 15px;
+  line-height: 0;
+}
+
+
+#statsNames p {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.5rem;
+  margin-right: 5px;
+  font-weight: 700;
+}
+
+
+
+.statsGraphHeader {
+	font-weight: 700;
+}
+
+
+#statsGraph {
+  width: 200px;
+  display: grid;
+  grid-template-rows: repeat(1fr);
+}
+
+
+#statsGraph > div {
+  margin: 0.4rem 0;
+  filter: opacity(90%);
+  border-radius: 3px;
+  transition: background 0s ease-in-out !important;
+}
+
+
+#statsNames p:last-child, #statsGraph div:last-child {
+  transform: translateY(15px);
+}
+
+
+
+
+
+
+.miniSprite {
+	padding: 0px 15px 5px 15px;
+	width: 32px;
+    height: 32px;
+    aspect-ratio: auto 32 / 32;
+}
+
+.miniSprite2 {
+	padding-left: 5px;
+	width: 32px;
+    height: 32px;
+    aspect-ratio: auto 32 / 32;
+}
+
+.miniSprite3 {
+	padding: 0px 15px 5px 15px;
+	width: 48px;
+  	height: 48px;
+  	aspect-ratio: auto 48 / 48;
+}
+
+[class*="typeChartOffensive"], [class*="typeChartDefensive"] {
+	margin-top: 2px;
+	font-size: 14px;
+}
+
+#speciesDefensiveTypeChartContainer, #speciesOffensiveTypeChartContainer {
+	padding: 30px 0px 10px 0px;
+}
+
+#speciesDefensiveTypeChart, #speciesOffensiveTypeChart {
+	justify-content: center;
+	padding: 5px 0px 5px 0px;
+}
+
+.typeChartDefensive0, .typeChartOffensive0 {
+	background: rgba(0, 0, 0, 0.7);
+}
+
+.typeChartDefensive0\.25, .typeChartDefensive0\.125 {
+	background: rgb(100, 221, 23);
+	font-size: 14px;
+}
+
+.typeChartDefensive0\.5, .typeChartOffensive2 {
+	background: rgba(100, 221, 23, 0.7);
+}
+
+.typeChartDefensive2, .typeChartOffensive0\.5 {
+	background: rgba(239, 83, 80, 0.7);
+}
+
+.typeChartDefensive4, .typeChartDefensive8 {
+	background: rgb(239, 83, 80);
+}
+
+.speciesDefensiveTypeChartMarginTop, .speciesOffensiveTypeChartMarginTop {
+	margin: 10px 1px 0px 1px;
+	font-family: sans-serif, Arial;
+}
+
+@media
+only screen and (max-width: 500px) {
+  #speciesPanelMainContainer .backgroundSmall {
+    width: 32px;
+  }
+}
+
+
+#speciesPanelTablesContainer > table {
+    width: 100%;
+}
+
+#speciesPanelTablesContainer > table > thead > tr > th {
+    background: rgba(215, 212, 231, 0.075); 
+    color: #f1f1f1; 
+    font-weight: 700;
+    padding: 0.5rem 0.5rem;
+}
+
+.speciesPanelLearnsetsTableMargin {
+	margin-top: 75px;
+	margin-bottom: 75px;
+	max-width: 95%;
+	font-size: min(max(2.5vw, 14.5px), 17px) !important;
+}
+
+.speciesPanelLearnsetsTableMargin th:hover, .speciesPanelLearnsetsTableMargin tbody tr:hover {
+	background: rgba(255, 255, 255, 0.2) !important;
+    cursor: pointer;
 }
 
 @media 
-only screen and (max-width: 800px) {
+only screen and (max-width: 600px) {
 	#speciesPanelMainContainer {
 		max-width: revert !important;
 		border: none !important;
-	}
-
-	.speciesPanelLearnsetsEffect {
-		font-size: 16px !important;
-	}
-}
-
-@media 
-only screen and (max-width: 650px) {
-	.speciesPanelLearnsetsEffect {
-		font-size: 14px !important;
 	}
 }
 
@@ -37,16 +373,69 @@ only screen and (max-width: 550px) {
 }
 
 @media 
-only screen and (max-width: 380px) {
+only screen and (max-width: 375px) {
 	#speciesSprite {
-		padding-right: 10px !important;
+		width: 96px;
+		height: 96px;
+	}
+
+	#speciesType1, #speciesType2, #speciesType3 {
+		width: 3.5rem;
+		height: 20px;
 	}
 }
 
 @media 
-only screen and (max-width: 375px) {
-	#speciesSprite {
-		width: 128px !important;
-		height: 128px !important;
+only screen and (max-width: 350px) {
+	.speciesPanelLearnsetsPP {
+		display: none !important;
 	}
+}
+
+@media 
+only screen and (max-width: 380px) {
+	#speciesSprite {
+		padding-right: unset;
+	}
+}
+
+@media /* resize evo conditions */
+only screen and (max-width: 500px) {
+    #speciesEvoTable {
+        font-size: 16px;
+    }
+}
+
+@media /* resize evo conditions */
+only screen and (max-width: 400px) {
+    #speciesEvoTable {
+        font-size: 15px;
+    }
+
+    #speciesEvoTable img {
+        padding: 0px 5px 5px 5px !important;
+    }
+
+    .evoLongLineLength {
+        font-size: 14px !important;
+    }
+
+    .evoLongLineLength img {
+        padding: 0px 3px 5px 3px !important;
+    }
+}
+
+@media /* resize evo conditions */
+only screen and (max-width: 359px) {
+    #speciesEvoTable {
+        font-size: 14px;
+    }
+
+	.evoLongLineLength {
+        font-size: 13px !important;
+    }
+
+    .evoLongLineLength img {
+        padding: 0px 0px 5px 0px !important;
+    }
 }

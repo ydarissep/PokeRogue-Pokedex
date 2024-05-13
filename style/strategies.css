@@ -1,1 +1,104 @@
-@import url(https://ydarissep.github.io/dex-core/style/strategies.css);
+.strategyInfo {
+    border: 1px solid #424242;
+    background: rgb(29, 29, 29);
+    box-shadow: 3px 3px 3px #121212;
+    box-sizing: border-box;
+    border-radius: 8px;
+    padding: 1em 2em;
+    box-sizing: border-box;
+    display: flex;
+    flex-wrap: wrap;
+    max-width: 95%;
+    margin: auto;
+}
+
+.strategyTableContainer {
+    margin: .5em 0;
+    display: flex;
+    align-items: center;
+    min-width: 200px;
+    flex: 1 0 200px;
+}
+
+.strategyTable {
+    margin: initial;
+    border-spacing: 0;
+    box-shadow: none !important;
+}
+
+.strategyLabel {
+    text-align: right;
+    white-space: nowrap;
+}
+
+.strategyData {
+    padding-left: 1em;
+    text-align: initial;
+}
+
+.strategyTr{
+    background: initial !important;
+    border: none !important
+}
+
+.strategyName, .strategyTagsContainer {
+    text-align: center !important;
+}
+
+.strategySprite {
+    vertical-align: middle;
+}
+
+.strategyCommentContainer {
+    padding-top: 25px;
+    font-size: 19px;
+    text-align: left !important;
+}
+
+.strategySpriteContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.strategyTag {
+    margin-bottom: 15px;
+    padding: 6px 18px;
+    border: 2px solid #26354d;
+    border-radius: 12px;
+    font-size: 11px;
+    line-height: 140%;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    font-weight: 700;
+}
+
+.strategyTagsContainer {
+    text-align: center !important;
+    padding: 0px 0px 20px 0px;
+}
+
+.strategyTag + .strategyTag {
+    margin-left: 25px;
+}
+
+.strategyExportButton {
+    display: block;
+    margin: 20px auto auto auto;
+}
+
+.exportSuccess {
+    background: green !important;
+}
+
+.exportFailure {
+    background: red !important;
+}
+
+@media 
+only screen and (max-width: 400px) {
+	.strategyTag {
+		margin-left: unset !important;
+	}
+}

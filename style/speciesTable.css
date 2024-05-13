@@ -1,10 +1,194 @@
-@import url(https://ydarissep.github.io/dex-core/style/speciesTable.css);
-
-.starterAbility {
-	font-weight: bold;
-	color: #f24df2d1;
+#speciesTableThead th:hover, #speciesTableTbody tr:hover {
+    background: rgba(255, 255, 255, 0.2) !important;
+    cursor: pointer;
 }
 
-.abilities {
-	font-size: 17.5px !important;
+#speciesTableThead th.ID {
+	width: 40px;
+}
+#speciesTableThead th.sprite {
+    display: none !important;
+	width: 64px;
+}
+#speciesTableThead th.species {
+	width: 170px;
+}
+#speciesTableThead th.types {
+	width: 80px;
+}
+#speciesTableThead th.abilities {
+	width: 130px;
+}
+#speciesTableThead th.innates {
+    width: 130px;
+}
+#speciesTableThead th.baseHP {
+	width: 40px;
+}
+#speciesTableThead th.baseAttack {
+	width: 40px;
+}
+#speciesTableThead th.baseDefense {
+	width: 40px;
+}
+#speciesTableThead th.baseSpAttack {
+	width: 40px;
+}
+#speciesTableThead th.baseSpDefense {
+	width: 40px;
+}
+#speciesTableThead th.baseSpeed {
+	width: 40px;
+}
+#speciesTableThead th.BST {
+	width: 40px;
+}
+
+#speciesTableTbody .nameContainer {
+    width: min-content;
+}
+
+#speciesTable .background {
+    margin: 2px 0px 2px 0px;
+}
+
+#speciesTableTbody .nameContainer {
+    font-weight: 700;
+}
+
+.changelogAbilities {
+    font-size: 13px !important;
+    font-weight: 700;
+    opacity: 75%;
+    color: #03a9f4;
+}
+
+.typeChanged {
+    border: 5px #03a9f4 solid;
+}
+
+@media 
+only screen and (max-width: 850px) {
+    #speciesTableThead {
+        display: block;
+    }
+    
+    .baseHPContainer, 
+    .baseAttackContainer, 
+    .baseDefenseContainer, 
+    .baseSpAttackContainer,
+    .baseSpDefenseContainer,
+    .baseSpeedContainer,
+    .BSTContainer {
+    	display: inline-block;
+    	width: 5.5%;
+    	box-sizing: border-box;
+    }
+
+    #speciesTableTbody .sprite {
+        display: inline-block;
+    	width: 10%;
+    	box-sizing: border-box;
+    }
+
+    #speciesTableTbody .types {
+        display: inline-block;
+    	width: 11.5%;
+    	box-sizing: border-box;
+    }
+
+    #speciesTableTbody .abilities, #speciesTableTbody .innates {
+        display: inline-block;
+    	width: 17.5%;
+    	box-sizing: border-box;
+    }
+
+    #speciesTableTbody .ID {
+        display: inline-block;
+    	width: 7%;
+    	box-sizing: border-box;
+    }
+
+    #speciesTableTbody .nameContainer {
+        display: none;
+    }
+
+    /* ----------------------- no innates ----------------------- */
+    .noInnates .nameContainer {
+        display: inline-block !important;
+        width: 15% !important;
+        box-sizing: border-box;
+    }
+
+    .noInnates .abilities {
+    	width: 20%;
+    }
+}
+
+@media 
+only screen and (max-width: 600px) {
+    .baseHPContainer, 
+    .baseAttackContainer, 
+    .baseDefenseContainer, 
+    .baseSpAttackContainer,
+    .baseSpDefenseContainer,
+    .baseSpeedContainer,
+    .BSTContainer {
+    	width: 14%;
+    }
+
+    #speciesTableTbody .sprite {
+    	width: 18%;
+    }
+
+    #speciesTableTbody .types {
+    	width: 18%;
+    }
+
+    #speciesTableTbody .ID {
+    	width: 10%;
+    }
+
+    #speciesTableTbody .abilities, #speciesTableTbody .innates {
+    	width: 29%;
+    }
+
+    /* ----------------------- no innates ----------------------- */
+    .noInnates .nameContainer {
+        width: 23% !important;
+    }
+
+    .noInnates .types {
+    	width: 18% !important;
+    }
+
+    .noInnates .sprite {
+        width: 18% !important;
+    }
+
+    .noInnates .abilities {
+    	width: 30% !important;
+    }
+}
+
+@media
+only screen and (max-width: 650px){
+    #speciesTable{
+        font-size: 16px !important;
+    }
+
+    #speciesTableTbody .background {
+        height: 20px !important;
+        width: 50px !important;
+        font-size: 8px;
+    }
+}
+
+@media 
+only screen and (max-width: 500px) {
+    #speciesTableThead th {
+        display: inline-block;
+        width: 43px !important;
+        font-size: 14.5px;
+    }
 }

@@ -1,1 +1,66 @@
-@import url(https://ydarissep.github.io/dex-core/style/itemsTable.css);
+#itemsTable {
+    box-shadow: none !important;
+    width: min(400px, 99%);
+}
+
+table[id*="ITEM_"] {
+    margin-bottom: 50px;
+    width: min(400px, 99%);
+}
+
+.itemSprite {
+    height: 48px !important;
+    width: 48px !important;
+    image-rendering: pixelated !important;
+    float: left;
+}
+
+.itemName {
+    color: ghostwhite;
+    font-size: 25px;
+}
+
+.itemDescription {
+    font-weight: normal;
+    padding-top: 10px;
+    font-size: 20px;
+}
+
+.itemCrossed {
+    color: rgba(0, 0, 0, 0.55) !important;
+    text-decoration: line-through;
+}
+
+#itemsTable table tbody tr:hover {
+    text-decoration: line-through;
+    cursor: pointer;
+}
+
+.pocketButton, .methodButton {
+    background: rgba(0, 0, 0, 0.25);
+    outline: none;
+    border: 2px solid gray;
+    border-radius: 6px;
+    color: #f1f1f1;
+    cursor: pointer;
+    font-size: 13px !important;
+    margin: 1px;
+}
+
+#pocketContainer, #methodContainer {
+    padding-top: 10px;
+}
+
+#resetCrossedItems:hover {
+    border: 1px solid crimson !important;
+}
+
+#resetCrossedItems.clicked {
+    animation: resetAnimation 1.5s forwards;
+}
+
+@keyframes resetAnimation {
+    100% {
+        background-color: crimson;
+    }
+}

@@ -1,16 +1,97 @@
-@import url(https://ydarissep.github.io/dex-core/style/movesTable.css);
-
-#movesTableTbody tr[id*="MOVE_"] {
-    height: 50px;
+#movesTableThead th:hover, #movesTableTbody tr:hover {
+    background: rgba(255, 255, 255, 0.2) !important;
+    cursor: pointer;
 }
 
+#movesTableThead th.moveID {
+    width: 40px;
+}
+#movesTableThead th.move {
+	width: 125px;
+}
+#movesTableThead th.type {
+    width: 80px;
+}
+#movesTableThead th.split {
+    width: 50px;
+}
+#movesTableThead th.power {
+	width: 60px;
+}
+#movesTableThead th.accuracy {
+	width: 40px;
+}
+#movesTableThead th.PP {
+	width: 40px;
+}
 #movesTableThead th.effect {
-    width: 600px !important;
+	width: 400px;
+}
+
+#movesTableTbody .move {
+    font-weight: 700;
+    font-size: 20px;
+}
+
+#movesTableTbody .description {
+    padding: 6px;
+}
+
+#movesTableTbody .effect {
+    padding: 5px;
+    font-weight: 700;
+}
+
+#movesTable .background {
+    margin: 5px 0px 5px 0px;   
+}
+
+@media 
+only screen and (max-width: 750px) {
+    #movesTableTbody .description {
+        font-size: 17.5px;
+    }
+
+    #movesTableTbody .background {
+        height: 20px !important;
+        width: 50px !important;
+        font-size: 8px;
+    }
 }
 
 @media 
 only screen and (max-width: 600px) {
-	#movesTableTbody tr[id*="MOVE_"] {
-        height: unset !important;
+    #movesTable td, #movesTable tr { 
+        display: block;
     }
+
+    .movesHeader {
+        display: unset !important;
+    }
+
+    #movesTableTbody .nameContainer {
+        display: inline-block;
+    	width: 27.5%;
+    	box-sizing: border-box;
+    }
+
+    #movesTableTbody .type {
+        display: inline-block;
+    	width: 17.5%;
+    	box-sizing: border-box;
+    }
+
+    #movesTableTbody .split {
+        display: inline-block;
+    	width: 17.5%;
+    	box-sizing: border-box;
+    }
+
+    #movesTableTbody .powerContainer, #movesTableTbody .accuracyContainer, #movesTableTbody .PPContainer {
+    	display: inline-block;
+    	width: 12.5%;
+    	box-sizing: border-box;
+    }
+
 }
+

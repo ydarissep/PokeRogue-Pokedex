@@ -1,9 +1,32 @@
-@import url(https://ydarissep.github.io/dex-core/style/abilitiesTable.css);
-
-#abilitiesTable tr[id*="ABILITY_"] {
-    height: 40px;
+#abilitiesTableThead th:hover, #abilitiesTableTbody tr:hover {
+    background: rgba(255, 255, 255, 0.2) !important;
+    cursor: pointer;
 }
 
-#abilitiesTable .description {
-    width: 650px;
+#abilitiesTableTbody .ability {
+    font-weight: 700;
+	font-size: 20px;
+}
+
+#abilitiesTableThead th.abilityID {
+	width: 40px;
+}
+
+#abilitiesTableThead th.ability {
+	width: 150px;
+}
+
+#abilitiesTableThead th.description {
+	width: 400px;
+}
+
+#abilitiesTableTbody .description {
+	padding: 8px;
+}
+
+@media 
+only screen and (max-width: 400px) {
+	#abilitiesTableTbody .description {
+		font-size: 16.5px;
+	}
 }

@@ -1,1 +1,236 @@
-@import url(https://ydarissep.github.io/dex-core/style/trainersTable.css);
+#trainersTable .setting:hover {
+    background: none;
+}
+
+.trainerSpeciesSprite:hover, #trainersTable .activeSetting {
+    background: rgba(255, 255, 255, 0.2) !important;
+    cursor: pointer;
+}
+
+#trainersTable {
+    box-shadow: none !important;
+}
+
+#difficultyButtonContainer {
+    background: none !important;
+}
+
+#difficultyButtonContainer .setting {
+    font-size: 15px !important;
+    margin-bottom: 10px;
+}
+
+.trainerTbody td {
+    text-align: center;
+}
+
+.trainerTbody {
+    text-align: left !important;
+}
+
+#trainersTable > tbody > table > thead > th {
+    display: inline-block !important;
+    width: 33.3%;
+    box-sizing: border-box;
+}
+
+#trainersTable > tbody > table > thead {
+    display: block !important;
+    background: rgba(0, 0, 0, 0.15) !important;
+    font-size: 22px;
+}
+
+.double {
+    color: var(--theme-color);
+}
+
+#trainersTable > tbody > table {
+    display: block !important;
+    margin-bottom: 50px;
+    width: 930px;
+}
+
+#trainersTable > tbody > table > tbody {
+    width: 100%;
+    display: inline-table;
+}
+
+#trainersTable > tbody > table > tbody > td {
+    border: 2px solid rgba(85, 85, 85);
+    width: 16.66%;
+    font-size: 16px;
+    font-weight: 700;
+    box-sizing: border-box;
+    display: inline-block !important;
+    height: 100%;
+    white-space: nowrap;
+}
+
+#trainersTable .backgroundSmall {
+    width: 32px;
+}
+
+.trainerSpeciesSprite {
+    padding-top: 4px;
+}
+
+.trainerRematchContainer {
+    padding-bottom: 10px;
+    transition: background 0s ease-in-out !important;
+}
+
+.trainerRematchMatch {
+    background: #4CAF50 !important;
+    color: #f1f1f1;
+}
+
+.trainerRematch {
+    width: 50px;
+    margin: 0px 2px 0px 2px;
+    background: #e9e9ed;
+    color: black;
+    border: 1px solid gray;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.trainerRematch:hover {
+    background: rgba(215, 212, 231, 0.3) !important;
+    color: #f1f1f1;
+}
+
+.activeRematch {
+    background: rgba(215, 212, 231, 0.075) !important;
+    color: #f1f1f1;
+}
+
+.activeRematch.trainerRematchMatch {
+    background: rgba(215, 212, 231, 0.075) !important;
+    border-color: green;
+    color: #4CAF50 !important;
+}
+
+.trainerRematch.trainerRematchMatch {
+    color: #f1f1f1;
+}
+
+.trainerRematch.trainerRematchMatch:hover {
+    border-color: green;
+    color: #4CAF50;
+}
+
+.trainerName {
+    display: block;
+    margin-bottom: 10px;
+}
+
+.trainerSpeciesAbility {
+    margin-top: 5px;
+}
+
+.trainerSpeciesEVsIVsMainContainer {
+    margin: 0px;
+    padding: 0px 0px 3px 0px;
+    border-top: 2px solid #c7c7c7;
+    border-bottom: 2px solid #c7c7c7;
+    border-left: none;
+    border-right: none;
+}
+
+.trainerSpeciesEVsIVsMainContainer legend {
+    margin: 5px 0px 0px 20px;
+}
+
+.trainerSpeciesEVsIVsContainer {
+    display: inline-block; width: 16.66%;
+    box-sizing: border-box; font-size: 13.5px;
+    letter-spacing: -1px;
+}
+
+.trainerSpeciesMovesContainer {
+    text-align: left;
+    /*display: inline-block;*/
+    padding: 5px 0px 3px 3px;
+    height: 88px;
+}
+
+.trainerSpeciesMoveName {
+    padding-left: 3px;
+}
+
+@media 
+only screen and (max-width: 1000px) {
+    #trainersTable > tbody > table {
+        width: unset;
+    }
+
+    #trainersTable {
+        width: 100%;
+    }
+}
+
+@media 
+only screen and (max-width: 800px) {
+    #trainersTable > tbody > table > tbody > td {
+        width: 20%;
+    }
+}
+
+@media 
+only screen and (max-width: 700px) {
+    #trainersTable > tbody > table > tbody > td {
+        width: 25%;
+    }
+}
+
+@media 
+only screen and (max-width: 550px) {
+    #trainersTable > tbody > table > tbody > td {
+        width: 33.33%;
+    }
+}
+
+@media 
+only screen and (max-width: 400px) {
+    .trainerSpeciesStat, .trainerSpeciesIVs {
+        font-size: 14px;
+    }
+
+    .trainerSpeciesMoveName {
+        font-size: 13.5px;
+    }
+
+    #trainersTable .backgroundSmall {
+        width: 25px !important;
+    }
+
+    .trainerSpeciesEVsIVsContainer {
+        font-size: 12px;
+    }
+
+    .trainerSpeciesItem {
+        font-size: 13px;
+    }
+}
+
+@media 
+only screen and (max-width: 359px) {
+    .trainerSpeciesItem {
+        font-size: initial !important;
+    }
+
+    .trainerItemSprite {
+        display: none !important;
+    }
+}
+
+@media 
+only screen and (max-width: 335px) {
+    .trainersSpeciesMoveType {
+        display: none !important;
+    }
+
+    .trainerSpeciesIVs {
+        white-space: break-spaces !important;
+    }
+}
