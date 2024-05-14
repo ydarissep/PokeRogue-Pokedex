@@ -1,7 +1,6 @@
 @import url(https://ydarissep.github.io/dex-core/style/locationsTable.css);
 
 .methodTable {
-    width: 20%;
     max-width: 250px;
 }
 
@@ -13,16 +12,35 @@
     .locationSpriteContainer {
       width: 65% !important;
     }
-  }
 
-@media 
-only screen and (max-width: 800px) {
-    .locationRarity {
+    .locationScale .locationSpriteContainer {
+        width: 100% !important;
+    }
+    .locationScale .locationSpeciesName {
         display: none;
     }
 
-    .locationRarityHidden {
+    .locationScale .locationSpeciesName {
+        display: none;
+    }
+
+    .locationScale .locationSpeciesNameHidden {
         display: block !important;
+        font-size: 15px;
+    }
+}  
+
+@media only screen and (max-width: 800px) {
+    .locationScale .locationRarity {
+        display: none;
+    }
+
+    .locationScale .locationRarityHidden {
+        display: block !important;
+    }
+
+    .locationScale .locationSpeciesNameHidden {
+        display: none !important;
     }
 }
 
@@ -34,5 +52,12 @@ only screen and (max-width: 550px) {
 
     .methodTableThead {
         height: unset !important;
+    }
+}
+
+@media 
+only screen and (max-width: 350px) {
+    .locationSpeciesNameHidden, .locationRarity {
+        font-size: 11px !important;
     }
 }
