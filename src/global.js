@@ -21,33 +21,6 @@ fetch('https://raw.githubusercontent.com/ydarissep/dex-core/main/index.html').th
     document.getElementById("speciesPanelTablesContainer").insertBefore(document.getElementById("speciesPanelEggMovesTable"), document.getElementById("speciesPanelLevelUpFromPreviousEvoTable"))
     document.getElementById("locationsButton").innerText = "Biomes"
 
-    // Hide egg moves button
-    let tempSettings = []
-    if(localStorage.getItem("DEXsettings")){
-        tempSettings = JSON.parse(localStorage.getItem("DEXsettings"))
-    }
-    const hideEggMovesButton = document.createElement("button"); hideEggMovesButton.setAttribute("type", "button"); hideEggMovesButton.innerText = "Show Egg Moves"; hideEggMovesButton.setAttribute("ID", "hideEggMovesButton")
-    if(tempSettings.includes("hideEggMovesButton")){
-        hideEggMovesButton.classList.add("activeSetting")
-    }
-    else{
-        document.getElementById("speciesPanelEggMovesTableTbody").classList.add("hide")
-    }
-    document.getElementById("speciesPanelEggMovesTable").children[0].append(hideEggMovesButton)
-    hideEggMovesButton.addEventListener("click", () => {
-        hideEggMovesButton.classList.toggle("activeSetting")
-        if(hideEggMovesButton.classList.contains("activeSetting")){
-            document.getElementById("speciesPanelEggMovesTableTbody").classList.remove("hide")
-            settings.push("hideEggMovesButton")
-        }
-        else{
-            document.getElementById("speciesPanelEggMovesTableTbody").classList.add("hide")
-            settings = settings.filter(value => value != "hideEggMovesButton")
-        }
-        localStorage.setItem("DEXsettings", JSON.stringify(settings))
-    })
-    // ---------------------------------------------------------------------------
-
     await fetch("https://raw.githubusercontent.com/ydarissep/dex-core/main/src/global.js").then(async response => {
         return response.text()
     }).then(async text => {
