@@ -1,5 +1,19 @@
 @import url(https://ydarissep.github.io/dex-core/style/speciesPanel.css);
 
+#hideEggMovesButton {
+	width: unset !important;
+	padding: 10px;
+  	margin: 10px;
+	border: 2px solid red;
+}
+
+#hideEggMovesButton.activeSetting {
+	padding: 4px;
+	margin: 0px;
+	margin-left: 4px;
+	border: 2px solid var(--blue-border);
+}
+
 tbody .speciesPanelLearnsetsEffect {
 	font-size: 17px !important;
 	height: 50px;
