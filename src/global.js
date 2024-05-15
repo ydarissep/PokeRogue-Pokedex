@@ -22,7 +22,10 @@ fetch('https://raw.githubusercontent.com/ydarissep/dex-core/main/index.html').th
     document.getElementById("locationsButton").innerText = "Biomes"
 
     // Hide egg moves button
-    const tempSettings = JSON.parse(localStorage.getItem("DEXsettings"))
+    let tempSettings = []
+    if(localStorage.getItem("DEXsettings")){
+        tempSettings = JSON.parse(localStorage.getItem("DEXsettings"))
+    }
     const hideEggMovesButton = document.createElement("button"); hideEggMovesButton.setAttribute("type", "button"); hideEggMovesButton.innerText = "Show Egg Moves"; hideEggMovesButton.setAttribute("ID", "hideEggMovesButton")
     if(tempSettings.includes("hideEggMovesButton")){
         hideEggMovesButton.classList.add("activeSetting")
@@ -53,7 +56,6 @@ fetch('https://raw.githubusercontent.com/ydarissep/dex-core/main/index.html').th
     }).catch(error => {
         console.warn(error)
     })    
-
 }).catch(error => {
 	console.warn(error)
 })
