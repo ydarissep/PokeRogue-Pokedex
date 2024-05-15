@@ -19,6 +19,7 @@ fetch('https://raw.githubusercontent.com/ydarissep/dex-core/main/index.html').th
     document.getElementById("speciesEggGroupsText").innerText = "Starter Cost:"
 
     document.getElementById("speciesPanelTablesContainer").insertBefore(document.getElementById("speciesPanelEggMovesTable"), document.getElementById("speciesPanelLevelUpFromPreviousEvoTable"))
+    document.getElementById("locationsButton").innerText = "Biomes"
 
 
     await fetch("https://raw.githubusercontent.com/ydarissep/dex-core/main/src/global.js").then(async response => {
