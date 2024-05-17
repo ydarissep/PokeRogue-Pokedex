@@ -1,4 +1,4 @@
-function regexBaseStats(textBaseStats, species){
+function regexBaseStats(textBaseStats, species, jsonMasterlist){
     const statsOrder = ["BST", "baseHP", "baseAttack", "baseDefense", "baseSpAttack", "baseSpDefense", "baseSpeed"]
     const shareSprite = [493, 656, 657, 664, 665, 710, 711, 744, 774, 854, 855, 1007, 1008, 1012, 1013]
     const spriteReset = ["SPECIES_DEOXYS", "SPECIES_GRENINJA_BATTLE_BOND", "SPECIES_SCATTERBUG", "SPECIES_SPEWPA", "SPECIES_MEOWSTIC", "SPECIES_AEGISLASH", "SPECIES_ZYGARDE", "SPECIES_ZYGARDE_50_PC", "SPECIES_ORICORIO", "SPECIES_LYCANROC", "SPECIES_SILVALLY", "SPECIES_MINIOR", "SPECIES_MIMIKYU", "SPECIES_TOXTRICITY", "SPECIES_SINISTEA", "SPECIES_POLTEAGEIST", "SPECIES_ALCREMIE", "SPECIES_INDEEDEE", "SPECIES_MORPEKO", "SPECIES_ZAMAZENTA", "SPECIES_ZACIAN", "SPECIES_URSHIFU", "SPECIES_BASCULEGION", "SPECIES_OINKOLOGNE", "SPECIES_DUDUNSPARCE", "SPECIES_GIMMIGHOUL"]
@@ -79,16 +79,27 @@ function regexBaseStats(textBaseStats, species){
                             spritePath = species[trySpecies]["ID"] + bonus[regionMatch[1]]
                         }
                         else{
-                            spritePath = spritePath.replace(/\d+/, species[originalSpecies]["sprite"].match(/\d+/)[0])
+                            spritePath = spritePath.replace(/\d+/, species[originalSpecies]["sprite"].toString().match(/\d+/)[0])
                         }
                     }
-                    species[speciesName]["sprite"] = `https://raw.githubusercontent.com/${repo}/public/images/pokemon/${spritePath}.png`
+                    species[speciesName]["sprite"] = spritePath
                     if(shareSprite.includes(counter)){
                         species[speciesName]["sprite"] = species[originalSpecies]["sprite"]
+                        spritePath = species[originalSpecies]["sprite"]
                     }
 
-                    
                     initializeSpeciesObj(species[speciesName])
+
+                    if(spritePath in jsonMasterlist){
+                        species[speciesName]["variant"] = jsonMasterlist[spritePath]
+                        if(speciesName === "SPECIES_ETERNATUS_ETERNAMAX"){
+                            for(let k = 0; k < species[speciesName]["variant"].length; k++){
+                                if(species[speciesName]["variant"][k] == 2){
+                                    species[speciesName]["variant"][k] = 1
+                                }
+                            }
+                        }
+                    }
 
                     if(!species[originalSpecies]["forms"].includes(originalSpecies)){
                         species[originalSpecies]["forms"].push(originalSpecies)

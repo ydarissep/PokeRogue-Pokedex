@@ -1,5 +1,5 @@
 window.repo = "pagefaultgames/pokerogue/main"
-window.checkUpdate = "7 PR"
+window.checkUpdate = "8 PR"
 
 
 fetch('https://raw.githubusercontent.com/ydarissep/dex-core/main/index.html').then(async response => {
@@ -20,6 +20,20 @@ fetch('https://raw.githubusercontent.com/ydarissep/dex-core/main/index.html').th
 
     document.getElementById("speciesPanelTablesContainer").insertBefore(document.getElementById("speciesPanelEggMovesTable"), document.getElementById("speciesPanelLevelUpFromPreviousEvoTable"))
     document.getElementById("locationsButton").innerText = "Biomes"
+
+    insertVariantsContainer()
+
+    const variantButton = document.createElement("button"); variantButton.setAttribute("ID", "onlyShowVariantPokemon"); variantButton.classList = "setting"; variantButton.type = "button"; variantButton.innerText = "Variant"
+    variantButton.addEventListener("click", () => {
+        variantFilter(variantButton)
+    })
+    document.getElementById("speciesFilter").insertBefore(variantButton, document.getElementById("speciesFilterList"))
+
+    const variantButtonLocations = document.createElement("button"); variantButtonLocations.setAttribute("ID", "onlyShowVariantPokemonLocations"); variantButtonLocations.classList = "setting"; variantButtonLocations.type = "button"; variantButtonLocations.innerText = "Variant"
+    variantButtonLocations.addEventListener("click", () => {
+        variantFilter(variantButtonLocations)
+    })
+    document.getElementById("locationsFilter").insertBefore(variantButtonLocations, document.getElementById("locationsFilterList"))
 
     await fetch("https://raw.githubusercontent.com/ydarissep/dex-core/main/src/global.js").then(async response => {
         return response.text()
@@ -66,5 +80,37 @@ function filterLocationsTableInputNew(input, obj, keyArray){
         }
     }
 
+    lazyLoading(true)
+}
+
+
+
+
+
+
+
+
+function variantFilter(el){
+    el.classList.toggle("activeSetting")
+
+    let locationsKey = false
+    if(tracker == locationsTracker){
+        locationsKey = true
+    }
+
+    for(let i = 0, j = tracker.length; i < j; i++){
+        if(el.classList.contains("activeSetting")){
+            let key = tracker[i]["key"]
+            if(locationsKey){
+                key = key.split("\\")[2]
+            }
+            if(species[key]["variant"].length <= 1){
+                tracker[i]["filter"].push("variant")
+            }
+        }
+        else{
+            tracker[i]["filter"] = tracker[i]["filter"].filter(value => value !== "variant")
+        }
+    }
     lazyLoading(true)
 }

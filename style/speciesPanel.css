@@ -10,6 +10,31 @@ tbody .speciesPanelLearnsetsEffect {
 	font-size: 25px;
 }
 
+#variantsContainer {
+	text-align: left;
+  	margin-left: 20px;
+	margin-top: 10px;
+}
+
+.variantContainer {
+	display: inline-flex;
+	margin-right: 10px;
+	padding: 3px;
+	border: 2px solid grey;
+	background-color: rgba(255, 255, 255, 0.1);
+	border-radius: 15%;
+	cursor: pointer;
+}
+
+.variantContainer:hover {
+	border: 2px solid var(--theme-color) !important;
+    transition: border 0.1s ease-in-out;
+}
+
+.variantContainer.activeVariant {
+	border: 2px solid green !important;
+}
+
 @media 
 only screen and (max-width: 800px) {
 	#speciesPanelMainContainer {

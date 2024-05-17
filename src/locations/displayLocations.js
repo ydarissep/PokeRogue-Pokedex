@@ -132,8 +132,8 @@ function returnSpeciesRow(location, method, speciesKey, rarity, boss){
 
     const spriteContainer = document.createElement("td"); spriteContainer.classList = "locationSpriteContainer"
     const sprite = document.createElement("img"); sprite.src = getSpeciesSpriteSrc(speciesKey); sprite.className = `sprite${speciesKey} miniSprite3`
-    if(spritesInfo[`spriteInfo${speciesKey}`]){
-        sprite.style.transform = `scale(${spritesInfo[`spriteInfo${speciesKey}`]})`
+    if(spritesInfo[`${speciesKey}`]){
+        sprite.style.transform = `scale(${spritesInfo[`${speciesKey}`]})`
     }
     spriteContainer.append(sprite)
     row.append(spriteContainer)

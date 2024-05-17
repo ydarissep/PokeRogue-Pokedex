@@ -3,7 +3,10 @@ async function getBaseStats(species){
     const rawBaseStats = await fetch(`https://raw.githubusercontent.com/${repo}/src/data/pokemon-species.ts`)
     const textBaseStats = await rawBaseStats.text()
 
-    species = regexBaseStats(textBaseStats, species)
+    const rawMasterlist = await fetch(`https://raw.githubusercontent.com/${repo}/public/images/pokemon/variant/_masterlist.json`)
+    const jsonMasterlist = await rawMasterlist.json()
+
+    species = regexBaseStats(textBaseStats, species, jsonMasterlist)
 
     return regexStarterAbility(textBaseStats, species)
 }
@@ -94,6 +97,7 @@ function initializeSpeciesObj(speciesObj){
     speciesObj["evolution"] = []
     speciesObj["evolutionLine"] = [speciesObj["name"]]
     speciesObj["forms"] = []
+    speciesObj["variant"] = [0]
 }
 
 
@@ -117,7 +121,7 @@ async function fetchSpeciesObj(){
             }
         }
         if(localStorage.getItem(`spriteInfo${name}`)){
-            spritesInfo[`spriteInfo${name}`] = await LZString.decompressFromUTF16(localStorage.getItem(`spriteInfo${name}`))
+            spritesInfo[name] = localStorage.getItem(`spriteInfo${name}`)
         }
     })
 
