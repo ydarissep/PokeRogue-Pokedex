@@ -82,7 +82,7 @@ async function spriteRemoveBgReturnBase64(speciesName, species){
         if(els.length > 0){
             for(let i = 0; i < els.length; i++){
                 els[i].src = canvas.toDataURL()
-                els[i].style.transform = `scale(${spritesInfo[speciesName]})`
+                els[i].style.transform = `scale(${spritesInfo[returnTargetSpeciesSprite(speciesName)]})`
             }
         }
     }

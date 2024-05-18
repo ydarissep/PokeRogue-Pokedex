@@ -8,7 +8,7 @@ fetch("https://raw.githubusercontent.com/ydarissep/dex-core/main/src/speciesPane
             const el = srcMatch.match(/(\w+)\./)[1]
             const speciesNameTemp = srcMatch.match(/getSpeciesSpriteSrc\((.*?)\)/)[1].trim()
 
-            text = text.replaceAll(srcMatch, `if(spritesInfo[${speciesNameTemp}]){${el}.style.transform = \`scale(\${spritesInfo[${speciesNameTemp}]})\`}\n${srcMatch}`)
+            text = text.replaceAll(srcMatch, `if(spritesInfo[returnTargetSpeciesSprite(${speciesNameTemp})]){${el}.style.transform = \`scale(\${spritesInfo[returnTargetSpeciesSprite(${speciesNameTemp})]})\`}\n${srcMatch}`)
         })
     }
 
@@ -89,19 +89,20 @@ function insertVariantsContainer(){
 
 
 function fetchVarSprite(variantContainer, i, clicked = false){
+    const targetSpecies = returnTargetSpeciesSprite(panelSpecies)
     if(variantContainer.classList.contains("activeVariant") && clicked){
-        speciesSprite.src = sprites[panelSpecies]
+        speciesSprite.src = sprites[targetSpecies]
         variantContainer.classList.remove("activeVariant")
     }
     else{
         for(let j = 0; j < variantsContainer.children.length; j++){
             variantsContainer.children[j].classList.remove("activeVariant")
         }
-        if(species[panelSpecies]["variant"][i] == 0 || species[panelSpecies]["variant"][i] == 2){
-            downloadVarSprite(panelSpecies, i, species[panelSpecies]["variant"][i])
+        if(species[targetSpecies]["variant"][i] == 0 || species[targetSpecies]["variant"][i] == 2){
+            downloadVarSprite(targetSpecies, i, species[targetSpecies]["variant"][i])
         }
-        else if(species[panelSpecies]["variant"][i] == 1){
-            applyPalVar(panelSpecies, i)
+        else if(species[targetSpecies]["variant"][i] == 1){
+            applyPalVar(targetSpecies, i)
         }
         variantContainer.classList.add("activeVariant")
     }
