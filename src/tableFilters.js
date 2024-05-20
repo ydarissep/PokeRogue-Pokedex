@@ -2,8 +2,8 @@ fetch("https://raw.githubusercontent.com/ydarissep/dex-core/main/src/tableFilter
     return response.text()
 }).then(text => {
     text = text.replace("if(!species[name][\"abilities\"].includes(abilityName)){", "if(!species[name][\"abilities\"].includes(abilityName)){\nif(species[name][\"starterAbility\"] == abilityName){continue}\n")
-    text = text.replace("createFilterGroup(createFilterArray([\"flags\"], moves), \"Flag\", [movesFilterList])", "createFilterGroup(createFilterArray([\"flags\"], moves), \"Flag\", [movesFilterList])\ncreateFilterGroup(createFilterArray([\"flags\"], abilities), \"Flag\", [abilitiesFilterList])\n")
-    text = text.replace(/else\s*if\(label\s*===\s*"Flag"\s*\)\s*\{\s*filterMovesFlags\s*\(\s*value,\s*label\s*\)\s*\}/is, "else if(label === \"Flag\"){if(tracker === abilitiesTracker){filterAbilitiesFlags(value, label)}else{filterMovesFlags(value, label)}}")
+    text = text.replace("createFilterGroup(createFilterArray([\"flags\"], moves), \"Flag\", [movesFilterList])", "createFilterGroup(createFilterArray([\"flags\"], moves), \"Flag\", [movesFilterList])\ncreateFilterGroup(createFilterArray([\"flags\"], abilities), \"Flag\", [abilitiesFilterList])\ncreateFilterGroup(Object.keys(locations), \"Biome\", [locationsFilterList])\n")
+    text = text.replace(/else\s*if\(label\s*===\s*"Flag"\s*\)\s*\{\s*filterMovesFlags\s*\(\s*value,\s*label\s*\)\s*\}/is, "else if(label === \"Flag\"){if(tracker === abilitiesTracker){filterAbilitiesFlags(value, label)}else{filterMovesFlags(value, label)}}\nelse if(label === \"Biome\"){filterBiome(value, label)}")
 
     eval.call(window,text)
 }).catch(error => {
@@ -21,5 +21,14 @@ function filterAbilitiesFlags(value, label){
             }   
         }
         tracker[i]["filter"].push(`filter${label}${value}`.replaceAll(" ", ""))
+    }
+}
+
+
+function filterBiome(value, label){
+    for(let i = 0, j = tracker.length; i < j; i++){
+        if(tracker[i]["key"].split("\\")[0] !== value){
+            tracker[i]["filter"].push(`filter${label}${value}`.replaceAll(" ", ""))
+        }
     }
 }

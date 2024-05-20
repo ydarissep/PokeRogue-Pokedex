@@ -13,10 +13,12 @@ async function getBiomes(locations){
 
 async function buildLocationsObj(){
     let locations = {}
+    window.biomeLinks = {}
 
     locations = await getBiomes(locations)
 
-    await localStorage.setItem("locations", LZString.compressToUTF16(JSON.stringify(locations)))
+    localStorage.setItem("biomeLinks", LZString.compressToUTF16(JSON.stringify(biomeLinks)))
+    localStorage.setItem("locations", LZString.compressToUTF16(JSON.stringify(locations)))
     return locations
 }
 
@@ -26,8 +28,15 @@ async function fetchLocationsObj(){
         window.locations = await buildLocationsObj()
     }
     else{
-        window.locations = await JSON.parse(LZString.decompressFromUTF16(localStorage.getItem("locations")))   
+        window.locations = await JSON.parse(LZString.decompressFromUTF16(localStorage.getItem("locations")))
+        window.biomeLinks = await JSON.parse(LZString.decompressFromUTF16(localStorage.getItem("biomeLinks")))
     }
+
+    Object.keys(locations).forEach(async biome => {
+        if(localStorage.getItem(biome)){
+            sprites[biome] = await LZString.decompressFromUTF16(localStorage.getItem(biome))
+        }
+    })
 
     let counter = 0
     window.locationsTracker = []

@@ -1,5 +1,5 @@
 window.repo = "pagefaultgames/pokerogue/main"
-window.checkUpdate = "8 PR"
+window.checkUpdate = "9 PR"
 
 
 fetch('https://raw.githubusercontent.com/ydarissep/dex-core/main/index.html').then(async response => {
@@ -34,6 +34,12 @@ fetch('https://raw.githubusercontent.com/ydarissep/dex-core/main/index.html').th
         variantFilter(variantButtonLocations)
     })
     document.getElementById("locationsFilter").insertBefore(variantButtonLocations, document.getElementById("locationsFilterList"))
+
+    window.hideLinksFilter = document.createElement("button"); hideLinksFilter.setAttribute("ID", "hideLinksFilter"); hideLinksFilter.classList = "setting"; hideLinksFilter.type = "button"; hideLinksFilter.innerText = "Hide Links"
+    hideLinksFilter.addEventListener("click", () => {
+        hideLinks(hideLinksFilter)
+    })
+    document.getElementById("locationsFilter").insertBefore(hideLinksFilter, document.getElementById("locationsFilterList"))
 
     await fetch("https://raw.githubusercontent.com/ydarissep/dex-core/main/src/global.js").then(async response => {
         return response.text()
@@ -113,4 +119,24 @@ function variantFilter(el){
         }
     }
     lazyLoading(true)
+}
+
+
+
+
+
+
+
+
+function hideLinks(el){
+    el.classList.toggle("activeSetting")
+
+    locationsTable.querySelectorAll(".nextBiomeContainer, .previousBiomeContainer").forEach(biomeContainer => {
+        if(el.classList.contains("activeSetting")){
+            biomeContainer.classList.add("hide")
+        }
+        else{
+            biomeContainer.classList.remove("hide")
+        }
+    })
 }

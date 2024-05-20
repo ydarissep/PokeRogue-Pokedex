@@ -12,7 +12,7 @@ function regexMovesDescription(textMovesDescription, moves){
                     }
                     const moveDescMatch = moveMatch.match(/effect:\s*"(.*?)"/i)
                     if(moveDescMatch){
-                        moves[moveName]["description"] = moveDescMatch[1].replaceAll(/Sp\s*\./ig, "Sp").replaceAll(".", ".ceciEstUnPoint").split("ceciEstUnPoint")
+                        moves[moveName]["description"] = moveDescMatch[1].replaceAll(/Sp\s*\./ig, "Sp").replaceAll(/\.+/g, ".ceciEstUnPoint").split("ceciEstUnPoint")
                         moves[moveName]["description"] = moves[moveName]["description"].filter(desc => desc.trim() !== "")
                     }
                 }

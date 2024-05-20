@@ -59,6 +59,40 @@ function regexBiomes(textBiomes, locations, conversionTable){
 		})
 	}
 
+	const biomeLinksMatch = textBiomes.match(/const\s*biomeLinks.*?}\s*;/is)
+	if(biomeLinksMatch){
+		const biomesMatch = biomeLinksMatch[0].match(/\[\s*Biome\.\w+\s*\].*?$/igm)
+		if(biomesMatch){
+			biomesMatch.forEach(biomeMatch => {
+				const biomeNameMatch = biomeMatch.match(/\[\s*Biome\.(\w+)\s*\]/i)
+				const biomeName = sanitizeString(biomeNameMatch[1])
+
+				biomeLinks[biomeName] = []
+
+				biomeMatch = biomeMatch.replace(biomeNameMatch[0], "")
+
+				const biomeBracketMatch = biomeMatch.match(/\[\s*Biome\.\w+\s*,\s*\d+\s*\]/ig)
+				if(biomeBracketMatch){
+					biomeBracketMatch.forEach(biomeBracket => {
+						biomeLinks[biomeName].push([sanitizeString(biomeBracket.match(/Biome\.(\w+)/i)[1]), parseInt(100 / parseInt(biomeBracket.match(/,\s*(\d+)/)[1]))])
+						biomeMatch = biomeMatch.replace(biomeBracket, "")
+					})
+				}
+				let chance = 100
+				biomeLinks[biomeName].forEach(nextBiome => {
+					chance -= nextBiome[1]
+				})
+
+				const remainingBiomes = biomeMatch.match(/Biome\.(\w+)/ig)
+				if(remainingBiomes){
+					remainingBiomes.forEach(remainingBiome => {
+						biomeLinks[biomeName].push([sanitizeString(remainingBiome.match(/Biome\.(\w+)/i)[1]), parseInt(chance / remainingBiomes.length)])
+					})
+				}
+			})
+		}
+	}
+
     return locations
 }
 

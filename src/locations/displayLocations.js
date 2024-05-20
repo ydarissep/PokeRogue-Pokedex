@@ -10,6 +10,9 @@ function appendLocationsToTable(key){
     if(!(speciesKey in species)){
         return false
     }
+    if(locationsMoveFilter && document.getElementById(`${location}${speciesKey}${rarity}${boss}`)){
+        return false
+    }
 
     if(!locationsMoveFilter){
         for(let i = 0; i < locationsFilterContainer.children.length; i++){
@@ -162,10 +165,10 @@ function returnSpeciesRow(location, method, speciesKey, rarity, boss){
     else{
         const timeOfDay = document.createElement("div"); timeOfDay.innerText = method; timeOfDay.classList = `timeOfDay ${method}`; timeOfDay.setAttribute("ID", `${location}\\${method}\\${speciesKey}`)
         timeOfDayContainer.append(timeOfDay)
-    }
-    if(method == "All" || method == "Anytime"){
-        speciesName.colSpan = "2"
-        timeOfDayContainer.classList.add("hide")
+        if(method == "All" || method == "Anytime"){
+            speciesName.colSpan = "2"
+            timeOfDayContainer.classList.add("hide")
+        }
     }
     row.append(timeOfDayContainer)
 
@@ -254,14 +257,71 @@ function returnLocationTableThead(location){
     const locationTableThead = document.createElement("thead"); locationTableThead.classList = "locationTableThead"
     const row = document.createElement("tr")
 
-    const locationName = document.createElement("h1"); locationName.innerText = location
-    row.append(locationName)
+    const mainBiomeContainer = document.createElement("th"); mainBiomeContainer.classList = "mainBiomeContainer"
+    const locationName = document.createElement("div"); locationName.innerText = location; locationName.classList = "locationName"
+    const locationSprite = document.createElement("img"); locationSprite.src = getBiomeSpriteSrc(location); locationSprite.classList = `sprite${location} mainBiomeSprite`
+    mainBiomeContainer.append(locationName)
+    mainBiomeContainer.append(locationSprite)
+
+    const previousBiomeContainer = document.createElement("th"); previousBiomeContainer.classList = "previousBiomeContainer"
+    Object.keys(biomeLinks).forEach(biome => {
+        biomeLinks[biome].forEach(link => {
+            if(link[0] === location){
+                const linkContainer = document.createElement("div"); linkContainer.classList = "previousLink"
+                const linkInfo = document.createElement("span"); linkInfo.innerText = `${biome}\n${link[1]}%`; linkInfo.classList = "previousLinkInfo"
+                const linkSprite = document.createElement("img"); linkSprite.src = getBiomeSpriteSrc(biome); linkSprite.classList = `linkSprite sprite${biome}`
+                linkContainer.append(linkSprite)
+                linkContainer.append(linkInfo)
+                previousBiomeContainer.append(linkContainer)
+                linkContainer.addEventListener("click", async () => {
+                    if(!locationsButton.classList.contains("activeButton")){
+                        tracker = locationsTracker
+                        await tableButtonClick("locations")
+                    }
+                    deleteFiltersFromTable()
+
+                    createFilter(biome, "Biome")
+                    speciesPanel("hide")
+                    window.scrollTo({ top: 0})
+                })
+            }
+        })
+    })
+
+    const nextBiomeContainer = document.createElement("th"); nextBiomeContainer.classList = "nextBiomeContainer"
+    if(location in biomeLinks){
+        biomeLinks[location].forEach(link => {
+            const linkContainer = document.createElement("div"); linkContainer.classList = "nextLink"
+            const linkInfo = document.createElement("span"); linkInfo.innerText = `${link[0]}\n${link[1]}%`; linkInfo.classList = "nextLinkInfo"
+            const linkSprite = document.createElement("img"); linkSprite.src = getBiomeSpriteSrc(link[0]); linkSprite.classList = `linkSprite sprite${link[0]}`
+            linkContainer.append(linkInfo)
+            linkContainer.append(linkSprite)
+            nextBiomeContainer.append(linkContainer)
+            linkContainer.addEventListener("click", async () => {
+                if(!locationsButton.classList.contains("activeButton")){
+                    tracker = locationsTracker
+                    await tableButtonClick("locations")
+                }
+                deleteFiltersFromTable()
+
+                createFilter(link[0], "Biome")
+                speciesPanel("hide")
+                window.scrollTo({ top: 0})
+            })
+        })
+    }
+    if(hideLinksFilter.classList.contains("activeSetting")){
+        previousBiomeContainer.classList.add("hide")
+        nextBiomeContainer.classList.add("hide")
+    }
+
+    row.append(previousBiomeContainer)
+    row.append(mainBiomeContainer)
+    row.append(nextBiomeContainer)
     locationTableThead.append(row)
 
     return locationTableThead
 }
-
-
 
 
 
@@ -275,5 +335,88 @@ function returnMethodSprite(boss){
     }
     else{
         return "All"
+    }
+}
+
+
+
+
+function getBiomeSpriteSrc(biome){
+    if(sprites[biome]){
+        if(sprites[biome].length < 500){
+            localStorage.removeItem(biome)
+            spriteBiomeLocalStorageBase64(biome)
+            return `https://raw.githubusercontent.com/${repo}/public/images/arenas/${biome.toLowerCase().replaceAll(/-| /g, "_")}_bg.png`
+        }
+        else{
+            return sprites[biome]
+        }
+    }
+    else{
+        spriteBiomeLocalStorageBase64(biome)
+        return `https://raw.githubusercontent.com/${repo}/public/images/arenas/${biome.toLowerCase().replaceAll(/-| /g, "_")}_bg.png`
+    }
+}
+
+
+
+
+
+
+
+function spriteBiomeLocalStorageBase64(biome){
+    let append = ["bg", "a", "b"]
+    if(biome === "End"){
+        append = ["bg"]
+    }
+    let sprite = []
+    let completed = []
+    let mainCanvas = document.createElement("canvas")
+    const mainContext = mainCanvas.getContext('2d')
+    mainCanvas.width = 320
+    mainCanvas.height = 132
+    for(let i = 0; i < append.length; i++){
+        sprite.push(new Image())
+
+        sprite[i].crossOrigin = 'anonymous'
+        sprite[i].src = `https://raw.githubusercontent.com/${repo}/public/images/arenas/${biome.toLowerCase().replaceAll(/-| /g, "_")}_${append[i]}.png`
+
+
+        sprite[i].onload = async () => {
+            completed.push(i)
+            if(completed.length == append.length){
+                for(let j = 0; j < sprite.length; j++){
+                    let canvas = document.createElement("canvas")
+                    canvas.width = 320
+                    canvas.height = 132
+                    if(append[j] == "a" || append[j] == "b"){
+                        canvas.width = 320
+                        canvas.height = 132
+                    }
+                    const context = canvas.getContext('2d')
+                    context.clearRect(0, 0, canvas.width, canvas.height)
+                    context.drawImage(sprite[j], 0, 0)
+                    const imageData = context.getImageData(0, 0, canvas.width, canvas.height)
+                    const mainImageData = mainContext.getImageData(0, 0, mainCanvas.width, mainCanvas.height)
+                    for(let k = 0; k < imageData.data.length; k += 4) {
+                        if(imageData.data[k + 3] > 0){
+                            mainImageData.data[k] = imageData.data[k]
+                            mainImageData.data[k + 1] = imageData.data[k + 1]
+                            mainImageData.data[k + 2] = imageData.data[k + 2]
+                            mainImageData.data[k + 3] = imageData.data[k + 3]
+                        }
+                    }
+                    mainContext.putImageData(mainImageData, 0, 0)
+                }
+                if(!localStorage.getItem(biome)){
+                    localStorage.setItem(biome, LZString.compressToUTF16(mainCanvas.toDataURL()))
+                    sprites[biome] = mainCanvas.toDataURL()
+                }
+                const els = document.getElementsByClassName(`sprite${biome}`)
+                for(let l = 0; l < els.length; l++){
+                    els[l].src = mainCanvas.toDataURL()
+                }
+            }
+        }
     }
 }

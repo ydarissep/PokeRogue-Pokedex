@@ -1,3 +1,16 @@
+#hideLinksFilter {
+    margin-left: 5px;
+}
+
+.locationName {
+    font-size: 30px;
+}
+
+.nextBiomeContainer, .previousBiomeContainer {
+    width: 215px;
+    font-size: 14px;
+}
+
 .locationTable {
     display: block !important;
 	margin-bottom: 100px;
@@ -7,6 +20,51 @@
 .locationTableThead {
     display: inline-block !important;
     background: none;
+}
+
+.locationTableThead th {
+    padding: 0px;
+}
+
+.mainBiomeSprite {
+    width: 240px;
+    height: 99px;
+    border: 1px solid white;
+    margin-bottom: 15px;
+}
+
+.nextLink, .previousLink {
+    margin: 3px 10px 3px 10px;
+    display: flex;
+    align-items: center;
+    background: rgba(0, 0, 0, 0.25);
+    border: 2px solid grey;
+}
+
+.nextLink:hover, .previousLink:hover {
+    border: 2px solid var(--theme-color) !important;
+    cursor: pointer;
+}
+
+.nextLink {
+    justify-content: right;
+}
+
+.previousLink {
+    justify-content: left;
+}
+
+.nextLinkInfo, .previousLinkInfo {
+    width: 100%;
+}
+
+.previousLinkInfo {
+    width: 100%;
+}
+
+.linkSprite {
+    width: 87.2px;
+    height: 36px;
 }
 
 .locationTableTbody {
@@ -90,6 +148,10 @@ only screen and (max-width: 800px) {
         width: 50% !important;
         margin: 0px !important;
     }
+
+    .linkSprite {
+        display: none;
+    }
 }
 
 @media 
@@ -107,6 +169,31 @@ only screen and (max-width: 515px) {
 only screen and (max-width: 500px) {
     .locationSpeciesName, .timeOfDay {
         font-size: 15px !important;
+    }
+
+    .mainBiomeSprite {
+        width: 160px !important;
+        height: 66px !important;
+    }
+
+    .nextBiomeContainer, .previousBiomeContainer {
+        width: 150px !important;
+    }
+
+    .locationName {
+        font-size: 25px !important;
+    }
+}
+
+@media 
+only screen and (max-width: 415px) {
+    .mainBiomeSprite {
+        width: 120px !important;
+        height: 49.5px !important;
+    }
+
+    .nextBiomeContainer, .previousBiomeContainer {
+        font-size: 12px !important;
     }
 }
 

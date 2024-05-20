@@ -524,6 +524,9 @@ function regexEvolution(textEvolution, species){
                         if(speciesName === "SPECIES_SLOWPOKE" && targetSpecies === "SPECIES_SLOWKING" || speciesName === "SPECIES_POLIWHIRL" && targetSpecies === "SPECIES_POLITOED"){
                             method = "EVO_ITEM_HOLD_KINGS_ROCK"
                         }
+                        else if(speciesName === "SPECIES_ROCKRUFF" && targetSpecies === "SPECIES_LYCANROC_DUSK"){
+                            method = "EVO_LEVEL_ABILITY_OWN_TEMPO"
+                        }
 
                         if(originalSpecies !== targetSpecies){
                             species[speciesName]["evolution"].push([method, condition, targetSpecies])
