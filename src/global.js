@@ -1,5 +1,5 @@
 window.repo = "pagefaultgames/pokerogue/main"
-window.checkUpdate = "11 PR"
+window.checkUpdate = "12 PR"
 
 
 fetch('https://raw.githubusercontent.com/ydarissep/dex-core/main/index.html').then(async response => {
