@@ -689,7 +689,7 @@ async function getEvolutionLine(species){
         species[name]["evolutionLine"] = Array.from(new Set(species[name]["evolutionLine"])) // remove duplicates
     }
 
-    //Propagate starterAbility and starterCost through evolutionLine
+    //Propagate starterAbility, starterCost & eggMovesLearnsets through evolutionLine
     Object.keys(species).forEach(speciesName => {
         let targetSpecies = speciesName
         if(species[targetSpecies]["forms"][0]){
@@ -699,8 +699,12 @@ async function getEvolutionLine(species){
             targetSpecies = species[targetSpecies]["evolutionLine"][0]
         }
 
-        species[speciesName]["starterAbility"] = species[targetSpecies]["starterAbility"]
-        species[speciesName]["starterCost"] = species[targetSpecies]["starterCost"]
+        if(species[speciesName]["starterAbility"] == "ABILITY_NONE"){
+            species[speciesName]["starterAbility"] = species[targetSpecies]["starterAbility"]
+        }
+        if(species[speciesName]["starterCost"] == 0){
+            species[speciesName]["starterCost"] = species[targetSpecies]["starterCost"]
+        }
     })
 
     return species
@@ -732,6 +736,7 @@ function regexEggMovesLearnsets(textEggMoves, species){
         })
     }
 
+    species = altFormsLearnsets(species, "forms", "eggMovesLearnsets")
     return altFormsLearnsets(species, "evolutionLine", "eggMovesLearnsets")
 }
 
