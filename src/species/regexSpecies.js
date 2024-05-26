@@ -1,7 +1,7 @@
 function regexBaseStats(textBaseStats, species, jsonMasterlist){
     const statsOrder = ["BST", "baseHP", "baseAttack", "baseDefense", "baseSpAttack", "baseSpDefense", "baseSpeed"]
     const shareSprite = [493, 656, 657, 664, 665, 710, 711, 744, 774, 854, 855, 1007, 1008, 1012, 1013]
-    const spriteReset = ["SPECIES_DEOXYS", "SPECIES_GRENINJA_BATTLE_BOND", "SPECIES_SCATTERBUG", "SPECIES_SPEWPA", "SPECIES_MEOWSTIC", "SPECIES_AEGISLASH", "SPECIES_ZYGARDE", "SPECIES_ZYGARDE_50_PC", "SPECIES_ORICORIO", "SPECIES_LYCANROC", "SPECIES_SILVALLY", "SPECIES_MINIOR", "SPECIES_MIMIKYU", "SPECIES_TOXTRICITY", "SPECIES_SINISTEA", "SPECIES_POLTEAGEIST", "SPECIES_ALCREMIE", "SPECIES_INDEEDEE", "SPECIES_MORPEKO", "SPECIES_ZAMAZENTA", "SPECIES_ZACIAN", "SPECIES_URSHIFU", "SPECIES_BASCULEGION", "SPECIES_OINKOLOGNE", "SPECIES_DUDUNSPARCE", "SPECIES_GIMMIGHOUL"]
+    const spriteReset = ["SPECIES_PIKACHU_PARTNER", "SPECIES_EEVEE_PARTNER", "SPECIES_DEOXYS", "SPECIES_GRENINJA_BATTLE_BOND", "SPECIES_SCATTERBUG", "SPECIES_SPEWPA", "SPECIES_MEOWSTIC", "SPECIES_AEGISLASH", "SPECIES_ZYGARDE", "SPECIES_ZYGARDE_50_PC", "SPECIES_ORICORIO", "SPECIES_LYCANROC", "SPECIES_SILVALLY", "SPECIES_MINIOR", "SPECIES_MIMIKYU", "SPECIES_TOXTRICITY", "SPECIES_SINISTEA", "SPECIES_POLTEAGEIST", "SPECIES_ALCREMIE", "SPECIES_INDEEDEE", "SPECIES_MORPEKO", "SPECIES_ZAMAZENTA", "SPECIES_ZACIAN", "SPECIES_URSHIFU", "SPECIES_BASCULEGION", "SPECIES_OINKOLOGNE", "SPECIES_DUDUNSPARCE", "SPECIES_GIMMIGHOUL"]
     const spriteReplace = {"718-10-pc": "718-10", "1044": "2670", "1082": "8901"}
     let counter = 0
 
@@ -689,7 +689,7 @@ async function getEvolutionLine(species){
         species[name]["evolutionLine"] = Array.from(new Set(species[name]["evolutionLine"])) // remove duplicates
     }
 
-    //Propagate starterAbility, starterCost & eggMovesLearnsets through evolutionLine
+    //Propagate starterAbility & starterCost through evolutionLine
     Object.keys(species).forEach(speciesName => {
         let targetSpecies = speciesName
         if(species[targetSpecies]["forms"][0]){
@@ -736,8 +736,8 @@ function regexEggMovesLearnsets(textEggMoves, species){
         })
     }
 
-    species = altFormsLearnsets(species, "forms", "eggMovesLearnsets")
-    return altFormsLearnsets(species, "evolutionLine", "eggMovesLearnsets")
+    species = altFormsLearnsets(species, "evolutionLine", "eggMovesLearnsets")
+    return altFormsLearnsets(species, "forms", "eggMovesLearnsets")
 }
 
 
