@@ -69,12 +69,27 @@ async function spriteRemoveBgReturnBase64(speciesName, species){
         context.clearRect(0, 0, canvas.width, canvas.height)
         context.drawImage(sprite, -frameX, -frameY)
 
-        //const imageData = context.getImageData(0, 0, canvas.width, canvas.height)
-        
-        //context.putImageData(imageData, 0, 0)
+        const imageData = context.getImageData(0, 0, canvas.width, canvas.height)
+        let spriteDataString = "", repeat = 1, pal = []
+        for (let i = 0; i < imageData.data.length; i += 4) {
+            if(!pal.includes(`${imageData.data[i]},${imageData.data[i + 1]},${imageData.data[i + 2]},${imageData.data[i + 3]}`)){
+                pal.push(`${imageData.data[i]},${imageData.data[i + 1]},${imageData.data[i + 2]},${imageData.data[i + 3]}`)
+            }
+
+            if(imageData.data[i] === imageData.data[i + 4] && imageData.data[i + 1] === imageData.data[i + 5] && imageData.data[i + 2] === imageData.data[i + 6] && imageData.data[i + 3] === imageData.data[i + 7]){
+                repeat++
+            }
+            else{
+                spriteDataString += `&${pal.indexOf(`${imageData.data[i]},${imageData.data[i + 1]},${imageData.data[i + 2]},${imageData.data[i + 3]}`)}*${repeat}`
+                repeat = 1
+            }
+        }
+        context.putImageData(imageData, 0, 0)
+
+        spriteDataString = `${canvas.width}&${canvas.height}&[${pal}]${spriteDataString}`
 
         if(!localStorage.getItem(speciesName)){
-            localStorage.setItem(speciesName, LZString.compressToUTF16(canvas.toDataURL()))
+            localStorage.setItem(speciesName, LZString.compressToUTF16(spriteDataString))
             sprites[speciesName] = canvas.toDataURL()
             localStorage.setItem(`spriteInfo${speciesName}`, spritesInfo[speciesName])
         }

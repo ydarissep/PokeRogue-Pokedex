@@ -113,13 +113,6 @@ async function fetchSpeciesObj(){
     window.spritesInfo = {}
 
     Object.keys(species).forEach(async name => {
-        if(localStorage.getItem(name)){
-            sprites[name] = await LZString.decompressFromUTF16(localStorage.getItem(name))
-            if(sprites[name].length < 500){
-                localStorage.removeItem(name)
-                spriteRemoveBgReturnBase64(name, species)
-            }
-        }
         if(localStorage.getItem(`spriteInfo${name}`)){
             spritesInfo[name] = localStorage.getItem(`spriteInfo${name}`)
         }
