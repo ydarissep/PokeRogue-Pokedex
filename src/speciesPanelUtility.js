@@ -50,6 +50,11 @@ function appendBiomes(speciesName){
         
                         createFilter(locationsKey[i], "Biome")
                         speciesPanel("hide")
+
+                        document.getElementsByClassName("activeInput")[0].value = sanitizeString(speciesKey[k])
+                        filterLocationsTableInputNew(sanitizeString(speciesKey[k]), species, ["evolutionLine"])
+                        locationsInput.select()
+
                         window.scrollTo({ top: 0})
                     })
 
