@@ -65,7 +65,7 @@ async function buildSpeciesObj(){
     species = await getLevelUpLearnsets(species)
     species = await getTMHMLearnsets(species)
     species = await getEggMovesLearnsets(species)
-    species = await getChanges(species)
+    //species = await getChanges(species)
 
     await localStorage.setItem("species", LZString.compressToUTF16(JSON.stringify(species)))
     return species

@@ -21,6 +21,9 @@ fetch('https://raw.githubusercontent.com/ydarissep/dex-core/main/index.html').th
     document.getElementById("speciesPanelTablesContainer").insertBefore(document.getElementById("speciesPanelEggMovesTable"), document.getElementById("speciesPanelLevelUpFromPreviousEvoTable"))
     document.getElementById("locationsButton").innerText = "Biomes"
 
+    document.getElementById("changelogMode").classList.add("hide")
+    document.getElementById("onlyShowChangedPokemon").classList.add("hide")
+
     insertVariantsContainer()
 
     window.speciesPanelWeight = document.createElement("div"); speciesPanelWeight.setAttribute("ID", "speciesPanelWeight")

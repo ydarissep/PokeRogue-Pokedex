@@ -67,6 +67,13 @@ function appendBiomes(speciesName){
     if(speciesPanelBiomesContainer.children.length > 0){
         const speciesPanelBiomeText = document.createElement("div"); speciesPanelBiomeText.innerText = "Biomes:"; speciesPanelBiomeText.classList = "speciesPanelText"
         speciesPanelBiomesContainer.prepend(speciesPanelBiomeText)
+
+        if(speciesPanelBiomesContainer.children.length > 5){
+            speciesPanelBiomesContainer.classList.add("minimizeBiomes")
+        }
+        else{
+            speciesPanelBiomesContainer.classList.remove("minimizeBiomes")
+        }
     }
 }
 
