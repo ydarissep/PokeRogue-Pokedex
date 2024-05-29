@@ -98,6 +98,8 @@ function initializeSpeciesObj(speciesObj){
     speciesObj["evolutionLine"] = [speciesObj["name"]]
     speciesObj["forms"] = []
     speciesObj["variant"] = [0]
+    speciesObj["variantF"] = []
+    speciesObj["weight"] = "?"
 }
 
 

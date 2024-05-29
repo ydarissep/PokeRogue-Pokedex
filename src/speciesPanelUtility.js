@@ -13,13 +13,70 @@ fetch("https://raw.githubusercontent.com/ydarissep/dex-core/main/src/speciesPane
     }
 
     text = text.replace("speciesAbilitiesMainContainer.classList.remove(\"hide\")", "prependAbilityStarterEl(name)\nspeciesAbilitiesMainContainer.classList.remove(\"hide\")")
-    text = text.replace("speciesEggGroups.append(eggGroup1)", "speciesEggGroups.append(eggGroup1)\nconst starterCost = document.createElement(\"div\");starterCost.innerText = species[name][\"starterCost\"];starterCost.classList = \"starterCost\";speciesEggGroups.prepend(starterCost)")
-    text = text.replace("speciesSprite.src = getSpeciesSpriteSrc(name)", "handleVariants()\nspeciesSprite.src = getSpeciesSpriteSrc(name)")
+    text = text.replace("speciesEggGroups.append(eggGroup1)", "speciesEggGroups.append(eggGroup1)\nspeciesEggGroups.prepend(returnStarterCostEl(name))\nspeciesPanelWeight.innerText = `${species[name][\"weight\"]} kg`")
+    text = text.replace("speciesSprite.src = getSpeciesSpriteSrc(name)", "handleVariants()\nappendBiomes(name)\nspeciesSprite.src = getSpeciesSpriteSrc(name)")
     
     eval.call(window,text)
 }).catch(error => {
     console.warn(error)
 })
+
+
+
+
+function appendBiomes(speciesName){
+    while(speciesPanelBiomesContainer.lastChild){
+        speciesPanelBiomesContainer.removeChild(speciesPanelBiomesContainer.lastChild)
+    }
+
+
+
+    const locationsKey = Object.keys(locations)
+    biomeLoop:for(let i = 0; i < locationsKey.length; i++){
+        const timeOfDayKey = Object.keys(locations[locationsKey[i]])
+        for(let j = 0; j < timeOfDayKey.length; j++){
+            const speciesKey = Object.keys(locations[locationsKey[i]][timeOfDayKey[j]])
+            for(let k = 0; k < speciesKey.length; k++){
+                if(species[speciesName]["evolutionLine"].includes(speciesKey[k])){
+                    const speciesPanelBiome = document.createElement("div"); speciesPanelBiome.innerText = locationsKey[i]; speciesPanelBiome.classList = "hyperlink speciesPanelTextPadding"
+                    speciesPanelBiomesContainer.append(speciesPanelBiome)
+
+                    speciesPanelBiome.addEventListener("click", async() => {
+                        if(!locationsButton.classList.contains("activeButton")){
+                            tracker = locationsTracker
+                            await tableButtonClick("locations")
+                        }
+                        deleteFiltersFromTable()
+        
+                        createFilter(locationsKey[i], "Biome")
+                        speciesPanel("hide")
+                        window.scrollTo({ top: 0})
+                    })
+
+                    continue biomeLoop
+                }
+            }
+        }
+    }
+
+    if(speciesPanelBiomesContainer.children.length > 0){
+        const speciesPanelBiomeText = document.createElement("div"); speciesPanelBiomeText.innerText = "Biomes:"; speciesPanelBiomeText.classList = "speciesPanelText"
+        speciesPanelBiomesContainer.prepend(speciesPanelBiomeText)
+    }
+}
+
+
+
+
+
+function returnStarterCostEl(speciesName){
+    const starterCost = document.createElement("div")
+    starterCost.innerText = species[speciesName]["starterCost"]
+    starterCost.classList = "starterCost"
+    return starterCost
+}
+
+
 
 function returnMoveDescription(move){
     let moveName = move
@@ -82,27 +139,53 @@ function insertVariantsContainer(){
             fetchVarSprite(variantContainer, i, true)
         })
     }
+    window.femaleIconContainer = document.createElement("div"); femaleIconContainer.setAttribute("ID", "femaleIconContainer"); femaleIconContainer.className = "femaleIconContainer"
+    const femaleIconSprite = document.createElement("img"); femaleIconSprite.src = `https://raw.githubusercontent.com/ydarissep/PokeRogue-Pokedex/main/sprites/female.png`
+
+    femaleIconContainer.append(femaleIconSprite)
+    variantsContainer.append(femaleIconContainer)
+
+    femaleIconContainer.addEventListener("click", async () => {
+        femaleIconContainer.classList.toggle("femaleActive")
+        for(let i = 0; i < 3; i++){
+            if(variantsContainer.children[i].classList.contains("activeVariant")){
+                fetchVarSprite(variantsContainer.children[i], i, false)
+            }
+        }
+    })
 }
 
 
 
 
 
-function fetchVarSprite(variantContainer, i, clicked = false){
+function fetchVarSprite(variantContainer, i, clicked = false, female = false){
+    if(species[panelSpecies]["variantF"].length > 0){
+        if(femaleIconContainer.classList.contains("femaleActive")){
+            female = true
+        }
+    }
+
     const targetSpecies = returnTargetSpeciesSprite(panelSpecies)
     if(variantContainer.classList.contains("activeVariant") && clicked){
         speciesSprite.src = sprites[targetSpecies]
         variantContainer.classList.remove("activeVariant")
     }
     else{
-        for(let j = 0; j < variantsContainer.children.length; j++){
+        for(let j = 0; j < 3; j++){
             variantsContainer.children[j].classList.remove("activeVariant")
         }
-        if(species[targetSpecies]["variant"][i] == 0 || species[targetSpecies]["variant"][i] == 2){
-            downloadVarSprite(targetSpecies, i, species[targetSpecies]["variant"][i])
+
+        let method = species[targetSpecies]["variant"][i]
+        if(female){
+            method = species[targetSpecies]["variantF"][i]
         }
-        else if(species[targetSpecies]["variant"][i] == 1){
-            applyPalVar(targetSpecies, i)
+
+        if(method == 0 || method == 2){
+            downloadVarSprite(targetSpecies, i, method, female)
+        }
+        else if(method == 1){
+            applyPalVar(targetSpecies, i, female)
         }
         variantContainer.classList.add("activeVariant")
     }
@@ -114,12 +197,19 @@ function fetchVarSprite(variantContainer, i, clicked = false){
 
 
 function handleVariants(){
-    for(let i = 0; i < variantsContainer.children.length; i++){
+    if(species[panelSpecies]["variantF"].length > 0){
+        femaleIconContainer.classList.remove("hide")
+    }
+    else{
+        femaleIconContainer.classList.add("hide")
+    }
+
+    for(let i = 0; i < 3; i++){
         //variantsContainer.children[i].classList.remove("activeVariant")
         if(typeof species[panelSpecies]["variant"][i] !== "undefined"){
             variantsContainer.children[i].classList.remove("hide")
             if(variantsContainer.children[i].classList.contains("activeVariant")){
-                fetchVarSprite(variantsContainer.children[i], i)
+                fetchVarSprite(variantsContainer.children[i], i, false)
             }
         }
         else{
@@ -133,7 +223,7 @@ function handleVariants(){
 
 
 
-async function downloadVarSprite(speciesName, index, method){
+async function downloadVarSprite(speciesName, index, method, female){
     let sprite = new Image()
     let canvas = document.createElement("canvas")
 
@@ -149,10 +239,20 @@ async function downloadVarSprite(speciesName, index, method){
     
     let rawJson = null
     if(method == 0){
-        rawJson = await fetch(`https://raw.githubusercontent.com/${repo}/public/images/pokemon/shiny/${spritePath}.json`)
+        if(female){
+            rawJson = await fetch(`https://raw.githubusercontent.com/${repo}/public/images/pokemon/shiny/female/${spritePath}.json`)
+        }
+        else{
+            rawJson = await fetch(`https://raw.githubusercontent.com/${repo}/public/images/pokemon/shiny/${spritePath}.json`)
+        }
     }
     else if(method == 2){
-        rawJson = await fetch(`https://raw.githubusercontent.com/${repo}/public/images/pokemon/variant/${spritePath}.json`)
+        if(female){
+            rawJson = await fetch(`https://raw.githubusercontent.com/${repo}/public/images/pokemon/variant/female/${spritePath}.json`)
+        }
+        else{
+            rawJson = await fetch(`https://raw.githubusercontent.com/${repo}/public/images/pokemon/variant/${spritePath}.json`)
+        }
     }
     const json = await rawJson.json()
 
@@ -178,10 +278,20 @@ async function downloadVarSprite(speciesName, index, method){
 
     sprite.crossOrigin = 'anonymous'
     if(method == 0){
-        sprite.src = `https://raw.githubusercontent.com/${repo}/public/images/pokemon/shiny/${spritePath}.png`
+        if(female){
+            sprite.src = `https://raw.githubusercontent.com/${repo}/public/images/pokemon/shiny/female/${spritePath}.png`
+        }
+        else{
+            sprite.src = `https://raw.githubusercontent.com/${repo}/public/images/pokemon/shiny/${spritePath}.png`
+        }
     }
     else if(method == 2){
-        sprite.src = `https://raw.githubusercontent.com/${repo}/public/images/pokemon/variant/${spritePath}.png`
+        if(female){
+            sprite.src = `https://raw.githubusercontent.com/${repo}/public/images/pokemon/variant/female/${spritePath}.png`
+        }
+        else{
+            sprite.src = `https://raw.githubusercontent.com/${repo}/public/images/pokemon/variant/${spritePath}.png`
+        }
     }
 
     const context = canvas.getContext('2d')
@@ -203,7 +313,7 @@ async function downloadVarSprite(speciesName, index, method){
 
 
 
-async function applyPalVar(speciesName, index){
+async function applyPalVar(speciesName, index, female){
     let sprite = new Image()
     let canvas = document.createElement("canvas")
 
@@ -212,7 +322,13 @@ async function applyPalVar(speciesName, index){
     canvas.width = sprite.width
     canvas.height = sprite.height
 
-    const rawJson = await fetch(`https://raw.githubusercontent.com/${repo}/public/images/pokemon/variant/${species[speciesName]["sprite"]}.json`)
+    let rawJson = null
+    if(female){
+        rawJson = await fetch(`https://raw.githubusercontent.com/${repo}/public/images/pokemon/variant/female/${species[speciesName]["sprite"]}.json`)
+    }
+    else{
+        rawJson = await fetch(`https://raw.githubusercontent.com/${repo}/public/images/pokemon/variant/${species[speciesName]["sprite"]}.json`)
+    }
     const json = await rawJson.json()
 
     let pal = {}

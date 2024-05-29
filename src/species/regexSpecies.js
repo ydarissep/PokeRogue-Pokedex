@@ -22,7 +22,6 @@ function regexBaseStats(textBaseStats, species, jsonMasterlist){
                 speciesInitArray = [initSpeciesMatch]
             }
 
-
             speciesInitArray.forEach(speciesInit => {
                 let speciesName = null
                 let spritePath = counter.toString()
@@ -100,6 +99,9 @@ function regexBaseStats(textBaseStats, species, jsonMasterlist){
                             }
                         }
                     }
+                    if(spritePath in jsonMasterlist["female"]){
+                        species[speciesName]["variantF"] = jsonMasterlist["female"][spritePath]
+                    }
 
                     if(!species[originalSpecies]["forms"].includes(originalSpecies)){
                         species[originalSpecies]["forms"].push(originalSpecies)
@@ -143,6 +145,11 @@ function regexBaseStats(textBaseStats, species, jsonMasterlist){
                         for(let i = 0; i < stats.length && i < 7; i++){
                             species[speciesName][statsOrder[i]] = stats[i]
                         }
+                    }
+
+                    const weightMatch = speciesInit.match(/((?:\d+)(?:\.\d+)?)\s*,\s*Abilities/i)
+                    if(weightMatch){
+                        species[speciesName]["weight"] = weightMatch[1]
                     }
                 }
             })
@@ -521,10 +528,7 @@ function regexEvolution(textEvolution, species){
                             }
                         }
 
-                        if(speciesName === "SPECIES_SLOWPOKE" && targetSpecies === "SPECIES_SLOWKING" || speciesName === "SPECIES_POLIWHIRL" && targetSpecies === "SPECIES_POLITOED"){
-                            method = "EVO_ITEM_HOLD_KINGS_ROCK"
-                        }
-                        else if(speciesName === "SPECIES_ROCKRUFF" && targetSpecies === "SPECIES_LYCANROC_DUSK"){
+                        if(speciesName === "SPECIES_ROCKRUFF" && targetSpecies === "SPECIES_LYCANROC_DUSK"){
                             method = "EVO_LEVEL_ABILITY_OWN_TEMPO"
                         }
 

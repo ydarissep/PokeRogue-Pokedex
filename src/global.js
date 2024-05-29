@@ -1,5 +1,5 @@
 window.repo = "pagefaultgames/pokerogue/main"
-window.checkUpdate = "17 PR"
+window.checkUpdate = "18 PR"
 
 
 fetch('https://raw.githubusercontent.com/ydarissep/dex-core/main/index.html').then(async response => {
@@ -22,6 +22,12 @@ fetch('https://raw.githubusercontent.com/ydarissep/dex-core/main/index.html').th
     document.getElementById("locationsButton").innerText = "Biomes"
 
     insertVariantsContainer()
+
+    window.speciesPanelWeight = document.createElement("div"); speciesPanelWeight.setAttribute("ID", "speciesPanelWeight")
+    document.getElementById("speciesPanelSubcontainer3").prepend(speciesPanelWeight)
+
+    window.speciesPanelBiomesContainer = document.createElement("span"); speciesPanelBiomesContainer.setAttribute("ID", "speciesPanelBiomesContainer"); speciesPanelBiomesContainer.classList = "speciesPanelTextPadding"
+    speciesBaseStatsGraphContainer.append(speciesPanelBiomesContainer)
 
     const variantButton = document.createElement("button"); variantButton.setAttribute("ID", "onlyShowVariantPokemon"); variantButton.classList = "setting"; variantButton.type = "button"; variantButton.innerText = "Variant"
     variantButton.addEventListener("click", () => {

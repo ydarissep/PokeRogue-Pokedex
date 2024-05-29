@@ -1,8 +1,9 @@
 @import url(https://ydarissep.github.io/dex-core/style/speciesPanel.css);
 
-tbody .speciesPanelLearnsetsEffect {
-	font-size: 17px !important;
-	height: 50px;
+#speciesPanelWeight {
+	font-size: 15px;
+	padding-bottom: 5px;
+	letter-spacing: -0.3px;
 }
 
 .starterCost {
@@ -16,7 +17,7 @@ tbody .speciesPanelLearnsetsEffect {
 	margin-top: 10px;
 }
 
-.variantContainer {
+.variantContainer, .femaleIconContainer {
 	display: inline-flex;
 	margin-right: 10px;
 	padding: 3px;
@@ -26,13 +27,23 @@ tbody .speciesPanelLearnsetsEffect {
 	cursor: pointer;
 }
 
-.variantContainer:hover {
+.variantContainer:hover, .femaleIconContainer:hover {
 	border: 2px solid var(--theme-color) !important;
     transition: border 0.1s ease-in-out;
 }
 
-.variantContainer.activeVariant {
+.variantContainer.activeVariant, .femaleIconContainer.femaleActive {
 	border: 2px solid green !important;
+}
+
+#speciesPanelBiomesContainer {
+	padding: 14px 0px 0px 175px;
+	text-align: left !important;
+}
+
+tbody .speciesPanelLearnsetsEffect {
+	font-size: 17px !important;
+	height: 50px;
 }
 
 @media 
@@ -45,6 +56,10 @@ only screen and (max-width: 800px) {
 	.speciesPanelLearnsetsEffect {
 		font-size: 16px !important;
 	}
+
+	#speciesPanelBiomesContainer {
+		padding-left: 75px !important;
+	}
 }
 
 @media 
@@ -52,12 +67,20 @@ only screen and (max-width: 650px) {
 	.speciesPanelLearnsetsEffect {
 		font-size: 14px !important;
 	}
+
+	#speciesPanelBiomesContainer {
+		padding-left: 10px !important;
+	}
 }
 
 @media 
 only screen and (max-width: 550px) {
 	.speciesPanelLearnsetsEffect {
 		display: none;
+	}
+
+	#statsGraph {
+		width: 100px !important;
 	}
 }
 
