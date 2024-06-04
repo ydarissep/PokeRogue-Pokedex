@@ -14,12 +14,38 @@ fetch("https://raw.githubusercontent.com/ydarissep/dex-core/main/src/speciesPane
 
     text = text.replace("speciesAbilitiesMainContainer.classList.remove(\"hide\")", "prependAbilityStarterEl(name)\nspeciesAbilitiesMainContainer.classList.remove(\"hide\")")
     text = text.replace("speciesEggGroups.append(eggGroup1)", "speciesEggGroups.append(eggGroup1)\nspeciesEggGroups.prepend(returnStarterCostEl(name))\nspeciesPanelWeight.innerText = `${species[name][\"weight\"]} kg`")
-    text = text.replace("speciesSprite.src = getSpeciesSpriteSrc(name)", "handleVariants()\nappendBiomes(name)\nspeciesSprite.src = getSpeciesSpriteSrc(name)")
+    text = text.replace("speciesSprite.src = getSpeciesSpriteSrc(name)", "handleVariants()\nappendBiomes(name)\nsetPanelSpeciesMainSpriteSrc()")
     
     eval.call(window,text)
 }).catch(error => {
     console.warn(error)
 })
+
+
+
+
+
+function setPanelSpeciesMainSpriteSrc(){
+    if(femaleIconContainer.classList.contains("femaleActive") && sprites[`${panelSpecies}_F`] && spritesInfo[`${panelSpecies}_F`]){
+        speciesSprite.src = sprites[`${panelSpecies}_F`]
+        speciesSprite.style.transform = `scale(${spritesInfo[`${panelSpecies}_F`]})`
+    }
+    else{
+        speciesSprite.src = getSpeciesSpriteSrc(panelSpecies)
+        speciesSprite.style.transform = `scale(${spritesInfo[panelSpecies]})`
+    }
+    setPanelSpeciesMainSpriteScaling()
+}
+function setPanelSpeciesMainSpriteScaling(){
+    if(femaleIconContainer.classList.contains("femaleActive") && sprites[`${panelSpecies}_F`] && spritesInfo[`${panelSpecies}_F`]){
+        speciesSprite.style.transform = `scale(${spritesInfo[`${panelSpecies}_F`]})`
+    }
+    else{
+        speciesSprite.style.transform = `scale(${spritesInfo[panelSpecies]})`
+    }
+}
+
+
 
 
 
@@ -33,9 +59,9 @@ function appendBiomes(speciesName){
 
     const locationsKey = Object.keys(locations)
     biomeLoop:for(let i = 0; i < locationsKey.length; i++){
-        const timeOfDayKey = Object.keys(locations[locationsKey[i]])
-        for(let j = 0; j < timeOfDayKey.length; j++){
-            const speciesKey = Object.keys(locations[locationsKey[i]][timeOfDayKey[j]])
+        const rarityKey = Object.keys(locations[locationsKey[i]])
+        for(let j = 0; j < rarityKey.length; j++){
+            const speciesKey = Object.keys(locations[locationsKey[i]][rarityKey[j]])
             for(let k = 0; k < speciesKey.length; k++){
                 if(species[speciesName]["evolutionLine"].includes(speciesKey[k])){
                     const speciesPanelBiome = document.createElement("div"); speciesPanelBiome.innerText = locationsKey[i]; speciesPanelBiome.classList = "hyperlink speciesPanelTextPadding"
@@ -51,7 +77,8 @@ function appendBiomes(speciesName){
                         createFilter(locationsKey[i], "Biome")
                         speciesPanel("hide")
 
-                        document.getElementById(`${locationsKey[i]}${speciesKey[k]}${locations[locationsKey[i]][timeOfDayKey[j]][speciesKey[k]]}${/boss/i.test(locations[locationsKey[i]][timeOfDayKey[j]][speciesKey[k]])}`).scrollIntoView({ behavior: "smooth", block: "center" })
+                        document.getElementById(`${locationsKey[i]}\\${rarityKey[j]}\\${speciesKey[k]}`).scrollIntoView({ behavior: "smooth", block: "center" })
+                        document.getElementById(`${locationsKey[i]}\\${rarityKey[j]}\\${speciesKey[k]}`).classList.add("scrollIntoViewLocationFocus")
                     })
 
                     continue biomeLoop
@@ -158,6 +185,10 @@ function insertVariantsContainer(){
         for(let i = 0; i < 3; i++){
             if(variantsContainer.children[i].classList.contains("activeVariant")){
                 fetchVarSprite(variantsContainer.children[i], i, false)
+                break
+            }
+            if(i === 2){
+                setPanelSpeciesMainSpriteSrc()
             }
         }
     })
@@ -176,10 +207,11 @@ function fetchVarSprite(variantContainer, i, clicked = false, female = false){
 
     const targetSpecies = returnTargetSpeciesSprite(panelSpecies)
     if(variantContainer.classList.contains("activeVariant") && clicked){
-        speciesSprite.src = sprites[targetSpecies]
+        setPanelSpeciesMainSpriteSrc()
         variantContainer.classList.remove("activeVariant")
     }
     else{
+        setPanelSpeciesMainSpriteScaling()
         for(let j = 0; j < 3; j++){
             variantsContainer.children[j].classList.remove("activeVariant")
         }
@@ -213,7 +245,7 @@ function handleVariants(){
     }
 
     for(let i = 0; i < 3; i++){
-        //variantsContainer.children[i].classList.remove("activeVariant")
+        //variantsContainer.children[i].classList.remove("activeVariant") // Uncomment to disable automatic shiny when changing species
         if(typeof species[panelSpecies]["variant"][i] !== "undefined"){
             variantsContainer.children[i].classList.remove("hide")
             if(variantsContainer.children[i].classList.contains("activeVariant")){
@@ -325,10 +357,12 @@ async function applyPalVar(speciesName, index, female){
     let sprite = new Image()
     let canvas = document.createElement("canvas")
 
-    sprite.src = sprites[speciesName]
-
-    canvas.width = sprite.width
-    canvas.height = sprite.height
+    if(female && sprites[`${speciesName}_F`]){
+        sprite.src = sprites[`${speciesName}_F`]
+    }
+    else{
+        sprite.src = sprites[speciesName]
+    }
 
     let rawJson = null
     if(female){
@@ -344,6 +378,9 @@ async function applyPalVar(speciesName, index, female){
         const jsonKey = Object.keys(json[index])[i]
         pal[`${parseInt(jsonKey.slice(0, 2), 16)},${parseInt(jsonKey.slice(2, 4), 16)},${parseInt(jsonKey.slice(4, 6), 16)}`] = [parseInt(json[index][jsonKey].slice(0, 2), 16),parseInt(json[index][jsonKey].slice(2, 4), 16),parseInt(json[index][jsonKey].slice(4, 6), 16)]
     }
+
+    canvas.width = sprite.width
+    canvas.height = sprite.height
 
     const context = canvas.getContext('2d')
 
@@ -363,4 +400,75 @@ async function applyPalVar(speciesName, index, female){
     
     context.putImageData(imageData, 0, 0)
     speciesSprite.src = canvas.toDataURL()
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+async function getFemaleSprite(speciesName, species){
+    let sprite = new Image()
+    let canvas = document.createElement("canvas")
+
+    let canvasWidth = 64
+    let canvasHeight = 64
+    let frameX = 0
+    let frameY = 0
+
+    const rawJson = await fetch(`https://raw.githubusercontent.com/${repo}/public/images/pokemon/female/${species[speciesName]["sprite"]}.json`)
+    const json = await rawJson.json()
+
+    let i = 0
+    for(i = 0; i < json["textures"][0]["frames"].length; i++){
+        if(json["textures"][0]["frames"][i]["filename"] === "0001.png"){
+            canvasWidth = json["textures"][0]["frames"][i]["frame"]["w"]
+            canvasHeight = json["textures"][0]["frames"][i]["frame"]["h"]
+            frameX = json["textures"][0]["frames"][i]["frame"]["x"]
+            frameY = json["textures"][0]["frames"][i]["frame"]["y"]
+            break
+        }
+    }
+    if(i == json["textures"][0]["frames"].length){
+        canvasWidth = json["textures"][0]["frames"][0]["frame"]["w"]
+        canvasHeight = json["textures"][0]["frames"][0]["frame"]["h"]
+        frameX = json["textures"][0]["frames"][0]["frame"]["x"]
+        frameY = json["textures"][0]["frames"][0]["frame"]["y"]
+    }
+
+    if(canvasWidth > canvasHeight){
+        spritesInfo[`${speciesName}_F`] = `1, ${1 / (canvasWidth / canvasHeight)}`
+    }
+    else{
+        spritesInfo[`${speciesName}_F`] = `${1 / (canvasHeight / canvasWidth)}, 1`
+    }
+
+    canvas.width = canvasWidth
+    canvas.height = canvasHeight
+
+    sprite.crossOrigin = 'anonymous'
+    sprite.src = `https://raw.githubusercontent.com/${repo}/public/images/pokemon/female/${species[speciesName]["sprite"]}.png`
+
+    const context = canvas.getContext('2d')
+
+    sprite.onload = async () => {
+        context.clearRect(0, 0, canvas.width, canvas.height)
+        context.drawImage(sprite, -frameX, -frameY)
+
+        if(!localStorage.getItem(`${speciesName}_F`)){
+            localStorage.setItem(`${speciesName}_F`, LZString.compressToUTF16(canvas.toDataURL()))
+            localStorage.setItem(`spriteInfo${speciesName}_F`, spritesInfo[`${speciesName}_F`])
+        }
+        sprites[`${speciesName}_F`] = canvas.toDataURL()
+    }
 }

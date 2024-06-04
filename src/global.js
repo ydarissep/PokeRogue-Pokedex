@@ -1,5 +1,5 @@
 window.repo = "pagefaultgames/pokerogue/main"
-window.checkUpdate = "19 PR"
+window.checkUpdate = "20 PR"
 
 
 fetch('https://raw.githubusercontent.com/ydarissep/dex-core/main/index.html').then(async response => {
@@ -73,17 +73,17 @@ function filterLocationsTableInputNew(input, obj, keyArray){
 
     mainLoop: for(let i = 0, j = Object.keys(tracker).length; i < j; i++){
         const zone = tracker[i]["key"].split("\\")[0]
-        const method = tracker[i]["key"].split("\\")[1]
+        const rarity = tracker[i]["key"].split("\\")[1]
         const name = tracker[i]["key"].split("\\")[2]
-        let compareString = `${zone.replaceAll(/-|'| |_/g, "").toLowerCase()},${method.replaceAll(/-|'| |_/g, "").toLowerCase()},`
+        let compareString = `${zone.replaceAll(/-|'| |_/g, "").toLowerCase()},${name.replaceAll(/-|'| |_/g, "").toLowerCase()},`
         if(name in species){
             for (let k = 0; k < keyArray.length; k++){
                 compareString += (obj[name][keyArray[k]] + ",").replaceAll(/-|'| |_|species/gi, "").toLowerCase()
             }
             testLoop:for(splitInput of arraySanitizedInput){
                 if(!compareString.includes(splitInput.toLowerCase())){
-                    if(!locations[zone][method][name].match(new RegExp(`(?:\s+|^)${splitInput}`, "i"))){
-                        if(/(?:\s+|^)boss/i.test(input) && new RegExp(splitInput, "i").test(locations[zone][method][name])){
+                    if(!rarity.match(new RegExp(`(?:\s+|^)${splitInput}`, "i"))){
+                        if(/(?:\s+|^)boss/i.test(input) && new RegExp(splitInput, "i").test(rarity)){
                             continue testLoop
                         }
                         tracker[i]["filter"].push("input")

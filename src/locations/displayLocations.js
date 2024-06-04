@@ -4,13 +4,9 @@ function appendLocationsToTable(key){
     const location = key.split("\\")[0]
     const method = key.split("\\")[1]
     const speciesKey = key.split("\\")[2]
-    const rarity = locations[location][method][speciesKey]
-    const boss = /boss/i.test(rarity)
+    const boss = /boss/i.test(method)
 
     if(!(speciesKey in species)){
-        return false
-    }
-    if(locationsMoveFilter && document.getElementById(`${location}${speciesKey}${rarity}${boss}`)){
         return false
     }
 
@@ -46,21 +42,14 @@ function appendLocationsToTable(key){
         locationTable.children[1].append(methodTable)
     }
 
-    let rarityTable = document.getElementById(`${location}${rarity}${boss}`) 
+    let rarityTable = document.getElementById(`${location}${method}${boss}`) 
     if(!rarityTable){
-        rarityTable = returnRarityTable(location, rarity, boss)
-        insertRarityTable(methodTable.children[1], rarity, rarityTable)
+        rarityTable = returnRarityTable(location, method, boss)
+        insertRarityTable(methodTable.children[1], method, rarityTable)
     }
 
-    let speciesRow = document.getElementById(`${location}${speciesKey}${rarity}${boss}`)
-    if(speciesRow){
-        const timeOfDay = document.createElement("div"); timeOfDay.innerText = method; timeOfDay.classList = `timeOfDay ${method}`; timeOfDay.setAttribute("ID", `${location}\\${method}\\${speciesKey}`)
-        speciesRow.children[2].append(timeOfDay)
-    }
-    else{
-        speciesRow = returnSpeciesRow(location, method, speciesKey, rarity, boss)
-        insertSpeciesRow(rarityTable.children[1], method, speciesRow)
-    }
+    speciesRow = returnSpeciesRow(location, method, speciesKey)
+    insertSpeciesRow(rarityTable.children[1], locations[location][method][speciesKey][0], speciesRow)
 
     if(locationTable.children[1].children.length == 1){
         locationTable.classList.remove("locationScale")
@@ -130,8 +119,8 @@ function insertRarityTable(methodTableTbody, rarity, rarityTable){
 
 
 
-function returnSpeciesRow(location, method, speciesKey, rarity, boss){
-    const row = document.createElement("tr"); row.setAttribute("ID", `${location}${speciesKey}${rarity}${boss}`); row.classList = "locationSpeciesRow"
+function returnSpeciesRow(location, method, speciesKey){
+    const row = document.createElement("tr"); row.classList = "locationSpeciesRow"; row.setAttribute("ID", `${location}\\${method}\\${speciesKey}`)
 
     const spriteContainer = document.createElement("td"); spriteContainer.classList = "locationSpriteContainer"
     const sprite = document.createElement("img"); sprite.src = getSpeciesSpriteSrc(speciesKey); sprite.className = `sprite${speciesKey} miniSprite3`
@@ -144,7 +133,7 @@ function returnSpeciesRow(location, method, speciesKey, rarity, boss){
     const speciesName = document.createElement("td"); speciesName.innerText = sanitizeString(speciesKey); speciesName.classList = "locationSpeciesName"
     row.append(speciesName)
 
-    const timeOfDayContainer = document.createElement("td"); rarity.classList = "timeOfDayContainer"
+    const timeOfDayContainer = document.createElement("td"); timeOfDayContainer.classList = "timeOfDayContainer"
     if(locationsMoveFilter){
         moveMethod = speciesCanLearnMove(species[speciesKey], locationsMoveFilter)
         const moveFilter = document.createElement("div"); moveFilter.className = "bold"
@@ -163,12 +152,14 @@ function returnSpeciesRow(location, method, speciesKey, rarity, boss){
         timeOfDayContainer.append(moveFilter)
     }
     else{
-        const timeOfDay = document.createElement("div"); timeOfDay.innerText = method; timeOfDay.classList = `timeOfDay ${method}`; timeOfDay.setAttribute("ID", `${location}\\${method}\\${speciesKey}`)
-        timeOfDayContainer.append(timeOfDay)
-        if(method == "All" || method == "Anytime"){
-            speciesName.colSpan = "2"
-            timeOfDayContainer.classList.add("hide")
-        }
+        locations[location][method][speciesKey].forEach(timeOfDay => {
+            const timeOfDayEl = document.createElement("div"); timeOfDayEl.innerText = timeOfDay; timeOfDayEl.classList = `timeOfDay ${timeOfDay}`
+            timeOfDayContainer.append(timeOfDayEl)
+            if(timeOfDay == "All" || timeOfDay == "Anytime"){
+                speciesName.colSpan = "2"
+                timeOfDayContainer.classList.add("hide")
+            }
+        })
     }
     row.append(timeOfDayContainer)
 

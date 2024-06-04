@@ -118,6 +118,12 @@ async function fetchSpeciesObj(){
         if(localStorage.getItem(`spriteInfo${name}`)){
             spritesInfo[name] = localStorage.getItem(`spriteInfo${name}`)
         }
+        if(localStorage.getItem(`spriteInfo${name}_F`)){
+            spritesInfo[`${name}_F`] = localStorage.getItem(`spriteInfo${name}_F`)
+        }
+        if(localStorage.getItem(`${name}_F`)){
+            sprites[`${name}_F`] = await LZString.decompressFromUTF16(localStorage.getItem(`${name}_F`))
+        }
     })
 
     for(let i = 0, j = Object.keys(species).length; i < j; i++){

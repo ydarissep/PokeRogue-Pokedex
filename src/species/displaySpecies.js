@@ -22,6 +22,10 @@ fetch("https://raw.githubusercontent.com/ydarissep/dex-core/main/src/species/dis
 
 
 async function spriteRemoveBgReturnBase64(speciesName, species){
+    if(species[speciesName]["variantF"].length > 0){
+        getFemaleSprite(speciesName, species)
+    }
+
     let sprite = new Image()
     let canvas = document.createElement("canvas")
 
@@ -97,7 +101,7 @@ async function spriteRemoveBgReturnBase64(speciesName, species){
         if(els.length > 0){
             for(let i = 0; i < els.length; i++){
                 els[i].src = canvas.toDataURL()
-                els[i].style.transform = `scale(${spritesInfo[returnTargetSpeciesSprite(speciesName)]})`
+                els[i].style.transform = `scale(${spritesInfo[speciesName]})`
             }
         }
     }

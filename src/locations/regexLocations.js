@@ -1,63 +1,75 @@
 function regexBiomes(textBiomes, locations, conversionTable){
-	const biomesMatch = textBiomes.match(/Biome\.\w+\s*]\s*:\s*{\s*\[\s*BiomePoolTier\.\w+\s*\]\s*:\s*{\s*\[\s*TimeOfDay.\w+.*?(?=Biome\.\w+\s*]|}\s*;)/igs)
-	if(biomesMatch){
-		biomesMatch.forEach(biome => {
+	const speciesBiomesMatch = textBiomes.match(/\[\s*Species\.\w+\s*,\s*Type.*?(?=\[\s*Species\.\w+\s*,\s*Type|]\s*;)/igs)
+	if(speciesBiomesMatch){
+		speciesBiomesMatch.forEach(speciesMatch => {
 
-			let biomeName = biome.match(/Biome\.(\w+)/i)
-			if(biomeName){
+			let baseSpecies = speciesMatch.match(/Species\.\w+/)[0].toUpperCase().replace(".", "_")
+			if(baseSpecies in species){
 
-				biomeName = sanitizeString(biomeName[1])
+				const biomesMatch = speciesMatch.match(/Biome\.\w+.*?]\s*(?:,|;)/igs)
+				if(biomesMatch){
+					biomesMatch.forEach(biomeMatch => {
+						const biomeName = sanitizeString(biomeMatch.match(/Biome\.(\w+)/i)[1])
 
-				const biomePoolTierMatch = biome.match(/BiomePoolTier\.\w+.*?(?=BiomePoolTier\.\w+|$)/igs)
-				if(biomePoolTierMatch){
-					biomePoolTierMatch.forEach(biomePoolTier => {
+						let tier = biomeMatch.match(/BiomePoolTier\.(\w+)/i)
+						if(tier){
+							tier = sanitizeString(tier[1])
 
-						const tier = sanitizeString(biomePoolTier.match(/BiomePoolTier\.(\w+)/i)[1])
+							if(!(biomeName in locations)){
+								locations[biomeName] = {}
+							}
 
-						const timeOfDayMatch = biomePoolTier.match(/TimeOfDay\.\w+.*?(?=TimeOfDay\.\w+|$)/igs)
-						if(timeOfDayMatch){
-							timeOfDayMatch.forEach(timeOfDayPool => {
+							if(!(tier in locations[biomeName])){
+								locations[biomeName][tier] = {}
+							}
 
-								const timeOfDay = sanitizeString(timeOfDayPool.match(/TimeOfDay\.(\w+)/)[1])
-
-								const speciesNameMatch = timeOfDayPool.match(/Species\.\w+/igs)
-								if(speciesNameMatch){
-									speciesNameMatch.forEach(speciesName => {
-
-										speciesName = speciesName.toUpperCase().replace(".", "_")
-
-										if(speciesName in species){
-
-											if(!(biomeName in locations)){
-												locations[biomeName] = {}
-											}
-
-											if(!(timeOfDay in locations[biomeName])){
-												locations[biomeName][timeOfDay] = {}
-											}
-
-											if(`${speciesName}${biomeName}` in conversionTable){
-												if(species[speciesName]["forms"][conversionTable[`${speciesName}${biomeName}`]]){
-													speciesName = species[speciesName]["forms"][conversionTable[`${speciesName}${biomeName}`]]
-												}
-											}
-											if(`${speciesName}${timeOfDay}` in conversionTable){
-												if(species[speciesName]["forms"][conversionTable[`${speciesName}${timeOfDay}`]]){
-													speciesName = species[speciesName]["forms"][conversionTable[`${speciesName}${timeOfDay}`]]
-												}
-											}
-											
-											locations[biomeName][timeOfDay][speciesName] = tier
-										}
-									})
+							let speciesName = baseSpecies
+							if(`${speciesName}${biomeName}` in conversionTable){
+								if(species[speciesName]["forms"][conversionTable[`${speciesName}${biomeName}`]]){
+									speciesName = species[speciesName]["forms"][conversionTable[`${speciesName}${biomeName}`]]
 								}
-							})
+							}
+
+							const timeOfDayMatch = biomeMatch.match(/TimeOfDay\.\w+/ig)
+							if(timeOfDayMatch){
+								timeOfDayMatch.forEach(timeOfDay => {
+									timeOfDay = sanitizeString(timeOfDay.match(/timeOfDay\.(\w+)/i)[1])
+									speciesName = baseSpecies
+
+									if(`${speciesName}${biomeName}` in conversionTable){
+										if(species[speciesName]["forms"][conversionTable[`${speciesName}${biomeName}`]]){
+											speciesName = species[speciesName]["forms"][conversionTable[`${speciesName}${biomeName}`]]
+										}
+									}
+
+									if(`${speciesName}${timeOfDay}` in conversionTable){
+										if(species[speciesName]["forms"][conversionTable[`${speciesName}${timeOfDay}`]]){
+											speciesName = species[speciesName]["forms"][conversionTable[`${speciesName}${timeOfDay}`]]
+										}
+									}
+
+									if(!(speciesName in locations[biomeName][tier])){
+										locations[biomeName][tier][speciesName] = [timeOfDay]
+									}
+									else{
+										locations[biomeName][tier][speciesName].push(timeOfDay)
+									}
+								})
+							}
+							else{
+								locations[biomeName][tier][speciesName] = ["All"]
+							}
 						}
 					})
 				}
 			}
 		})
 	}
+
+
+
+
+
 
 	const biomeLinksMatch = textBiomes.match(/const\s*biomeLinks.*?}\s*;/is)
 	if(biomeLinksMatch){
