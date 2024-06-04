@@ -26,13 +26,11 @@ fetch("https://raw.githubusercontent.com/ydarissep/dex-core/main/src/speciesPane
 
 
 function setPanelSpeciesMainSpriteSrc(){
-    if(femaleIconContainer.classList.contains("femaleActive") && sprites[`${panelSpecies}_F`] && spritesInfo[`${panelSpecies}_F`]){
+    if(femaleIconContainer.classList.contains("femaleActive") && sprites[`${panelSpecies}_F`]){
         speciesSprite.src = sprites[`${panelSpecies}_F`]
-        speciesSprite.style.transform = `scale(${spritesInfo[`${panelSpecies}_F`]})`
     }
     else{
         speciesSprite.src = getSpeciesSpriteSrc(panelSpecies)
-        speciesSprite.style.transform = `scale(${spritesInfo[panelSpecies]})`
     }
     setPanelSpeciesMainSpriteScaling()
 }
