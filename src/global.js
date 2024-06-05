@@ -54,6 +54,7 @@ fetch('https://raw.githubusercontent.com/ydarissep/dex-core/main/index.html').th
         return response.text()
     }).then(async text => {
         text = text.replaceAll("filterLocationsTableInput", "filterLocationsTableInputNew")
+        text = text.replace('filterTableInput(value, species, ["name", "abilities", "innates"])', 'filterTableInput(value, species, ["name", "abilities", "innates", "starterAbility", "ID"])')
         await eval.call(window,text)
     }).catch(error => {
         console.warn(error)
