@@ -143,7 +143,7 @@ function regexBaseStats(textBaseStats, species, jsonMasterlist){
                     if(statsMatch){
                         const stats = statsMatch[0].match(/\d+/g)
                         for(let i = 0; i < stats.length && i < 7; i++){
-                            species[speciesName][statsOrder[i]] = stats[i]
+                            species[speciesName][statsOrder[i]] = parseInt(stats[i])
                         }
                     }
 

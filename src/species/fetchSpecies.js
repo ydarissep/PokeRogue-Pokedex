@@ -118,11 +118,11 @@ async function fetchSpeciesObj(){
         if(localStorage.getItem(`spriteInfo${name}`)){
             spritesInfo[name] = localStorage.getItem(`spriteInfo${name}`)
         }
-        if(localStorage.getItem(`spriteInfo${name}_F`)){
-            spritesInfo[`${name}_F`] = localStorage.getItem(`spriteInfo${name}_F`)
+        if(localStorage.getItem(`spriteInfoF${name}`)){
+            spritesInfo[`F_${name}`] = localStorage.getItem(`spriteInfoF${name}`)
         }
-        if(localStorage.getItem(`${name}_F`)){
-            sprites[`${name}_F`] = await LZString.decompressFromUTF16(localStorage.getItem(`${name}_F`))
+        if(localStorage.getItem(`F_${name}`)){
+            sprites[`F_${name}`] = await LZString.decompressFromUTF16(localStorage.getItem(`F_${name}`))
         }
     })
 

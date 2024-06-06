@@ -26,8 +26,8 @@ fetch("https://raw.githubusercontent.com/ydarissep/dex-core/main/src/speciesPane
 
 
 function setPanelSpeciesMainSpriteSrc(){
-    if(femaleIconContainer.classList.contains("femaleActive") && sprites[`${panelSpecies}_F`]){
-        speciesSprite.src = sprites[`${panelSpecies}_F`]
+    if(femaleIconContainer.classList.contains("femaleActive") && sprites[`F_${panelSpecies}`]){
+        speciesSprite.src = sprites[`F_${panelSpecies}`]
     }
     else{
         speciesSprite.src = getSpeciesSpriteSrc(panelSpecies)
@@ -35,8 +35,8 @@ function setPanelSpeciesMainSpriteSrc(){
     setPanelSpeciesMainSpriteScaling()
 }
 function setPanelSpeciesMainSpriteScaling(){
-    if(femaleIconContainer.classList.contains("femaleActive") && sprites[`${panelSpecies}_F`] && spritesInfo[`${panelSpecies}_F`]){
-        speciesSprite.style.transform = `scale(${spritesInfo[`${panelSpecies}_F`]})`
+    if(femaleIconContainer.classList.contains("femaleActive") && sprites[`F_${panelSpecies}`] && spritesInfo[`F_${panelSpecies}`]){
+        speciesSprite.style.transform = `scale(${spritesInfo[`F_${panelSpecies}`]})`
     }
     else{
         speciesSprite.style.transform = `scale(${spritesInfo[panelSpecies]})`
@@ -355,8 +355,8 @@ async function applyPalVar(speciesName, index, female){
     let sprite = new Image()
     let canvas = document.createElement("canvas")
 
-    if(female && sprites[`${speciesName}_F`]){
-        sprite.src = sprites[`${speciesName}_F`]
+    if(female && sprites[`F_${speciesName}`]){
+        sprite.src = sprites[`F_${speciesName}`]
     }
     else{
         sprite.src = sprites[speciesName]
@@ -445,10 +445,10 @@ async function getFemaleSprite(speciesName, species){
     }
 
     if(canvasWidth > canvasHeight){
-        spritesInfo[`${speciesName}_F`] = `1, ${1 / (canvasWidth / canvasHeight)}`
+        spritesInfo[`F_${speciesName}`] = `1, ${1 / (canvasWidth / canvasHeight)}`
     }
     else{
-        spritesInfo[`${speciesName}_F`] = `${1 / (canvasHeight / canvasWidth)}, 1`
+        spritesInfo[`F_${speciesName}`] = `${1 / (canvasHeight / canvasWidth)}, 1`
     }
 
     canvas.width = canvasWidth
@@ -463,10 +463,10 @@ async function getFemaleSprite(speciesName, species){
         context.clearRect(0, 0, canvas.width, canvas.height)
         context.drawImage(sprite, -frameX, -frameY)
 
-        if(!localStorage.getItem(`${speciesName}_F`)){
-            localStorage.setItem(`${speciesName}_F`, LZString.compressToUTF16(canvas.toDataURL()))
-            localStorage.setItem(`spriteInfo${speciesName}_F`, spritesInfo[`${speciesName}_F`])
+        if(!localStorage.getItem(`F_${speciesName}`)){
+            localStorage.setItem(`F_${speciesName}`, LZString.compressToUTF16(canvas.toDataURL()))
+            localStorage.setItem(`spriteInfoF${speciesName}`, spritesInfo[`F_${speciesName}`])
         }
-        sprites[`${speciesName}_F`] = canvas.toDataURL()
+        sprites[`F_${speciesName}`] = canvas.toDataURL()
     }
 }
