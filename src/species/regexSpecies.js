@@ -531,6 +531,9 @@ function regexEvolution(textEvolution, species){
                         if(speciesName === "SPECIES_ROCKRUFF" && targetSpecies === "SPECIES_LYCANROC_DUSK"){
                             method = "EVO_LEVEL_ABILITY_OWN_TEMPO"
                         }
+                        else if(speciesName === "SPECIES_PANCHAM" && targetSpecies === "SPECIES_PANGORO"){
+                            method = "EVO_LEVEL_DARK_TYPE_IN_PARTY"
+                        }
 
                         if(originalSpecies !== targetSpecies){
                             species[speciesName]["evolution"].push([method, condition, targetSpecies])
