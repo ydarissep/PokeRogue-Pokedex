@@ -62,6 +62,7 @@ function regexBaseStats(textBaseStats, species, jsonMasterlist){
                 if(speciesName){
                     species[speciesName] = {}
                     species[speciesName]["name"] = speciesName
+                    species[speciesName]["ingameName"] = sanitizeString(speciesName)
                     species[speciesName]["ID"] = counter
 
                     if(spriteReset.includes(speciesName)){
@@ -163,6 +164,39 @@ function regexBaseStats(textBaseStats, species, jsonMasterlist){
     
     return species
 }
+
+
+
+
+
+
+
+
+
+function regexIngameName(textIngameName, species){
+    let translationTable = {}
+    const matchIngameNames = textIngameName.match(/".*?"\s*:\s*".*?"/g)
+    if(matchIngameNames){
+        matchIngameNames.forEach(ingameName => {
+            const matchIngameName = ingameName.match(/"(.*?)"\s*:\s*"(.*?)"/)
+            translationTable[`SPECIES_${matchIngameName[1].toUpperCase()}`] = matchIngameName[2]
+        })
+    }
+
+    Object.keys(species).forEach(speciesName => {
+        if(speciesName in translationTable){
+            species[speciesName]["forms"].forEach(formName => {
+                species[formName]["ingameName"] = translationTable[speciesName]
+            })
+        }
+    })
+
+    return species
+}
+
+
+
+
 
 
 

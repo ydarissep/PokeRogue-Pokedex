@@ -162,3 +162,26 @@ async function getBiomesFormsConverionTable(textBiomesForms){
 
 	return conversionTable
 }
+
+
+
+
+
+
+
+
+
+
+
+async function getBiomesTranslationTable(textBiomesTranslation){
+	let translationTable = {}
+	const matchTranslations = textBiomesTranslation.match(/".*?"\s*:\s*".*?"/igs)
+	if(matchTranslations){
+		matchTranslations.forEach(translation => {
+			translation = translation.match(/"(.*?)"\s*:\s*"(.*?)"/)
+			translationTable[sanitizeString(translation[1])] = translation[2]
+		})
+	}
+
+	return translationTable
+}

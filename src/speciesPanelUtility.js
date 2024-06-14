@@ -15,6 +15,13 @@ fetch("https://raw.githubusercontent.com/ydarissep/dex-core/main/src/speciesPane
     text = text.replace("speciesAbilitiesMainContainer.classList.remove(\"hide\")", "prependAbilityStarterEl(name)\nspeciesAbilitiesMainContainer.classList.remove(\"hide\")")
     text = text.replace("speciesEggGroups.append(eggGroup1)", "speciesEggGroups.append(eggGroup1)\nspeciesEggGroups.prepend(returnStarterCostEl(name))\nspeciesPanelWeight.innerText = `${species[name][\"weight\"]} kg`")
     text = text.replace("speciesSprite.src = getSpeciesSpriteSrc(name)", "handleVariants()\nappendBiomes(name)\nsetPanelSpeciesMainSpriteSrc()")
+    text = text.replace('speciesName.innerText = sanitizeString(name)', 'speciesName.innerText = species[name]["ingameName"]')
+    text = text.replace('name.innerText = sanitizeString(species[speciesName]["name"])', 'name.innerText = species[speciesName]["ingameName"]')
+    text = text.replaceAll("checkType.innerText = sanitizeString(type)", 'checkType.innerText = translationTable[sanitizeString(type)] ??= sanitizeString(type)')
+    text = text.replace('speciesType1.innerText = sanitizeString(species[name]["type1"])', 'speciesType1.innerText = translationTable[sanitizeString(species[name]["type1"])] ??= sanitizeString(species[name]["type1"])')
+    text = text.replace('speciesType2.innerText = sanitizeString(species[name]["type2"])', 'speciesType2.innerText = translationTable[sanitizeString(species[name]["type2"])] ??= sanitizeString(species[name]["type2"])')
+    text = text.replace('sanitizeString(moves[move]["type"]).slice(0,3)', '(translationTable[sanitizeString(moves[move]["type"])] ??= sanitizeString(moves[move]["type"])).slice(0,3)')
+    text = text.replaceAll('sanitizeString(moves[move[0]]["type"]).slice(0,3)', '(translationTable[sanitizeString(moves[move[0]]["type"])] ??= sanitizeString(moves[move[0]]["type"])).slice(0,3)')
     
     eval.call(window,text)
 }).catch(error => {
@@ -63,6 +70,9 @@ function appendBiomes(speciesName){
             for(let k = 0; k < speciesKey.length; k++){
                 if(species[speciesName]["evolutionLine"].includes(speciesKey[k])){
                     const speciesPanelBiome = document.createElement("div"); speciesPanelBiome.innerText = locationsKey[i]; speciesPanelBiome.classList = "hyperlink speciesPanelTextPadding"
+                    if(locationsKey[i] in biomeTranslation){
+                        speciesPanelBiome.innerText = biomeTranslation[locationsKey[i]]
+                    }
                     speciesPanelBiomesContainer.append(speciesPanelBiome)
 
                     speciesPanelBiome.addEventListener("click", async() => {
@@ -72,7 +82,12 @@ function appendBiomes(speciesName){
                         }
                         deleteFiltersFromTable()
         
-                        createFilter(locationsKey[i], "Biome")
+                        if(locationsKey[i] in biomeTranslation){
+                            createFilter(biomeTranslation[locationsKey[i]], "Biome")
+                        }
+                        else{
+                            createFilter(locationsKey[i], "Biome")
+                        }
                         speciesPanel("hide")
 
                         document.getElementById(`${locationsKey[i]}\\${rarityKey[j]}\\${speciesKey[k]}`).scrollIntoView({ behavior: "smooth", block: "center" })
@@ -87,6 +102,9 @@ function appendBiomes(speciesName){
 
     if(speciesPanelBiomesContainer.children.length > 0){
         const speciesPanelBiomeText = document.createElement("div"); speciesPanelBiomeText.innerText = "Biomes:"; speciesPanelBiomeText.classList = "speciesPanelText"
+        if("Biomes" in staticTranslationTable){
+            speciesPanelBiomeText.innerText = `${staticTranslationTable["Biomes"]}:`
+        }
         speciesPanelBiomesContainer.prepend(speciesPanelBiomeText)
 
         if(speciesPanelBiomesContainer.children.length > 5){

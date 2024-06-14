@@ -2,7 +2,7 @@ function regexMovesDescription(textMovesDescription, moves){
     const movesMatch = textMovesDescription.match(/.*?:.*?\}/igs)
     if(movesMatch){
         movesMatch.forEach(moveMatch => {
-            const moveNameMatch = moveMatch.match(/"\s*(\w+)\s*"\s*:\s*{/)
+            const moveNameMatch = moveMatch.match(/"?\s*(\w+)\s*"?\s*:\s*{/)
             if(moveNameMatch){
                 const moveName = `MOVE_${moveNameMatch[1].replace(/([A-Z])/g, " $1").replace(/(\d+)/g, " $1").trim().replaceAll(" ", "_").toUpperCase()}`
                 if(moveName in moves){
@@ -10,9 +10,9 @@ function regexMovesDescription(textMovesDescription, moves){
                     if(moveIngameNameMatch){
                         moves[moveName]["ingameName"] = moveIngameNameMatch[1]
                     }
-                    const moveDescMatch = moveMatch.match(/effect:\s*"(.*?)"/i)
+                    const moveDescMatch = moveMatch.match(/effect\s*:\s*\W(.*?)\W\s*,?\s*(?:\n|})/i)
                     if(moveDescMatch){
-                        moves[moveName]["description"] = moveDescMatch[1].replaceAll(/Sp\s*\./ig, "Sp").replaceAll(/\.+/g, ".ceciEstUnPoint").split("ceciEstUnPoint")
+                        moves[moveName]["description"] = moveDescMatch[1].replaceAll(/Sp\s*\./ig, "Sp").replaceAll("\\n", "").replaceAll(/\.+/g, ".ceciEstUnPoint").split("ceciEstUnPoint")
                         moves[moveName]["description"] = moves[moveName]["description"].filter(desc => desc.trim() !== "")
                     }
                 }
@@ -134,7 +134,7 @@ function regexMoves(textMoves, moves){
                     }
                 })
             }
-            if(effect !== "EFFECT"){
+            if(effect !== "EFFECT" && lang === "en"){
                 moves[moveName]["effect"] = effect
             }
 

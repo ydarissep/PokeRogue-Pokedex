@@ -1,5 +1,6 @@
 window.repo = "pagefaultgames/pokerogue/main"
-window.checkUpdate = "22 PR"
+window.checkUpdate = "1 PR"
+window.lang = "en"
 
 
 fetch('https://raw.githubusercontent.com/ydarissep/dex-core/main/index.html').then(async response => {
@@ -44,17 +45,19 @@ fetch('https://raw.githubusercontent.com/ydarissep/dex-core/main/index.html').th
     })
     document.getElementById("locationsFilter").insertBefore(variantButtonLocations, document.getElementById("locationsFilterList"))
 
+    /*
     window.hideLinksFilter = document.createElement("button"); hideLinksFilter.setAttribute("ID", "hideLinksFilter"); hideLinksFilter.classList = "setting"; hideLinksFilter.type = "button"; hideLinksFilter.innerText = "Hide Links"
     hideLinksFilter.addEventListener("click", () => {
         hideLinks(hideLinksFilter)
     })
     document.getElementById("locationsFilter").insertBefore(hideLinksFilter, document.getElementById("locationsFilterList"))
+    */
 
     await fetch("https://raw.githubusercontent.com/ydarissep/dex-core/main/src/global.js").then(async response => {
         return response.text()
     }).then(async text => {
         text = text.replaceAll("filterLocationsTableInput", "filterLocationsTableInputNew")
-        text = text.replace('filterTableInput(value, species, ["name", "abilities", "innates"])', 'filterTableInput(value, species, ["name", "abilities", "innates", "starterAbility", "ID"])')
+        text = text.replace(/filterTableInput\(value, species, \[.*?\]\)/, 'filterTableInput(value, species, ["name", "ingameName", "abilities", "innates", "starterAbility", "ID"])')
         await eval.call(window,text)
     }).catch(error => {
         console.warn(error)
@@ -70,16 +73,23 @@ fetch('https://raw.githubusercontent.com/ydarissep/dex-core/main/index.html').th
 
 
 function filterLocationsTableInputNew(input, obj, keyArray){
-    const arraySanitizedInput = input.trim().split(/-|'| |,|_/g)
+    const arraySanitizedInput = input.trim().normalize("NFD").replace(/[\u0300-\u036f]/g, "").split(/-|'| |,|_/g)
 
     mainLoop: for(let i = 0, j = Object.keys(tracker).length; i < j; i++){
         const zone = tracker[i]["key"].split("\\")[0]
         const rarity = tracker[i]["key"].split("\\")[1]
         const name = tracker[i]["key"].split("\\")[2]
-        let compareString = `${zone.replaceAll(/-|'| |_/g, "").toLowerCase()},${name.replaceAll(/-|'| |_/g, "").toLowerCase()},`
+        let compareString = `${zone},${name},`.replaceAll(/-|'| |_/g, "").normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase()
         if(name in species){
             for (let k = 0; k < keyArray.length; k++){
-                compareString += (obj[name][keyArray[k]] + ",").replaceAll(/-|'| |_|species/gi, "").toLowerCase()
+                if(keyArray[k] === "evolutionLine"){
+                    obj[name][keyArray[k]].forEach(evoName => {
+                        compareString += (species[evoName]["ingameName"] + ",").replaceAll(/-|'| |_|species/gi, "").normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase()
+                    })
+                }
+                else{
+                    compareString += (obj[name][keyArray[k]] + ",").replaceAll(/-|'| |_|species/gi, "").normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase()
+                }
             }
             testLoop:for(splitInput of arraySanitizedInput){
                 if(!compareString.includes(splitInput.toLowerCase())){

@@ -1,6 +1,6 @@
 async function getAbilities(abilities){
     footerP("Fetching abilities")
-    const rawAbilities = await fetch(`https://raw.githubusercontent.com/${repo}/src/locales/en/ability.ts`)
+    const rawAbilities = await fetch(`https://raw.githubusercontent.com/${repo}/src/locales/${lang}/ability.ts`)
     const textAbilities = await rawAbilities.text()
 
     return regexAbilities(textAbilities, abilities)

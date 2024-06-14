@@ -2,7 +2,7 @@ function regexAbilities(textAbilities, abilities){
     const abilitiesMatch = textAbilities.match(/.*?:.*?\}/igs)
     if(abilitiesMatch){
         abilitiesMatch.forEach(abilityMatch => {
-            const abilityNameMatch = abilityMatch.match(/(\w+)\s*:\s*{/)
+            const abilityNameMatch = abilityMatch.match(/"?(\w+)"?\s*:\s*{/)
             if(abilityNameMatch){
                 const abilityName = `ABILITY_${abilityNameMatch[1].replace(/([A-Z])/g, " $1").replace(/(\d+)/g, " $1").trim().replaceAll(" ", "_").toUpperCase()}`
                 abilities[abilityName] = {}
@@ -14,9 +14,9 @@ function regexAbilities(textAbilities, abilities){
                 if(abilityIngameNameMatch){
                     abilities[abilityName]["ingameName"] = abilityIngameNameMatch[1]
                 }
-                const abilityDescMatch = abilityMatch.match(/description\s*:\s*\W(.*)\W\s*,/i)
+                const abilityDescMatch = abilityMatch.match(/description\s*:\s*\W(.*?)\W\s*,?\s*(?:\n|})/i)
                 if(abilityDescMatch){
-                    abilities[abilityName]["description"] = abilityDescMatch[1]
+                    abilities[abilityName]["description"] = abilityDescMatch[1].replaceAll("\\n", " ")
                 }
             }
         })

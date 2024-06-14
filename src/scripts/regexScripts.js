@@ -1,12 +1,30 @@
-async function regexTrainersParties(textTrainers){
-    const matchTrainers = textTrainers.match(/\[\s*TrainerType\.\w+\s*].*?(?=\[\s*TrainerType\.\w+\s*]|}\s*;)/igs)
-    if(matchTrainers){
-        matchTrainers.forEach(trainer => {
-            console.log(trainer)
+async function regexPokemonInfo(textPokemonInfo){
+    const typesMatch = textPokemonInfo.match(/Type\s*:\s*{.*?}\s*,/is)
+    if(typesMatch){
+        const typesInfo = typesMatch[0].match(/".*?"\s*:\s*".*?"/g)
+        if(typesInfo){
+            typesInfo.forEach(typeInfo => {
+                typeInfo = typeInfo.match(/"(.*?)"\s*:\s*"(.*?)"/)
+                translationTable[sanitizeString(typeInfo[1])] = typeInfo[2]
+            })
+        }
+    }
+
+
+    if(lang !== "en"){
+        const statsObj = {"HP": "HPshortened", "Atk": "ATKshortened", "Def": "DEFshortened", "SpA": "SPATKshortened", "SpD": "SPDEFshortened", "Spe": "SPDshortened"}
+        Object.keys(statsObj).forEach(stat => {
+            const statInfo = textPokemonInfo.match(new RegExp(`"${statsObj[stat]}"\\s*:\\s*".*?"`, "i"))
+            if(statInfo){
+                translationTable[stat] = statInfo[0].match(/".*?"\s*:\s*"(.*?)"/)[1]
+            }
         })
+
+        if(["en", "fr", "es", "it", "de", "ko", "zh_CN", "zh_TW", "pt_BR"].includes(lang)){
+            translationTable["BST"] = {"en": "Sum", "fr": "Total", "es": "Total", "it": "BST", "de": "Summe", "ko": "합계", "zh_CN": "种族值", "zh_TW": "總計", "pt_BR": "Total"}[lang]
+        }
     }
 }
-
 
 
 

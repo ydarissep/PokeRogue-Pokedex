@@ -29,9 +29,20 @@ async function getTrainers(){
     await regexTrainersParties(textTrainers)
 }
 
+async function getTranslationTable(){
+    footerP("Fetching translation table")
+    const rawPokemonInfo = await fetch(`https://raw.githubusercontent.com/${repo}/src/locales/${lang}/pokemon-info.ts`)
+    const textPokemonInfo = await rawPokemonInfo.text()
+
+    await regexPokemonInfo(textPokemonInfo)
+}
+
 async function buildScriptsObjs(){
     window.trainers = {}
     window.items = {}
+    window.translationTable = {}
+
+    await getTranslationTable()
 
     //await getTrainers()
 
@@ -41,6 +52,7 @@ async function buildScriptsObjs(){
     await getItemsIcon()
     */
 
+    localStorage.setItem("translationTable", LZString.compressToUTF16(JSON.stringify(translationTable)))
     localStorage.setItem("trainers", LZString.compressToUTF16(JSON.stringify(trainers)))
     localStorage.setItem("items", LZString.compressToUTF16(JSON.stringify(items)))
     //localStorage.setItem("locations", LZString.compressToUTF16(JSON.stringify(locations)))
@@ -52,8 +64,9 @@ async function fetchScripts(){
         await buildScriptsObjs()
     }
     else{
-        window.items = await JSON.parse(LZString.decompressFromUTF16(localStorage.getItem("items")))   
-        window.trainers = await JSON.parse(LZString.decompressFromUTF16(localStorage.getItem("trainers")))   
+        window.items = await JSON.parse(LZString.decompressFromUTF16(localStorage.getItem("items")))
+        window.trainers = await JSON.parse(LZString.decompressFromUTF16(localStorage.getItem("trainers")))
+        window.translationTable = await JSON.parse(LZString.decompressFromUTF16(localStorage.getItem("translationTable")))
     }
     
 

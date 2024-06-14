@@ -45,6 +45,17 @@ async function getEggMovesLearnsets(species){
     return regexEggMovesLearnsets(textEggMoves, species)
 }
 
+async function getIngameNamme(species){
+    if(lang === "en"){
+        return species
+    }
+
+    const rawIngameName = await fetch(`https://raw.githubusercontent.com/${repo}/src/locales/${lang}/pokemon.ts`)
+    const textIngameName = await rawIngameName.text()
+
+    return regexIngameName(textIngameName, species)
+}
+
 async function getChanges(species){
     const rawChanges = await fetch("https://raw.githubusercontent.com/smogon/pokemon-showdown/master/data/pokedex.ts")
     const textChanges = await rawChanges.text()
@@ -65,6 +76,7 @@ async function buildSpeciesObj(){
     species = await getLevelUpLearnsets(species)
     species = await getTMHMLearnsets(species)
     species = await getEggMovesLearnsets(species)
+    species = await getIngameNamme(species)
     //species = await getChanges(species)
 
     await localStorage.setItem("species", LZString.compressToUTF16(JSON.stringify(species)))

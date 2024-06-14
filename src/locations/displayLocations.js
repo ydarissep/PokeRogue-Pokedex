@@ -45,7 +45,7 @@ function appendLocationsToTable(key){
     let rarityTable = document.getElementById(`${location}${method}${boss}`) 
     if(!rarityTable){
         rarityTable = returnRarityTable(location, method, boss)
-        insertRarityTable(methodTable.children[1], method, rarityTable)
+        insertRarityTable(methodTable.children[0], method, rarityTable)
     }
 
     speciesRow = returnSpeciesRow(location, method, speciesKey)
@@ -101,7 +101,7 @@ function insertRarityTable(methodTableTbody, rarity, rarityTable){
     }
 
     for(let i = 0; i < methodTableTbody.children.length; i++){
-        if(rarityOrder[rarity] < rarityOrder[methodTableTbody.children[i].children[0].innerText]){
+        if(rarityOrder[rarity] < rarityOrder[methodTableTbody.children[i].children[0].children[0].innerText]){
             methodTableTbody.insertBefore(rarityTable, methodTableTbody.children[i])
             return true
         }
@@ -130,7 +130,7 @@ function returnSpeciesRow(location, method, speciesKey){
     spriteContainer.append(sprite)
     row.append(spriteContainer)
 
-    const speciesName = document.createElement("td"); speciesName.innerText = sanitizeString(speciesKey); speciesName.classList = "locationSpeciesName"
+    const speciesName = document.createElement("td"); speciesName.innerText = species[speciesKey]["ingameName"]; speciesName.classList = "locationSpeciesName"
     row.append(speciesName)
 
     const timeOfDayContainer = document.createElement("td"); timeOfDayContainer.classList = "timeOfDayContainer"
@@ -153,7 +153,9 @@ function returnSpeciesRow(location, method, speciesKey){
     }
     else{
         locations[location][method][speciesKey].forEach(timeOfDay => {
-            const timeOfDayEl = document.createElement("div"); timeOfDayEl.innerText = timeOfDay; timeOfDayEl.classList = `timeOfDay ${timeOfDay}`
+            const timeOfDayEl = document.createElement("div"); timeOfDayEl.innerText = staticTranslationTable[timeOfDay] ??= timeOfDay; timeOfDayEl.classList = `timeOfDay ${timeOfDay}`
+            const timeOfDayElHidden = document.createElement("div"); timeOfDayElHidden.innerText = timeOfDay; timeOfDayElHidden.classList = "hide"
+            timeOfDayContainer.append(timeOfDayElHidden)
             timeOfDayContainer.append(timeOfDayEl)
             if(timeOfDay == "All" || timeOfDay == "Anytime"){
                 speciesName.colSpan = "2"
@@ -180,12 +182,14 @@ function returnSpeciesRow(location, method, speciesKey){
 const rarityColor = {"Common": 69.5, "Uncommon": 24.2, "Rare": 5, "Super Rare": 0.98, "Ultra Rare": 0.2, "Boss": 68.8, "Boss Rare": 21.9, "Boss Super Rare": 7.8, "Boss Ultra Rare": 1.6}
 function returnRarityTable(location, rarity, boss){
     const rarityTable = document.createElement("table"); rarityTable.setAttribute("ID", `${location}${rarity}${boss}`); rarityTable.classList = "rarityTable"
-    const rarityTableThead = document.createElement("thead"); rarityTableThead.classList = "rarityTableThead"; rarityTableThead.innerText = rarity
-    if(rarityTableThead.innerText in rarityColor){
-        rarityTableThead.style.color = `hsl(${rarityColor[rarityTableThead.innerText]*2},85%,45%)`
+    const rarityTableThead = document.createElement("thead"); rarityTableThead.classList = "rarityTableThead"; rarityTableThead.innerText = staticTranslationTable[rarity] ??= rarity
+    const rariryHidden = document.createElement("div"); rariryHidden.classList = "hide"; rariryHidden.innerText = rarity
+    if(rarity in rarityColor){
+        rarityTableThead.style.color = `hsl(${rarityColor[rarity]*2},85%,45%)`
     }
     const rarityTableTbody = document.createElement("tbody"); rarityTableTbody.classList = "rarityTableTbody"
 
+    rarityTableThead.append(rariryHidden)
     rarityTable.append(rarityTableThead)
     rarityTable.append(rarityTableTbody)
 
@@ -203,7 +207,7 @@ function returnMethodTable(location, boss){
     const methodTable = document.createElement("table"); methodTable.setAttribute("ID", `${location}${boss}`); methodTable.classList = "methodTable"
     const methodTableTbody = document.createElement("tbody"); methodTableTbody.classList = "methodTableTbody"
 
-    methodTable.append(returnMethodTableThead(boss))
+    //methodTable.append(returnMethodTableThead(boss)) // do not uncomment kekw, it's broken
     methodTable.append(methodTableTbody)
 
     return methodTable
@@ -250,6 +254,9 @@ function returnLocationTableThead(location){
 
     const mainBiomeContainer = document.createElement("th"); mainBiomeContainer.classList = "mainBiomeContainer"
     const locationName = document.createElement("div"); locationName.innerText = location; locationName.classList = "locationName"
+    if(location in biomeTranslation){
+        locationName.innerText = biomeTranslation[location]
+    }
     const locationSprite = document.createElement("img"); locationSprite.src = getBiomeSpriteSrc(location); locationSprite.classList = `sprite${location} mainBiomeSprite`
     mainBiomeContainer.append(locationName)
     mainBiomeContainer.append(locationSprite)
@@ -260,6 +267,9 @@ function returnLocationTableThead(location){
             if(link[0] === location){
                 const linkContainer = document.createElement("div"); linkContainer.classList = "previousLink"
                 const linkInfo = document.createElement("span"); linkInfo.innerText = `${biome}\n${link[1]}%`; linkInfo.classList = "previousLinkInfo"
+                if(biome in biomeTranslation){
+                    linkInfo.innerText = `${biomeTranslation[biome]}\n${link[1]}%`
+                }
                 const linkSprite = document.createElement("img"); linkSprite.src = getBiomeSpriteSrc(biome); linkSprite.classList = `linkSprite sprite${biome}`
                 linkContainer.append(linkSprite)
                 linkContainer.append(linkInfo)
@@ -271,7 +281,12 @@ function returnLocationTableThead(location){
                     }
                     deleteFiltersFromTable()
 
-                    createFilter(biome, "Biome")
+                    if(biome in biomeTranslation){
+                        createFilter(biomeTranslation[biome], "Biome")
+                    }
+                    else{
+                        createFilter(biome, "Biome")
+                    }
                     speciesPanel("hide")
                     window.scrollTo({ top: 0})
                 })
@@ -284,6 +299,9 @@ function returnLocationTableThead(location){
         biomeLinks[location].forEach(link => {
             const linkContainer = document.createElement("div"); linkContainer.classList = "nextLink"
             const linkInfo = document.createElement("span"); linkInfo.innerText = `${link[0]}\n${link[1]}%`; linkInfo.classList = "nextLinkInfo"
+            if(link[0] in biomeTranslation){
+                linkInfo.innerText = `${biomeTranslation[link[0]]}\n${link[1]}%`
+            }
             const linkSprite = document.createElement("img"); linkSprite.src = getBiomeSpriteSrc(link[0]); linkSprite.classList = `linkSprite sprite${link[0]}`
             linkContainer.append(linkInfo)
             linkContainer.append(linkSprite)
@@ -295,16 +313,23 @@ function returnLocationTableThead(location){
                 }
                 deleteFiltersFromTable()
 
-                createFilter(link[0], "Biome")
+                if(link[0] in biomeTranslation){
+                    createFilter(biomeTranslation[link[0]], "Biome")
+                }
+                else{
+                    createFilter(link[0], "Biome")
+                }
                 speciesPanel("hide")
                 window.scrollTo({ top: 0})
             })
         })
     }
+    /*
     if(hideLinksFilter.classList.contains("activeSetting")){
         previousBiomeContainer.classList.add("hide")
         nextBiomeContainer.classList.add("hide")
     }
+    */
 
     row.append(previousBiomeContainer)
     row.append(mainBiomeContainer)

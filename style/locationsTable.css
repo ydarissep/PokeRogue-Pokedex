@@ -12,9 +12,9 @@
 }
 
 .locationTable {
-    display: block !important;
+    /*width: 750px;
+    display: block !important;*/
 	margin-bottom: 100px;
-    width: 750px;
 }
 
 .locationTableThead {
@@ -69,7 +69,7 @@
 
 .locationTableTbody {
     width: 100%;
-    display: inline-table !important;
+    display: flex !important;
 }
 
 .methodTable {
@@ -173,6 +173,11 @@ only screen and (max-width: 515px) {
 only screen and (max-width: 500px) {
     .locationSpeciesName, .timeOfDay {
         font-size: 15px !important;
+    }
+
+    body.de .timeOfDay {
+        font-size: 12.5px !important;
+        letter-spacing: -0.5px;
     }
 
     .mainBiomeSprite {

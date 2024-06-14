@@ -3,3 +3,8 @@
 body img {
     image-rendering: pixelated;
 }
+
+body.zh_CN [class*="TYPE_"], body.ko [class*="TYPE_"], body.zh_TW [class*="TYPE_"] {
+    font-size: 15px !important;
+    padding-bottom: 4px !important;
+}

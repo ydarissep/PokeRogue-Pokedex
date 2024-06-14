@@ -6,7 +6,13 @@ async function getBiomes(locations){
     const rawBiomesForms = await fetch(`https://raw.githubusercontent.com/${repo}/src/field/arena.ts`)
     const textBiomesForms = await rawBiomesForms.text()
 
+    const rowBiomeTranslation = await fetch(`https://raw.githubusercontent.com/${repo}/src/locales/${lang}/biome.ts`)
+    const textBiomeTranslation = await rowBiomeTranslation.text()
+
     const conversionTable = await getBiomesFormsConverionTable(textBiomesForms)
+    window.biomeTranslation = await getBiomesTranslationTable(textBiomeTranslation)
+
+    localStorage.setItem("biomeTranslation", LZString.compressToUTF16(JSON.stringify(biomeTranslation)))
 
     return regexBiomes(textBiomes, locations, conversionTable)
 }
@@ -16,6 +22,7 @@ async function buildLocationsObj(){
     window.biomeLinks = {}
 
     locations = await getBiomes(locations)
+
 
     localStorage.setItem("biomeLinks", LZString.compressToUTF16(JSON.stringify(biomeLinks)))
     localStorage.setItem("locations", LZString.compressToUTF16(JSON.stringify(locations)))
@@ -30,6 +37,7 @@ async function fetchLocationsObj(){
     else{
         window.locations = await JSON.parse(LZString.decompressFromUTF16(localStorage.getItem("locations")))
         window.biomeLinks = await JSON.parse(LZString.decompressFromUTF16(localStorage.getItem("biomeLinks")))
+        window.biomeTranslation = await JSON.parse(LZString.decompressFromUTF16(localStorage.getItem("biomeTranslation")))
     }
 
     Object.keys(locations).forEach(async biome => {
