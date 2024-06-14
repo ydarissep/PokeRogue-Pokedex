@@ -8,58 +8,60 @@ fetch("https://raw.githubusercontent.com/ydarissep/dex-core/main/src/settings.js
 
 
 async function staticTranslation(){
-    document.querySelectorAll("#tableButton > button").forEach(button => {
-        if(button.innerText in staticTranslationTable){
-            button.innerText = staticTranslationTable[button.innerText]
-        }
-    })
-
-    document.querySelectorAll(".speciesPanelText").forEach(speciesPanelText => {
-        let text = speciesPanelText.innerText.match(/(.*?):/)
-        if(text){
-            text = text[1]
-            if(text in staticTranslationTable){
-                speciesPanelText.innerText = `${staticTranslationTable[text]}:`
+    if(lang !== "en"){
+        document.querySelectorAll("#tableButton > button").forEach(button => {
+            if(button.innerText in staticTranslationTable){
+                button.innerText = staticTranslationTable[button.innerText]
             }
-        }
-    })
+        })
 
-    document.querySelectorAll("#statsNames > p").forEach(statsGraphHeader => {
-        const stat = statsGraphHeader.innerText.match(/\w+/)
-        if(stat){
-            if(stat[0] in translationTable){
-                statsGraphHeader.innerText = `${translationTable[stat[0]]}:`
+        document.querySelectorAll(".speciesPanelText").forEach(speciesPanelText => {
+            let text = speciesPanelText.innerText.match(/(.*?):/)
+            if(text){
+                text = text[1]
+                if(text in staticTranslationTable){
+                    speciesPanelText.innerText = `${staticTranslationTable[text]}:`
+                }
             }
-        }
-        const replaceSpan = document.createElement("span"); replaceSpan.classList = "statsGraphHeader"
-        statsGraphHeader.append(replaceSpan)
+        })
 
-        window.statDisplays = [...document.querySelectorAll(".statsGraphHeader")]
-    })
+        document.querySelectorAll("#statsNames > p").forEach(statsGraphHeader => {
+            const stat = statsGraphHeader.innerText.match(/\w+/)
+            if(stat){
+                if(stat[0] in translationTable){
+                    statsGraphHeader.innerText = `${translationTable[stat[0]]}:`
+                }
+            }
+            const replaceSpan = document.createElement("span"); replaceSpan.classList = "statsGraphHeader"
+            statsGraphHeader.append(replaceSpan)
 
-    speciesTableThead.querySelectorAll("th").forEach(speciesTableTh => {
-        if(speciesTableTh.innerText in translationTable){
-            speciesTableTh.innerText = translationTable[speciesTableTh.innerText]
-        }
-        else if(speciesTableTh.innerText in staticTranslationTable){
-            speciesTableTh.innerText = staticTranslationTable[speciesTableTh.innerText]
-        }
-    })
+            window.statDisplays = [...document.querySelectorAll(".statsGraphHeader")]
+        })
 
-    abilitiesTableThead.querySelectorAll("th").forEach(abilitiesTableTh => {
-        if(abilitiesTableTh.innerText in staticTranslationTable){
-            abilitiesTableTh.innerText = staticTranslationTable[abilitiesTableTh.innerText]
-        }
-    })
+        speciesTableThead.querySelectorAll("th").forEach(speciesTableTh => {
+            if(speciesTableTh.innerText in translationTable){
+                speciesTableTh.innerText = translationTable[speciesTableTh.innerText]
+            }
+            else if(speciesTableTh.innerText in staticTranslationTable){
+                speciesTableTh.innerText = staticTranslationTable[speciesTableTh.innerText]
+            }
+        })
 
-    movesTableThead.querySelectorAll("th").forEach(movesTableTh => {
-        if(movesTableTh.innerText in staticTranslationTable){
-            movesTableTh.innerText = staticTranslationTable[movesTableTh.innerText]
-        }
-    })
+        abilitiesTableThead.querySelectorAll("th").forEach(abilitiesTableTh => {
+            if(abilitiesTableTh.innerText in staticTranslationTable){
+                abilitiesTableTh.innerText = staticTranslationTable[abilitiesTableTh.innerText]
+            }
+        })
 
-    document.getElementById("onlyShowVariantPokemon").innerText = staticTranslationTable[document.getElementById("onlyShowVariantPokemon").innerText] ??= document.getElementById("onlyShowVariantPokemon").innerText
-    document.getElementById("onlyShowVariantPokemonLocations").innerText = staticTranslationTable[document.getElementById("onlyShowVariantPokemonLocations").innerText] ??= document.getElementById("onlyShowVariantPokemonLocations").innerText
+        movesTableThead.querySelectorAll("th").forEach(movesTableTh => {
+            if(movesTableTh.innerText in staticTranslationTable){
+                movesTableTh.innerText = staticTranslationTable[movesTableTh.innerText]
+            }
+        })
+
+        document.getElementById("onlyShowVariantPokemon").innerText = staticTranslationTable[document.getElementById("onlyShowVariantPokemon").innerText] ??= document.getElementById("onlyShowVariantPokemon").innerText
+        document.getElementById("onlyShowVariantPokemonLocations").innerText = staticTranslationTable[document.getElementById("onlyShowVariantPokemonLocations").innerText] ??= document.getElementById("onlyShowVariantPokemonLocations").innerText
+    }
 }
 
 
