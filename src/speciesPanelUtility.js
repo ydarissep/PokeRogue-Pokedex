@@ -22,11 +22,125 @@ fetch("https://raw.githubusercontent.com/ydarissep/dex-core/main/src/speciesPane
     text = text.replace('speciesType2.innerText = sanitizeString(species[name]["type2"])', 'speciesType2.innerText = translationTable[sanitizeString(species[name]["type2"])] ??= sanitizeString(species[name]["type2"])')
     text = text.replace('sanitizeString(moves[move]["type"]).slice(0,3)', '(translationTable[sanitizeString(moves[move]["type"])] ??= sanitizeString(moves[move]["type"])).slice(0,3)')
     text = text.replaceAll('sanitizeString(moves[move[0]]["type"]).slice(0,3)', '(translationTable[sanitizeString(moves[move[0]]["type"])] ??= sanitizeString(moves[move[0]]["type"])).slice(0,3)')
+
+    //text = text.replaceAll("th.innerText", "Object.values(staticTranslationTable).includes(th.innerText) ? Object.keys(staticTranslationTable).find(key => staticTranslationTable[key] === th.innerText) : th.innerText")
+    /*
+    text.match(/label\s*===\s*".*?"/g).forEach(labelMatch => {
+        const valueMatch = labelMatch.match(/label\s*===\s*"(.*?)"/)[1]
+        text = text.replace(labelMatch, `label === "${valueMatch}" in staticTranslationTable ? staticTranslationTable["${valueMatch}"] : "${valueMatch}"`)
+    })
+    */
+   text = text.replace("function sortLearnsetsArray(", "function sortLearnsetsArrayOld(")
     
     eval.call(window,text)
 }).catch(error => {
     console.warn(error)
 })
+
+
+
+
+
+
+
+
+function sortLearnsetsArray(thead, learnsetsArray, label, asc){
+    let index = ""
+
+    if(asc == 0){
+        thead.querySelectorAll("th").forEach(th => {
+            if(th.classList.contains("th-sort-asc")){
+                asc = 1
+                label = th.innerText
+            }
+            else if(th.classList.contains("th-sort-desc")){
+                asc = -1
+                label = th.innerText
+            }
+        })
+    }
+
+
+    if(asc == 0){
+        return learnsetsArray
+    }
+
+    if(label === (staticTranslationTable["Name"] ??= "Name")){
+        index = "name"
+    }
+    else if(label === (staticTranslationTable["Type"] ??= "Type")){
+        index = "type"
+    }
+    else if(label === (staticTranslationTable["Split"] ??= "Split")){
+        index = "split"
+    }
+    else if(label === (staticTranslationTable["Power"] ??= "Power")){
+        index = "power"
+    }
+    else if(label === (staticTranslationTable["Level"] ??= "Level")){
+        index = "level"
+    }
+    else if(label === (staticTranslationTable["Acc"] ??= "Acc")){
+        index = "accuracy"
+    }
+    else if(label === (staticTranslationTable["Effect"] ??= "Effect") || label === "Effect"){
+        console.log("test")
+        index = "description"
+    }
+    else if(label === (staticTranslationTable["PP"] ??= "PP")){
+        index = "PP"
+    }
+    else{
+        return learnsetsArray
+    }
+
+    learnsetsArray.sort((a, b) => {
+        let stringA = ""
+        let stringB = ""
+
+        if(index === "level"){
+            stringA = parseInt(a[1])
+            stringB = parseInt(b[1])
+        }
+        else if(Array.isArray(a)){
+            stringA += moves[a[0]][index]
+            stringB += moves[b[0]][index]
+    
+            if(!isNaN(stringA)){
+                stringA = parseInt(moves[a[0]][index])
+            }
+            if(!isNaN(stringB)){
+                stringB = parseInt(moves[b[0]][index])
+            }
+        }
+        else{
+            stringA += moves[a][index]
+            stringB += moves[b][index]
+    
+            if(!isNaN(stringA)){
+                stringA = parseInt(moves[a][index])
+            }
+            if(!isNaN(stringB)){
+                stringB = parseInt(moves[b][index])
+            }
+        }
+
+        return stringA > stringB ? (1 * asc) : (-1 * asc)
+    })
+
+    thead.querySelectorAll("th").forEach(th => {
+        th.classList.remove("th-sort-asc", "th-sort-desc")
+        if(th.innerText === label){
+            th.classList.toggle("th-sort-asc", asc > 0)
+            th.classList.toggle("th-sort-desc", asc < 0)
+        }
+    })
+
+    return learnsetsArray
+}
+
+
+
 
 
 

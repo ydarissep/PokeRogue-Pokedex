@@ -1,8 +1,7 @@
 @import url(https://ydarissep.github.io/dex-core/style/speciesTable.css);
 
-#speciesTableThead th.baseHP, #speciesTableThead th.baseAttack, #speciesTableThead th.baseDefense, #speciesTableThead th.baseSpAttack, #speciesTableThead th.baseSpDefense, #speciesTableThead th.baseSpeed, #speciesTableThead th.BST {
-	width: unset !important;
-	padding: 5px 10px 5px 10px !important;
+#speciesTableThead th, #abilitiesTableThead th, #movesTableThead th, #speciesPanelTablesContainer th {
+	white-space: nowrap;
 }
 
 .starterAbility {

@@ -38,25 +38,15 @@ async function staticTranslation(){
             window.statDisplays = [...document.querySelectorAll(".statsGraphHeader")]
         })
 
-        speciesTableThead.querySelectorAll("th").forEach(speciesTableTh => {
-            if(speciesTableTh.innerText in translationTable){
-                speciesTableTh.innerText = translationTable[speciesTableTh.innerText]
-            }
-            else if(speciesTableTh.innerText in staticTranslationTable){
-                speciesTableTh.innerText = staticTranslationTable[speciesTableTh.innerText]
-            }
-        })
-
-        abilitiesTableThead.querySelectorAll("th").forEach(abilitiesTableTh => {
-            if(abilitiesTableTh.innerText in staticTranslationTable){
-                abilitiesTableTh.innerText = staticTranslationTable[abilitiesTableTh.innerText]
-            }
-        })
-
-        movesTableThead.querySelectorAll("th").forEach(movesTableTh => {
-            if(movesTableTh.innerText in staticTranslationTable){
-                movesTableTh.innerText = staticTranslationTable[movesTableTh.innerText]
-            }
+        document.querySelectorAll("#speciesTableThead, #abilitiesTableThead, #movesTableThead, #speciesPanelTablesContainer").forEach(tableThead => {
+            tableThead.querySelectorAll("th").forEach(tableTh => {
+                if(tableTh.innerText in staticTranslationTable){
+                    tableTh.innerText = staticTranslationTable[tableTh.innerText]
+                }
+                else if(tableTh.innerText in translationTable){
+                    tableTh.innerText = translationTable[tableTh.innerText]
+                }
+            })
         })
 
         document.getElementById("onlyShowVariantPokemon").innerText = staticTranslationTable[document.getElementById("onlyShowVariantPokemon").innerText] ??= document.getElementById("onlyShowVariantPokemon").innerText
@@ -71,6 +61,7 @@ function getStaticTranslationTable(lang){
             "Species": "Species",
             "Starter Cost": "Starter Cost",
             "Variant": "Variant",
+            "Level": "Level",
             "Day": "Day",
             "Dawn": "Dawn",
             "Night": "Night",
@@ -103,6 +94,7 @@ function getStaticTranslationTable(lang){
             "Species": "Pokémon",
             "Starter Cost": "Coût",
             "Variant": "Chromatique",
+            "Level": "Niveau",
             "Day": "Jour",
             "Dawn": "Aube",
             "Night": "Nuit",
@@ -135,6 +127,7 @@ function getStaticTranslationTable(lang){
             "Species": "Pokémon",
             "Starter Cost": "Costo",
             "Variant": "Cromatico",
+            "Level": "Livello",
             "Day": "Gior",
             "Dawn": "Alba",
             "Night": "Notte",
@@ -167,6 +160,7 @@ function getStaticTranslationTable(lang){
             "Species": "Pokémon",
             "Starter Cost": "Kosten",
             "Variant": "Schillernd",
+            "Level": "Level",
             "Day": "Tag",
             "Dawn": "Morgen",
             "Night": "Nacht",
@@ -199,6 +193,7 @@ function getStaticTranslationTable(lang){
             "Species": "Pokémon",
             "Starter Cost": "Costo",
             "Variant": "Variocolor",
+            "Level": "Nivel",
             "Day": "Día",
             "Dawn": "Alba",
             "Night": "Noche",
@@ -231,6 +226,7 @@ function getStaticTranslationTable(lang){
             "Species": "포켓몬",
             "Starter Cost": "비용",
             "Variant": "색이 다른 모습",
+            "Level": "레벨",
             "Day": "낮",
             "Dawn": "새벽",
             "Night": "밤",
@@ -263,6 +259,7 @@ function getStaticTranslationTable(lang){
             "Species": "宝可梦",
             "Starter Cost": "花费",
             "Variant": "异色",
+            "Level": "等级",
             "Day": "白天",
             "Dawn": "黎明",
             "Night": "夜晚",
@@ -295,6 +292,7 @@ function getStaticTranslationTable(lang){
             "Species": "寶可夢",
             "Starter Cost": "花費",
             "Variant": "異色",
+            "Level": "等級",
             "Day": "白天",
             "Dawn": "黎明",
             "Night": "夜",
@@ -327,6 +325,7 @@ function getStaticTranslationTable(lang){
             "Species": "Pokémon",
             "Starter Cost": "Custo",
             "Variant": "Brilhante",
+            "Level": "Nível",
             "Day": "Dia",
             "Dawn": "Alva",
             "Night": "Noite",
