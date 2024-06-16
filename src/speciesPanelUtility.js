@@ -84,7 +84,6 @@ function sortLearnsetsArray(thead, learnsetsArray, label, asc){
         index = "accuracy"
     }
     else if(label === (staticTranslationTable["Effect"] ??= "Effect") || label === "Effect"){
-        console.log("test")
         index = "description"
     }
     else if(label === (staticTranslationTable["PP"] ??= "PP")){

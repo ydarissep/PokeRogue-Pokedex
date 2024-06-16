@@ -7,7 +7,7 @@ fetch("https://raw.githubusercontent.com/ydarissep/dex-core/main/src/tableFilter
     text = text.replace("function filterType(", "function filterTypeOld(")
     text = text.replace("function filterBaseStats(", "function filterBaseStatsOld(")
     text = text.replace("function createFilterGroup(", "function createFilterGroupOld(")
-    text = text.replace("newFilter.innerText = `${label}: ${value}`", "newFilter.innerText = `${staticTranslationTable[label] ??= label}: ${value}`") // fix later
+    text = text.replace("newFilter.innerText = `${label}: ${value}`", "newFilter.innerText = `${staticTranslationTable[label] ??= label}: ${value}`")
 
     eval.call(window,text)
 }).catch(error => {

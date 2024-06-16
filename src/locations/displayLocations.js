@@ -12,7 +12,7 @@ function appendLocationsToTable(key){
 
     if(!locationsMoveFilter){
         for(let i = 0; i < locationsFilterContainer.children.length; i++){
-            if(locationsFilterContainer.children[i].innerText.split(":")[0] == "Move"){
+            if(locationsFilterContainer.children[i].innerText.split(":")[0] == (staticTranslationTable["Move"] ??= "Move")){
                 if(Number.isInteger(locationsMoveFilter)){
                     locationsMoveFilter = null
                     break

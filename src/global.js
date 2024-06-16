@@ -1,5 +1,5 @@
 window.repo = "pagefaultgames/pokerogue/main"
-window.checkUpdate = "4 PR"
+window.checkUpdate = "5 PR"
 window.lang = "en"
 
 
@@ -85,6 +85,7 @@ function filterLocationsTableInputNew(input, obj, keyArray){
                 if(keyArray[k] === "evolutionLine"){
                     obj[name][keyArray[k]].forEach(evoName => {
                         compareString += (species[evoName]["ingameName"] + ",").replaceAll(/-|'| |_|species/gi, "").normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase()
+                        compareString += sanitizeString(evoName).toLowerCase()
                     })
                 }
                 else{
