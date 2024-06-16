@@ -1,12 +1,15 @@
 @import url(https://ydarissep.github.io/dex-core/style.css);
 
+/*
 @font-face{
     font-family: 'Alibaba-PuHuiTi-Regular';
     src: url('sprites/Alibaba-PuHuiTi-Regular.ttf');
 }
+*/
 
 body.zh_CN *, body.zh_TW * {
-    font-family: 'Alibaba-PuHuiTi-Regular', 'Roboto Condensed', 'Pragati Narrow', Arial, sans-serif !important;
+    /*font-family: 'Alibaba-PuHuiTi-Regular', 'Roboto Condensed', 'Pragati Narrow', Arial, sans-serif !important;*/
+    font-weight: 400 !important;
 }
 
 body img {
