@@ -101,7 +101,7 @@ function getFlagSrc(langString){
         return "https://flagcdn.com/cn.svg"
     }
     else if(langString === "zh_TW"){
-        return "https://flagcdn.com/cn.svg"
+        return "https://flagcdn.com/tw.svg"
     }
     else if(langString === "pt_BR"){
         return "https://flagcdn.com/pt.svg"
