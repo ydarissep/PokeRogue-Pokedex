@@ -224,7 +224,7 @@ function getStaticTranslationTable(lang){
         },
         "ko": {
             "Species": "포켓몬",
-            "Starter Cost": "비용",
+            "Starter Cost": "코스트",
             "Variant": "색이 다른 모습",
             "Level": "레벨",
             "Day": "낮",
