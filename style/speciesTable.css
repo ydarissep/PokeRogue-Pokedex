@@ -4,6 +4,17 @@
 	white-space: nowrap;
 }
 
+.background {
+	width: 70px;
+}
+
+@media only screen and (max-width: 650px) {
+	#speciesTableTBody .background {
+		width: 70px;
+	}
+	
+}
+
 .starterAbility {
 	font-weight: bold;
 	color: #f4f000f2;

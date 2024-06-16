@@ -183,11 +183,11 @@ function getStaticTranslationTable(lang){
             "Description": "Beschreibung",
             "Effect": "Beschreibung",
             "Biome": "Biom",
-            "Biomes": "Biomen",
+            "Biomes": "Biome",
             "Moves": "Attacken",
             "Move": "Attacke",
             "Ability": "Fähigkeit",
-            "Abilities": "Fähigkeit"
+            "Abilities": "Fähigkeiten"
         },
         "es": {
             "Species": "Pokémon",

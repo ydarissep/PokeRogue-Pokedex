@@ -6,6 +6,10 @@
 	letter-spacing: -0.3px;
 }
 
+.backgroundSmall {
+	width: 70px;
+}
+
 .starterCost {
 	font-weight: bold;
 	font-size: 25px;
@@ -91,6 +95,13 @@ only screen and (max-width: 550px) {
 }
 
 @media 
+only screen and (max-width: 500px) {
+	#speciesPanelMainContainer .backgroundSmall {
+		width: 60px;
+	}
+}
+
+@media 
 only screen and (max-width: 380px) {
 	#speciesSprite {
 		padding-right: 10px !important;
@@ -103,4 +114,11 @@ only screen and (max-width: 375px) {
 		width: 128px !important;
 		height: 128px !important;
 	}
+}
+
+#speciesDefensiveTypeChart{
+	width: 75%;
+}
+#speciesOffensiveTypeChart{
+	width: 75%;
 }

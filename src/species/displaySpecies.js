@@ -14,8 +14,8 @@ fetch("https://raw.githubusercontent.com/ydarissep/dex-core/main/src/species/dis
 
     text = text.replace("row.append(abilitiesContainer)", "const starterAbility = document.createElement(\"div\");starterAbility.innerText = abilities[species[speciesName][\"starterAbility\"]][\"ingameName\"];starterAbility.classList = \"starterAbility\";abilitiesContainer.prepend(starterAbility)\nrow.append(abilitiesContainer)")
     text = text.replace('ingameName.innerText = sanitizeString(species[speciesName]["name"])', 'ingameName.innerText = species[speciesName]["ingameName"]')
-    text = text.replace('sanitizeString(species[speciesName]["type1"])', '(translationTable[sanitizeString(species[speciesName]["type1"])] ??= sanitizeString(species[speciesName]["type1"])).substring(0, 6)')
-    text = text.replace('sanitizeString(species[speciesName]["type2"])', '(translationTable[sanitizeString(species[speciesName]["type2"])] ??= sanitizeString(species[speciesName]["type2"])).substring(0, 6)')
+    text = text.replace('sanitizeString(species[speciesName]["type1"])', '(translationTable[sanitizeString(species[speciesName]["type1"])] ??= sanitizeString(species[speciesName]["type1"]))')
+    text = text.replace('sanitizeString(species[speciesName]["type2"])', '(translationTable[sanitizeString(species[speciesName]["type2"])] ??= sanitizeString(species[speciesName]["type2"]))')
     text = text.replace("statInfo[0], statInfo[1]", "`${translationTable[statInfo[0]] ??= statInfo[0]}`, statInfo[1]")
     text = text.replace('if(speciesFilterContainer.children[i].innerText.split(":")[0] == "Move"){', 'if(speciesFilterContainer.children[i].innerText.split(":")[0] == (staticTranslationTable["Move"] ??= "Move")){')
 
