@@ -22,15 +22,7 @@ fetch("https://raw.githubusercontent.com/ydarissep/dex-core/main/src/speciesPane
     text = text.replace('speciesType2.innerText = sanitizeString(species[name]["type2"])', 'speciesType2.innerText = translationTable[sanitizeString(species[name]["type2"])] ??= sanitizeString(species[name]["type2"])')
     text = text.replace('sanitizeString(moves[move]["type"]).slice(0,3)', '(translationTable[sanitizeString(moves[move]["type"])] ??= sanitizeString(moves[move]["type"])).slice(0,3)')
     text = text.replaceAll('sanitizeString(moves[move[0]]["type"]).slice(0,3)', '(translationTable[sanitizeString(moves[move[0]]["type"])] ??= sanitizeString(moves[move[0]]["type"])).slice(0,3)')
-
-    //text = text.replaceAll("th.innerText", "Object.values(staticTranslationTable).includes(th.innerText) ? Object.keys(staticTranslationTable).find(key => staticTranslationTable[key] === th.innerText) : th.innerText")
-    /*
-    text.match(/label\s*===\s*".*?"/g).forEach(labelMatch => {
-        const valueMatch = labelMatch.match(/label\s*===\s*"(.*?)"/)[1]
-        text = text.replace(labelMatch, `label === "${valueMatch}" in staticTranslationTable ? staticTranslationTable["${valueMatch}"] : "${valueMatch}"`)
-    })
-    */
-   text = text.replace("function sortLearnsetsArray(", "function sortLearnsetsArrayOld(")
+    text = text.replace("function sortLearnsetsArray(", "function sortLearnsetsArrayOld(")
     
     eval.call(window,text)
 }).catch(error => {
