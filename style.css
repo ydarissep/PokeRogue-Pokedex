@@ -1,12 +1,20 @@
 @import url(https://ydarissep.github.io/dex-core/style.css);
 
+@font-face{
+    font-family: 'Alibaba-PuHuiTi-Regular';
+    src: url('sprites/Alibaba-PuHuiTi-Regular.ttf');
+}
+
+body.zh_CN *, body.zh_TW * {
+    font-family: 'Alibaba-PuHuiTi-Regular', 'Roboto Condensed', 'Pragati Narrow', Arial, sans-serif !important;
+}
+
 body img {
     image-rendering: pixelated;
 }
 
 body.zh_CN [class*="TYPE_"], body.ko [class*="TYPE_"], body.zh_TW [class*="TYPE_"] {
     font-size: 15px !important;
-    padding-bottom: 4px !important;
 }
 
 #abilitiesButton {
