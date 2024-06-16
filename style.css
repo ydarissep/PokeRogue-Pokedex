@@ -7,9 +7,14 @@
 }
 */
 
+/*
 body.zh_CN *, body.zh_TW * {
-    /*font-family: 'Alibaba-PuHuiTi-Regular', 'Roboto Condensed', 'Pragati Narrow', Arial, sans-serif !important;*/
-    font-weight: 400 !important;
+    font-family: 'Alibaba-PuHuiTi-Regular', 'Roboto Condensed', 'Pragati Narrow', Arial, sans-serif !important;
+}
+*/
+
+body.zh_CN #speciesTable .abilities div, body.zh_TW #speciesTable .abilities div {
+    padding: 3px 0px 3px 0px;
 }
 
 body img {
