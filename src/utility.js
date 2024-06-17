@@ -72,6 +72,15 @@ async function appendLangMenu(supportedLang){
         }
     })
 
+    selectedLangContainer.addEventListener("click", () => {
+        if(window.getComputedStyle(unorgList).display === "none"){
+            unorgList.style.display = "block"
+        }
+        else{
+            unorgList.style.display = "none"
+        }
+    })
+
     langMenu.append(unorgList)
     document.getElementById("tableButton").prepend(langMenu)
 }
