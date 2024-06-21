@@ -33,7 +33,7 @@ fetch('https://raw.githubusercontent.com/ydarissep/dex-core/main/index.html').th
     window.speciesPanelBiomesContainer = document.createElement("span"); speciesPanelBiomesContainer.setAttribute("ID", "speciesPanelBiomesContainer"); speciesPanelBiomesContainer.classList = "speciesPanelTextPadding"
     speciesBaseStatsGraphContainer.append(speciesPanelBiomesContainer)
 
-    const variantButton = document.createElement("button"); variantButton.setAttribute("ID", "onlyShowVariantPokemon"); variantButton.classList = "setting"; variantButton.type = "button"; variantButton.innerText = "Variant"
+    window.variantButton = document.createElement("button"); variantButton.setAttribute("ID", "onlyShowVariantPokemon"); variantButton.classList = "setting"; variantButton.type = "button"; variantButton.innerText = "Variant"
     variantButton.addEventListener("click", () => {
         variantFilter(variantButton)
     })

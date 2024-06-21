@@ -12,6 +12,7 @@ fetch("https://raw.githubusercontent.com/ydarissep/dex-core/main/src/species/dis
         })
     }
 
+    text = text.replace("row.append(nameContainer)", "if(variantButton.classList.contains('activeSetting') && species[speciesName]['variant'][0] != 0){nameContainer.append(returnNewShinyEl())}\nrow.append(nameContainer)")
     text = text.replace("row.append(abilitiesContainer)", "const starterAbility = document.createElement(\"div\");starterAbility.innerText = abilities[species[speciesName][\"starterAbility\"]][\"ingameName\"];starterAbility.classList = \"starterAbility\";abilitiesContainer.prepend(starterAbility)\nrow.append(abilitiesContainer)")
     text = text.replace('ingameName.innerText = sanitizeString(species[speciesName]["name"])', 'ingameName.innerText = species[speciesName]["ingameName"]')
     text = text.replace('sanitizeString(species[speciesName]["type1"])', '(translationTable[sanitizeString(species[speciesName]["type1"])] ??= sanitizeString(species[speciesName]["type1"])).substring(0, 6)')
@@ -23,6 +24,19 @@ fetch("https://raw.githubusercontent.com/ydarissep/dex-core/main/src/species/dis
 }).catch(error => {
     console.warn(error)
 })
+
+
+
+
+
+function returnNewShinyEl(){
+    const newShiny = document.createElement("div")
+    newShiny.className = "baseShinyChanged"
+    newShiny.innerText = "new shiny"
+    return newShiny
+}
+
+
 
 
 

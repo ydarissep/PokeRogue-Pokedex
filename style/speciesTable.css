@@ -12,3 +12,10 @@
 .abilities {
 	font-size: 17.5px !important;
 }
+
+.baseShinyChanged {
+	font-size: 12px !important;
+    font-weight: 700;
+    opacity: 75%;
+    color: #03a9f4;
+}
