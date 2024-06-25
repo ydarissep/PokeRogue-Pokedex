@@ -89,7 +89,7 @@ async function appendLangMenu(supportedLang){
 
 function getFlagSrc(langString){
     if(langString === "en"){
-        return "https://flagcdn.com/gb-eng.svg"
+        return "https://upload.wikimedia.org/wikipedia/commons/8/83/Flag_of_the_United_Kingdom_%283-5%29.svg"
     }
     else if(langString === "fr"){
         return "https://flagcdn.com/fr.svg"
