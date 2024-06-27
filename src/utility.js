@@ -5,12 +5,11 @@ fetch("https://raw.githubusercontent.com/ydarissep/dex-core/main/src/utility.js"
     text = text.replaceAll("return species[speciesName][\"sprite\"]", "return `https://raw.githubusercontent.com/\${repo}/public/images/pokemon/\${species[speciesName][\"sprite\"]}.png`")
     text = text.replace("await forceUpdate()", "await getLang(urlParams)\nawait forceUpdate()")
     text = text.replaceAll("${checkUpdate}", "${checkUpdate} ${lang}")
+    text = text.replace('createFilter(filter.split(":")[1], filter.split(":")[0])', 'createFilter(filter.split(":")[1], returnFilterLabel(filter.split(":")[0]))')
     eval.call(window,text)
 }).catch(error => {
     console.warn(error)
 })
-
-
 
 async function getLang(urlParams){
     const supportedLang = ["en", "fr", "es", "it", "de", "ko", "zh_CN", "zh_TW", "pt_BR"]
@@ -148,4 +147,12 @@ function getLangFullName(langString){
     else{
         return langString
     }
+}
+
+
+
+
+function returnFilterLabel(string){
+    const filterLabelArray = ["Move", "Ability", "Type", "Form", "Egg Group", "Base Stats", "Biome", "Split", "Target", "Flag", "Item"]
+    return Object.values(staticTranslationTable).includes(string) ? Object.keys(staticTranslationTable).find(key => staticTranslationTable[key] === string && filterLabelArray.includes(key)) : string
 }

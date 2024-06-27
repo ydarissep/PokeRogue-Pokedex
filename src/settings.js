@@ -49,6 +49,11 @@ async function staticTranslation(){
             })
         })
 
+        document.querySelector("#speciesPanelTablesContainer").querySelectorAll("caption").forEach(caption => {
+            const captionInnerText = caption.innerHTML.match(/.*/)
+            caption.innerHTML = caption.innerHTML.replace(captionInnerText, staticTranslationTable[captionInnerText] ?? captionInnerText)
+        })
+
         document.getElementById("onlyShowVariantPokemon").innerText = staticTranslationTable[document.getElementById("onlyShowVariantPokemon").innerText] ??= document.getElementById("onlyShowVariantPokemon").innerText
         document.getElementById("onlyShowVariantPokemonLocations").innerText = staticTranslationTable[document.getElementById("onlyShowVariantPokemonLocations").innerText] ??= document.getElementById("onlyShowVariantPokemonLocations").innerText
     }
