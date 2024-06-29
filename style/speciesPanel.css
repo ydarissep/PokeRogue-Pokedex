@@ -6,7 +6,7 @@
 	letter-spacing: -0.3px;
 }
 
-.starterCost {
+#speciesEggGroups .starterCost {
 	font-weight: bold;
 	font-size: 25px;
 }
