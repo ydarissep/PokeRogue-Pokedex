@@ -384,10 +384,10 @@ function regexLevelUpLearnsets(textLevelUpLearnsets, species){
                     }
 
                     if(speciesName in species){
-                        const learnsetMatch = learnsets.match(/\d+\s*,\s*Moves\.\w+/igs)
+                        const learnsetMatch = learnsets.match(/-?\d+\s*,\s*Moves\.\w+/igs)
                         if(learnsetMatch){
                             learnsetMatch.forEach(learnset => {
-                                const level = parseInt(learnset.match(/\d+/)[0])
+                                const level = parseInt(learnset.match(/-?\d+/)[0])
                                 const moveName = learnset.match(/Moves\.\w+/i)[0].toUpperCase().replace("MOVES.", "MOVE_")
 
                                 if(moveName in moves){
