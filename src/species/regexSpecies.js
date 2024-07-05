@@ -387,7 +387,7 @@ function regexLevelUpLearnsets(textLevelUpLearnsets, species){
                         const learnsetMatch = learnsets.match(/(?:\d+|RELEARN_MOVE|EVOLVE_MOVE)\s*,\s*Moves\.\w+/igs)
                         if(learnsetMatch){
                             learnsetMatch.forEach(learnset => {
-                                let level = learnset.match(/(?:\d|RELEARN_MOVE|EVOLVE_MOVE)/i)[0]
+                                let level = learnset.match(/(?:\d+|RELEARN_MOVE|EVOLVE_MOVE)/i)[0]
                                 if(level === "EVOLVE_MOVE"){
                                     level = 0
                                 }
