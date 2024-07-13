@@ -39,7 +39,12 @@ function appendLocationsToTable(key){
     let methodTable = document.getElementById(`${location}${boss}`)
     if(!methodTable){
         methodTable = returnMethodTable(location, boss)
-        locationTable.children[1].append(methodTable)
+        if(boss){
+            locationTable.children[1].append(methodTable)
+        }
+        else{
+            locationTable.children[1].prepend(methodTable)
+        }
     }
 
     let rarityTable = document.getElementById(`${location}${method}${boss}`) 
