@@ -6,7 +6,7 @@ function regexBiomes(textBiomes, locations, conversionTable){
 			let baseSpecies = speciesMatch.match(/Species\.\w+/)[0].toUpperCase().replace(".", "_")
 			if(baseSpecies in species){
 
-				const biomesMatch = speciesMatch.match(/Biome\.\w+.*?]\s*(?:,|;)/igs)
+				const biomesMatch = speciesMatch.match(/Biome\.\w+.*?]\s*(?:,|$)/igs)
 				if(biomesMatch){
 					biomesMatch.forEach(biomeMatch => {
 						const biomeName = sanitizeString(biomeMatch.match(/Biome\.(\w+)/i)[1])
