@@ -325,7 +325,7 @@ function insertVariantsContainer(){
     femaleIconContainer.addEventListener("click", async () => {
         femaleIconContainer.classList.toggle("femaleActive")
         for(let i = 0; i < 3; i++){
-            if(variantsContainer.children[i].classList.contains("activeVariant")){
+            if(variantsContainer.children[i].classList.contains("activeVariant") && !variantsContainer.children[i].classList.contains("hide")){
                 fetchVarSprite(variantsContainer.children[i], i, false)
                 break
             }
@@ -344,7 +344,7 @@ function insertVariantsContainer(){
     backIconContainer.addEventListener("click", async () => {
         backIconContainer.classList.toggle("backActive")
         for(let i = 0; i < 3; i++){
-            if(variantsContainer.children[i].classList.contains("activeVariant")){
+            if(variantsContainer.children[i].classList.contains("activeVariant") && !variantsContainer.children[i].classList.contains("hide")){
                 fetchVarSprite(variantsContainer.children[i], i, false)
                 break
             }
