@@ -103,6 +103,12 @@ function regexBaseStats(textBaseStats, species, jsonMasterlist){
                     if(spritePath in jsonMasterlist["female"]){
                         species[speciesName]["variantF"] = jsonMasterlist["female"][spritePath]
                     }
+                    if(spritePath in jsonMasterlist["back"]){
+                        species[speciesName]["back"] = jsonMasterlist["back"][spritePath]
+                    }
+                    if(spritePath in jsonMasterlist["back"]["female"]){
+                        species[speciesName]["backF"] = jsonMasterlist["back"]["female"][spritePath]
+                    }
 
                     if(!species[originalSpecies]["forms"].includes(originalSpecies)){
                         species[originalSpecies]["forms"].push(originalSpecies)

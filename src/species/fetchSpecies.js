@@ -111,6 +111,8 @@ function initializeSpeciesObj(speciesObj){
     speciesObj["forms"] = []
     speciesObj["variant"] = [0]
     speciesObj["variantF"] = []
+    speciesObj["back"] = [0]
+    speciesObj["backF"] = []
     speciesObj["weight"] = "?"
 }
 
@@ -130,12 +132,14 @@ async function fetchSpeciesObj(){
         if(localStorage.getItem(`spriteInfo${name}`)){
             spritesInfo[name] = localStorage.getItem(`spriteInfo${name}`)
         }
-        if(localStorage.getItem(`spriteInfoF${name}`)){
-            spritesInfo[`F_${name}`] = localStorage.getItem(`spriteInfoF${name}`)
-        }
-        if(localStorage.getItem(`F_${name}`)){
-            sprites[`F_${name}`] = await LZString.decompressFromUTF16(localStorage.getItem(`F_${name}`))
-        }
+        ["BACK", "F", "BACK_F"].forEach(async extra => {
+            if(localStorage.getItem(`spriteInfo${extra}${name}`)){
+                spritesInfo[`${extra}_${name}`] = localStorage.getItem(`spriteInfo${extra}${name}`)
+            }
+            if(localStorage.getItem(`${extra}_${name}`)){
+                sprites[`${extra}_${name}`] = await LZString.decompressFromUTF16(localStorage.getItem(`${extra}_${name}`))
+            }  
+        })
     })
 
     for(let i = 0, j = Object.keys(species).length; i < j; i++){

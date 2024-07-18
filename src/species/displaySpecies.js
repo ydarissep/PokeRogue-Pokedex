@@ -42,7 +42,13 @@ function returnNewShinyEl(){
 
 async function spriteRemoveBgReturnBase64(speciesName, species){
     if(species[speciesName]["variantF"].length > 0){
-        getFemaleSprite(speciesName, species)
+        getSpriteInfo(speciesName, species, false, true)
+    }
+    if(species[speciesName]["backF"].length > 0){
+        getSpriteInfo(speciesName, species, true, true)
+    }
+    if(species[speciesName]["back"]){
+        getSpriteInfo(speciesName, species, true, false)
     }
 
     let sprite = new Image()

@@ -14,7 +14,7 @@ fetch("https://raw.githubusercontent.com/ydarissep/dex-core/main/src/speciesPane
 
     text = text.replace("speciesAbilitiesMainContainer.classList.remove(\"hide\")", "prependAbilityStarterEl(name)\nspeciesAbilitiesMainContainer.classList.remove(\"hide\")")
     text = text.replace("speciesEggGroups.append(eggGroup1)", "speciesEggGroups.append(eggGroup1)\nspeciesEggGroups.prepend(returnStarterCostEl(name))\nspeciesPanelWeight.innerText = `${species[name][\"weight\"]} kg`")
-    text = text.replace("speciesSprite.src = getSpeciesSpriteSrc(name)", "handleVariants()\nappendBiomes(name)\nsetPanelSpeciesMainSpriteSrc()")
+    text = text.replace("speciesSprite.src = getSpeciesSpriteSrc(name)", "handleVariants()\nappendBiomes(name)\nsetPanelSpeciesMainSpriteSrc(backIconContainer.classList.contains('backActive'), femaleIconContainer.classList.contains('femaleActive'))")
     text = text.replace('speciesName.innerText = sanitizeString(name)', 'speciesName.innerText = species[name]["ingameName"]')
     text = text.replace('name.innerText = sanitizeString(species[speciesName]["name"])', 'name.innerText = species[speciesName]["ingameName"]')
     text = text.replaceAll("checkType.innerText = sanitizeString(type)", 'checkType.innerText = translationTable[sanitizeString(type)] ??= sanitizeString(type)')
@@ -137,18 +137,38 @@ function sortLearnsetsArray(thead, learnsetsArray, label, asc){
 
 
 
-function setPanelSpeciesMainSpriteSrc(){
-    if(femaleIconContainer.classList.contains("femaleActive") && sprites[`F_${panelSpecies}`]){
-        speciesSprite.src = sprites[`F_${panelSpecies}`]
+function setPanelSpeciesMainSpriteSrc(back = false, female = false){
+    let extra = ""
+    if(back && female && sprites[`BACK_F_${panelSpecies}`]){
+        extra = "BACK_F"
+    }
+    else if(female && sprites[`F_${panelSpecies}`]){
+        extra = "F"
+    }
+    else if(back && sprites[`BACK_${panelSpecies}`]){
+        extra = "BACK"
+    }
+    if(sprites[`${extra}_${panelSpecies}`]){
+        speciesSprite.src = sprites[`${extra}_${panelSpecies}`]
     }
     else{
         speciesSprite.src = getSpeciesSpriteSrc(panelSpecies)
     }
-    setPanelSpeciesMainSpriteScaling()
+    setPanelSpeciesMainSpriteScaling(back, female)
 }
-function setPanelSpeciesMainSpriteScaling(){
-    if(femaleIconContainer.classList.contains("femaleActive") && sprites[`F_${panelSpecies}`] && spritesInfo[`F_${panelSpecies}`]){
-        speciesSprite.style.transform = `scale(${spritesInfo[`F_${panelSpecies}`]})`
+function setPanelSpeciesMainSpriteScaling(back = false, female = false){
+    let extra = ""
+    if(back && female && sprites[`BACK_F_${panelSpecies}`]){
+        extra = "BACK_F"
+    }
+    else if(female && sprites[`F_${panelSpecies}`]){
+        extra = "F"
+    }
+    else if(back && sprites[`BACK_${panelSpecies}`]){
+        extra = "BACK"
+    }
+    if(sprites[`${extra}_${panelSpecies}`] && spritesInfo[`${extra}_${panelSpecies}`]){
+        speciesSprite.style.transform = `scale(${spritesInfo[`${extra}_${panelSpecies}`]})`
     }
     else{
         speciesSprite.style.transform = `scale(${spritesInfo[panelSpecies]})`
@@ -295,6 +315,7 @@ function insertVariantsContainer(){
             fetchVarSprite(variantContainer, i, true)
         })
     }
+
     window.femaleIconContainer = document.createElement("div"); femaleIconContainer.setAttribute("ID", "femaleIconContainer"); femaleIconContainer.className = "femaleIconContainer"
     const femaleIconSprite = document.createElement("img"); femaleIconSprite.src = `https://raw.githubusercontent.com/ydarissep/PokeRogue-Pokedex/main/sprites/female.png`
 
@@ -309,7 +330,26 @@ function insertVariantsContainer(){
                 break
             }
             if(i === 2){
-                setPanelSpeciesMainSpriteSrc()
+                setPanelSpeciesMainSpriteSrc(backIconContainer.classList.contains("backActive"), femaleIconContainer.classList.contains("femaleActive"))
+            }
+        }
+    })
+
+    window.backIconContainer = document.createElement("div"); backIconContainer.setAttribute("ID", "backIconContainer"); backIconContainer.className = "backIconContainer"
+    const backIconSprite = document.createElement("img"); backIconSprite.src = `https://raw.githubusercontent.com/ydarissep/PokeRogue-Pokedex/main/sprites/back.png`
+
+    backIconContainer.append(backIconSprite)
+    variantsContainer.append(backIconContainer)
+
+    backIconContainer.addEventListener("click", async () => {
+        backIconContainer.classList.toggle("backActive")
+        for(let i = 0; i < 3; i++){
+            if(variantsContainer.children[i].classList.contains("activeVariant")){
+                fetchVarSprite(variantsContainer.children[i], i, false)
+                break
+            }
+            if(i === 2){
+                setPanelSpeciesMainSpriteSrc(backIconContainer.classList.contains("backActive"), femaleIconContainer.classList.contains("femaleActive"))
             }
         }
     })
@@ -319,20 +359,29 @@ function insertVariantsContainer(){
 
 
 
-function fetchVarSprite(variantContainer, i, clicked = false, female = false){
-    if(species[panelSpecies]["variantF"].length > 0){
-        if(femaleIconContainer.classList.contains("femaleActive")){
-            female = true
+function fetchVarSprite(variantContainer, i, clicked = false, back = false, female = false){
+    if(backIconContainer.classList.contains("backActive")){
+        back = true
+        if(species[panelSpecies]["backF"].length > 0){
+            if(femaleIconContainer.classList.contains("femaleActive")){
+                female = true
+            }
+        }
+    }
+    else{
+        if(species[panelSpecies]["variantF"].length > 0){
+            if(femaleIconContainer.classList.contains("femaleActive")){
+                female = true
+            }
         }
     }
 
     const targetSpecies = returnTargetSpeciesSprite(panelSpecies)
     if(variantContainer.classList.contains("activeVariant") && clicked){
-        setPanelSpeciesMainSpriteSrc()
+        setPanelSpeciesMainSpriteSrc(back, female)
         variantContainer.classList.remove("activeVariant")
     }
     else{
-        setPanelSpeciesMainSpriteScaling()
         for(let j = 0; j < 3; j++){
             variantsContainer.children[j].classList.remove("activeVariant")
         }
@@ -342,11 +391,18 @@ function fetchVarSprite(variantContainer, i, clicked = false, female = false){
             method = species[targetSpecies]["variantF"][i]
         }
 
+        if(back){
+            method = species[targetSpecies]["back"][i]
+            if(female){
+                method = species[targetSpecies]["backF"][i]
+            }
+        }
+
         if(method == 0 || method == 2){
-            downloadVarSprite(targetSpecies, i, method, female)
+            downloadVarSprite(targetSpecies, i, method, back, female)
         }
         else if(method == 1){
-            applyPalVar(targetSpecies, i, female)
+            applyPalVar(targetSpecies, i, back, female)
         }
         variantContainer.classList.add("activeVariant")
     }
@@ -384,7 +440,7 @@ function handleVariants(){
 
 
 
-async function downloadVarSprite(speciesName, index, method, female){
+async function downloadVarSprite(speciesName, index, method, back, female){
     let sprite = new Image()
     let canvas = document.createElement("canvas")
 
@@ -398,23 +454,7 @@ async function downloadVarSprite(speciesName, index, method, female){
         spritePath += `_${index + 1}`
     }
     
-    let rawJson = null
-    if(method == 0){
-        if(female){
-            rawJson = await fetch(`https://raw.githubusercontent.com/${repo}/public/images/pokemon/shiny/female/${spritePath}.json`)
-        }
-        else{
-            rawJson = await fetch(`https://raw.githubusercontent.com/${repo}/public/images/pokemon/shiny/${spritePath}.json`)
-        }
-    }
-    else if(method == 2){
-        if(female){
-            rawJson = await fetch(`https://raw.githubusercontent.com/${repo}/public/images/pokemon/variant/female/${spritePath}.json`)
-        }
-        else{
-            rawJson = await fetch(`https://raw.githubusercontent.com/${repo}/public/images/pokemon/variant/${spritePath}.json`)
-        }
-    }
+    const rawJson = await fetch(returnSpriteURL(back, female, spritePath, "json", method))
     const json = await rawJson.json()
 
     let i = 0
@@ -438,22 +478,7 @@ async function downloadVarSprite(speciesName, index, method, female){
     canvas.height = canvasHeight
 
     sprite.crossOrigin = 'anonymous'
-    if(method == 0){
-        if(female){
-            sprite.src = `https://raw.githubusercontent.com/${repo}/public/images/pokemon/shiny/female/${spritePath}.png`
-        }
-        else{
-            sprite.src = `https://raw.githubusercontent.com/${repo}/public/images/pokemon/shiny/${spritePath}.png`
-        }
-    }
-    else if(method == 2){
-        if(female){
-            sprite.src = `https://raw.githubusercontent.com/${repo}/public/images/pokemon/variant/female/${spritePath}.png`
-        }
-        else{
-            sprite.src = `https://raw.githubusercontent.com/${repo}/public/images/pokemon/variant/${spritePath}.png`
-        }
-    }
+    sprite.src = returnSpriteURL(back, female, spritePath, "png", method)
 
     const context = canvas.getContext('2d')
 
@@ -462,6 +487,7 @@ async function downloadVarSprite(speciesName, index, method, female){
         context.drawImage(sprite, -frameX, -frameY)
 
         speciesSprite.src = canvas.toDataURL()
+        setPanelSpeciesMainSpriteScaling(back, female)
     }
 }
 
@@ -474,24 +500,28 @@ async function downloadVarSprite(speciesName, index, method, female){
 
 
 
-async function applyPalVar(speciesName, index, female){
+async function applyPalVar(speciesName, index, back, female){
     let sprite = new Image()
     let canvas = document.createElement("canvas")
 
-    if(female && sprites[`F_${speciesName}`]){
-        sprite.src = sprites[`F_${speciesName}`]
+    let extra = ""
+    if(back && female && sprites[`BACK_F_${panelSpecies}`]){
+        extra = "BACK_F"
+    }
+    else if(female && sprites[`F_${panelSpecies}`]){
+        extra = "F"
+    }
+    else if(back && sprites[`BACK_${panelSpecies}`]){
+        extra = "BACK"
+    }
+    if(sprites[`${extra}_${panelSpecies}`]){
+        sprite.src = sprites[`${extra}_${panelSpecies}`]
     }
     else{
-        sprite.src = sprites[speciesName]
+        sprite.src = getSpeciesSpriteSrc(panelSpecies)
     }
 
-    let rawJson = null
-    if(female){
-        rawJson = await fetch(`https://raw.githubusercontent.com/${repo}/public/images/pokemon/variant/female/${species[speciesName]["sprite"]}.json`)
-    }
-    else{
-        rawJson = await fetch(`https://raw.githubusercontent.com/${repo}/public/images/pokemon/variant/${species[speciesName]["sprite"]}.json`)
-    }
+    const rawJson = await fetch(returnSpriteURL(back, female, species[speciesName]["sprite"], "json", 1))
     const json = await rawJson.json()
 
     let pal = {}
@@ -521,6 +551,7 @@ async function applyPalVar(speciesName, index, female){
     
     context.putImageData(imageData, 0, 0)
     speciesSprite.src = canvas.toDataURL()
+    setPanelSpeciesMainSpriteScaling(back, female)
 }
 
 
@@ -538,7 +569,18 @@ async function applyPalVar(speciesName, index, female){
 
 
 
-async function getFemaleSprite(speciesName, species){
+async function getSpriteInfo(speciesName, species, back = false, female = false){
+    let extra = ""
+    if(back && female){
+        extra += "BACK_F"
+    }
+    else if(female){
+        extra += "F"
+    }
+    else{
+        extra = "BACK"
+    }
+
     let sprite = new Image()
     let canvas = document.createElement("canvas")
 
@@ -547,7 +589,7 @@ async function getFemaleSprite(speciesName, species){
     let frameX = 0
     let frameY = 0
 
-    const rawJson = await fetch(`https://raw.githubusercontent.com/${repo}/public/images/pokemon/female/${species[speciesName]["sprite"]}.json`)
+    const rawJson = await fetch(returnSpriteURL(back, female, species[speciesName]["sprite"], "json"))
     const json = await rawJson.json()
 
     let i = 0
@@ -568,17 +610,17 @@ async function getFemaleSprite(speciesName, species){
     }
 
     if(canvasWidth > canvasHeight){
-        spritesInfo[`F_${speciesName}`] = `1, ${1 / (canvasWidth / canvasHeight)}`
+        spritesInfo[`${extra}_${speciesName}`] = `1, ${1 / (canvasWidth / canvasHeight)}`
     }
     else{
-        spritesInfo[`F_${speciesName}`] = `${1 / (canvasHeight / canvasWidth)}, 1`
+        spritesInfo[`${extra}_${speciesName}`] = `${1 / (canvasHeight / canvasWidth)}, 1`
     }
 
     canvas.width = canvasWidth
     canvas.height = canvasHeight
 
     sprite.crossOrigin = 'anonymous'
-    sprite.src = `https://raw.githubusercontent.com/${repo}/public/images/pokemon/female/${species[speciesName]["sprite"]}.png`
+    sprite.src = returnSpriteURL(back, female, species[speciesName]["sprite"], "png")
 
     const context = canvas.getContext('2d')
 
@@ -586,10 +628,40 @@ async function getFemaleSprite(speciesName, species){
         context.clearRect(0, 0, canvas.width, canvas.height)
         context.drawImage(sprite, -frameX, -frameY)
 
-        if(!localStorage.getItem(`F_${speciesName}`)){
-            localStorage.setItem(`F_${speciesName}`, LZString.compressToUTF16(canvas.toDataURL()))
-            localStorage.setItem(`spriteInfoF${speciesName}`, spritesInfo[`F_${speciesName}`])
+        if(!localStorage.getItem(`${extra}_${speciesName}`)){
+            localStorage.setItem(`${extra}_${speciesName}`, await LZString.compressToUTF16(canvas.toDataURL()))
+            localStorage.setItem(`spriteInfo${extra}${speciesName}`, spritesInfo[`${extra}_${speciesName}`])
         }
-        sprites[`F_${speciesName}`] = canvas.toDataURL()
+        sprites[`${extra}_${speciesName}`] = canvas.toDataURL()
     }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+function returnSpriteURL(back = false, female = false, id = "1", extension = "png", method = -1){
+    let url = `https://raw.githubusercontent.com/${repo}/public/images/pokemon/`
+    if(method == 1 || method == 2){
+        url += "variant/"
+    }
+    if(back){
+        url += "back/"
+    }
+    if(method == 0){
+        url += "shiny/"
+    }
+    if(female){
+        url += "female/"
+    }
+    url += `${id}.${extension}`
+
+    return url
 }
