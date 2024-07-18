@@ -117,7 +117,7 @@ function regexBaseStats(textBaseStats, species, jsonMasterlist){
                         species[originalSpecies]["forms"].push(speciesName)
                     }
 
-                    const types = speciesInit.match(/Type.\w+/ig)
+                    const types = speciesInit.match(/Type\.\w+/ig)
                     if(types){
                         for(let i = 0; i < types.length && i < 2; i++){
                             species[speciesName][`type${i + 1}`] = types[i].replace(".", "_").toUpperCase()
