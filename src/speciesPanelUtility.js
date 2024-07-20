@@ -23,11 +23,101 @@ fetch("https://raw.githubusercontent.com/ydarissep/dex-core/main/src/speciesPane
     text = text.replace('sanitizeString(moves[move]["type"]).slice(0,3)', '(translationTable[sanitizeString(moves[move]["type"])] ??= sanitizeString(moves[move]["type"])).slice(0,3)')
     text = text.replaceAll('sanitizeString(moves[move[0]]["type"]).slice(0,3)', '(translationTable[sanitizeString(moves[move[0]]["type"])] ??= sanitizeString(moves[move[0]]["type"])).slice(0,3)')
     text = text.replace("function sortLearnsetsArray(", "function sortLearnsetsArrayOld(")
+    text = text.replace("function buildSpeciesPanelSingleLearnsetsTable", "function buildSpeciesPanelSingleLearnsetsTableOld")
     
     eval.call(window,text)
 }).catch(error => {
     console.warn(error)
 })
+
+
+
+
+
+
+
+
+function buildSpeciesPanelSingleLearnsetsTable(table, name, input, label = "", asc = 0){
+    const eggMovesTable = table.id == "speciesPanelEggMovesTable"
+    const rareEggMove = species[name][input][species[name][input].length - 1]
+
+    const Tbody = table.querySelector("tbody")
+    const THead = table.querySelector("thead")
+
+    if(!Tbody || !THead){
+        return
+    }
+
+    while(Tbody.firstChild){
+        Tbody.removeChild(Tbody.firstChild)
+    }
+
+    sortLearnsetsArray(THead, species[name][input], label, asc).forEach(move => {
+        const row = document.createElement("tr")
+
+        const moveName = document.createElement("td")
+        moveName.innerText = moves[move]["ingameName"]
+        moveName.className = "bold"
+        if(eggMovesTable && rareEggMove == move){
+            moveName.classList.add("underline")
+        }
+        row.append(moveName)
+
+        const typeContainer = document.createElement("td")
+        const type = document.createElement("div")
+        type.innerText = sanitizeString(moves[move]["type"]).slice(0,3)
+        type.className = `${moves[move]["type"]} backgroundSmall`
+        typeContainer.append(type)
+        row.append(typeContainer)
+
+        const splitContainer = document.createElement("td")
+        const splitIcon = document.createElement("img")
+        splitIcon.src = `src/moves/${moves[move]["split"]}.png`
+        splitIcon.className = `${sanitizeString(moves[move]["split"])} splitIcon`
+        splitContainer.append(splitIcon)
+        row.append(splitContainer)
+
+        const power = document.createElement("td")
+        power.className = "speciesPanelLearnsetsPower"
+        if(moves[move]["power"] > 0){
+            power.innerText = moves[move]["power"]
+        }
+        else{
+            power.innerText = "-"   
+        }
+        row.append(power)
+
+        const accuracy = document.createElement("td")
+        accuracy.className = "speciesPanelLearnsetsAccuracy"
+        if(moves[move]["accuracy"] > 0){
+            accuracy.innerText = moves[move]["accuracy"]
+        }
+        else{
+            accuracy.innerText = "-"   
+        }
+        row.append(accuracy)
+
+        const PP = document.createElement("td")
+        PP.className = "speciesPanelLearnsetsPP"
+        PP.innerText = moves[move]["PP"]
+        row.append(PP)
+
+        const movedescription = document.createElement("td")
+        movedescription.className = "speciesPanelLearnsetsEffect"
+        movedescription.innerText += moves[move]["description"].join("")
+
+        row.addEventListener('click', function () {
+            createPopupForMove(moves[move])
+            overlay.style.display = 'block'
+        }) 
+
+        row.append(movedescription)
+
+        Tbody.append(row)
+    })
+}
+
+
 
 
 
