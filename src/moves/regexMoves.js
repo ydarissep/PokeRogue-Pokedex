@@ -92,9 +92,9 @@ function regexMoves(textMoves, moves){
                         moves[moveName]["flags"].push(`FLAG_${flagName.replace(/([A-Z])/g, " $1").replace(/(\d+)/g, " $1").trim().replaceAll(" ", "_").toUpperCase()}`)
                     }
                 })
-                if(/.attr\s*\(\s*HighCritAttr/i.test(moveMatch)){
-                    moves[moveName]["flags"].push("FLAG_HIGH_CRIT")
-                }
+            }
+            if(/.attr\s*\(\s*HighCritAttr/i.test(moveMatch)){
+                moves[moveName]["flags"].push("FLAG_HIGH_CRIT")
             }
 
             let effect = "EFFECT"
