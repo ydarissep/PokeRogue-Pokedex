@@ -39,7 +39,7 @@ fetch("https://raw.githubusercontent.com/ydarissep/dex-core/main/src/speciesPane
 
 function buildSpeciesPanelSingleLearnsetsTable(table, name, input, label = "", asc = 0){
     const eggMovesTable = table.id == "speciesPanelEggMovesTable"
-    const rareEggMove = species[name][input][species[name][input].length - 1]
+    const rareEggMove = species[name][input].slice(-1)[0] 
 
     const Tbody = table.querySelector("tbody")
     const THead = table.querySelector("thead")
@@ -52,7 +52,7 @@ function buildSpeciesPanelSingleLearnsetsTable(table, name, input, label = "", a
         Tbody.removeChild(Tbody.firstChild)
     }
 
-    sortLearnsetsArray(THead, species[name][input], label, asc).forEach(move => {
+    sortLearnsetsArray(THead, species[name][input].slice(0), label, asc).forEach(move => {
         const row = document.createElement("tr")
 
         const moveName = document.createElement("td")
