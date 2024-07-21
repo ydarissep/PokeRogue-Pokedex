@@ -283,7 +283,7 @@ function appendBiomes(speciesName){
         for(let j = 0; j < rarityKey.length; j++){
             const speciesKey = Object.keys(locations[locationsKey[i]][rarityKey[j]])
             for(let k = 0; k < speciesKey.length; k++){
-                if(species[speciesName]["evolutionLine"].includes(speciesKey[k])){
+                if(checkBiome(speciesName, speciesKey[k])){
                     const speciesPanelBiome = document.createElement("div"); speciesPanelBiome.innerText = locationsKey[i]; speciesPanelBiome.classList = "hyperlink speciesPanelTextPadding"
                     if(locationsKey[i] in biomeTranslation){
                         speciesPanelBiome.innerText = biomeTranslation[locationsKey[i]]
@@ -327,6 +327,27 @@ function appendBiomes(speciesName){
         }
         else{
             speciesPanelBiomesContainer.classList.remove("minimizeBiomes")
+        }
+    }
+}
+
+
+
+
+
+function checkBiome(speciesName, targetSpecies){
+    if(speciesName == targetSpecies){
+        return true
+    }
+    for(let i = 0; i < species[targetSpecies]["evolution"].length; i++){
+        const targetEvo = species[targetSpecies]["evolution"][i][2]
+        if(targetEvo == speciesName){
+            return true
+        }
+        for(let j = 0; j < species[targetEvo]["evolution"].length; j++){
+            if(species[targetEvo]["evolution"][j][2] == speciesName){
+                return true
+            }
         }
     }
 }
