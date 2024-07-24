@@ -158,6 +158,14 @@ function regexBaseStats(textBaseStats, species, jsonMasterlist){
                     if(weightMatch){
                         species[speciesName]["weight"] = weightMatch[1]
                     }
+
+                    const femaleMatch = speciesInit.match(/GrowthRate.*?(false|true)/i)
+                    if(femaleMatch){
+                        if(femaleMatch[1].toLowerCase() == "true"){
+                            species[speciesName]["variantF"] = [0]
+                            species[speciesName]["backF"] = [0]
+                        }
+                    }
                 }
             })
 
