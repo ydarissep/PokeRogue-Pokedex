@@ -100,6 +100,17 @@ function regexBaseStats(textBaseStats, species, jsonMasterlist){
                             }
                         }
                     }
+
+
+                    const femaleMatch = speciesInit.match(/GrowthRate.*?(false|true)/i)
+                    if(femaleMatch){
+                        if(femaleMatch[1].toLowerCase() == "true"){
+                            species[speciesName]["variantF"] = [0]
+                            species[speciesName]["backF"] = [0]
+                        }
+                    }
+
+
                     if(spritePath in jsonMasterlist["female"]){
                         species[speciesName]["variantF"] = jsonMasterlist["female"][spritePath]
                     }
@@ -157,14 +168,6 @@ function regexBaseStats(textBaseStats, species, jsonMasterlist){
                     const weightMatch = speciesInit.match(/((?:\d+)(?:\.\d+)?)\s*,\s*Abilities/i)
                     if(weightMatch){
                         species[speciesName]["weight"] = weightMatch[1]
-                    }
-
-                    const femaleMatch = speciesInit.match(/GrowthRate.*?(false|true)/i)
-                    if(femaleMatch){
-                        if(femaleMatch[1].toLowerCase() == "true"){
-                            species[speciesName]["variantF"] = [0]
-                            species[speciesName]["backF"] = [0]
-                        }
                     }
                 }
             })
