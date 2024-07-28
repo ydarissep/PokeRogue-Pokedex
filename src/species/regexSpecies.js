@@ -566,7 +566,7 @@ function regexEvolution(textEvolution, species){
                                         method = `${method}_MOVE_${splitEvo[i].match(/Moves\.(\w+)/i)[1]}`
                                     }
                                     else if(keywordsMatch[j] == "dexData"){
-                                        method = `${method}_${splitEvo[i].match(/dexData.*?Species\.(\w+)/i)[1]}_CAUGHT`
+                                        method = `${method}_${splitEvo[i].match(/dexData.*?Species\.(\w+)/i)[1]}_UNLOCKED`
                                     }
                                     else if(keywordsMatch[j] == "biomeType"){
                                         method = `${method}_IN_BIOME(${splitEvo[i].match(/Biome\.\w+/ig).toString().toUpperCase().replaceAll("BIOME.", "")})`
@@ -619,7 +619,7 @@ function regexEvolution(textEvolution, species){
 
 
 function regexEvolutionForms(textEvolutionForms, species){
-    const keywords = /SpeciesFriendshipEvolutionCondition|TimeOfDay\.|getMove\(|moveId|Gender\.|Stat\.|WeatherType\.|dexData|biomeType/ig
+    const keywords = /SpeciesFriendshipEvolutionCondition|TimeOfDay\.|getMove\(|moveId|Gender\.|Stat\.|WeatherType\.|dexData|getSpeciesDependentFormChangeCondition|biomeType/ig
     const textEvolutionFormsMatch = textEvolutionForms.match(/\[\s*Species\..*?\].*?(?=\[\s*Species\.\w+\s*\]\s*:|}\s*;)/igs)
     if(textEvolutionFormsMatch){
         textEvolutionFormsMatch.forEach(matchEvolution => {
@@ -696,8 +696,8 @@ function regexEvolutionForms(textEvolutionForms, species){
                                     else if(keywordsMatch[j] == "moveId"){
                                         method = `${method}_MOVE_${splitEvo[i].match(/Moves\.(\w+)/i)[1]}`
                                     }
-                                    else if(keywordsMatch[j] == "dexData"){
-                                        method = `${method}_${splitEvo[i].match(/dexData.*?Species\.(\w+)/i)[1]}_CAUGHT`
+                                    else if(keywordsMatch[j] == "dexData" || keywordsMatch[j] == "getSpeciesDependentFormChangeCondition"){
+                                        method = `${method}_${splitEvo[i].match(/(?:dexData|getSpeciesDependentFormChangeCondition).*?Species\.(\w+)/i)[1]}_UNLOCKED`
                                     }
                                     else if(keywordsMatch[j] == "biomeType"){
                                         method = `${method}_IN_BIOME(${splitEvo[i].match(/Biome\.\w+/ig).toString().toUpperCase().replaceAll("BIOME.", "")})`

@@ -1,5 +1,5 @@
 window.repo = "pagefaultgames/pokerogue/main"
-window.checkUpdate = "19 PR"
+window.checkUpdate = "20 PR"
 window.lang = "en"
 
 
