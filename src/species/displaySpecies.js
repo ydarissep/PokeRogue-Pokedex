@@ -63,20 +63,39 @@ async function spriteRemoveBgReturnBase64(speciesName, species){
     const json = await rawJson.json()
 
     let i = 0
-    for(i = 0; i < json["textures"][0]["frames"].length; i++){
-        if(json["textures"][0]["frames"][i]["filename"] === "0001.png"){
-            canvasWidth = json["textures"][0]["frames"][i]["frame"]["w"]
-            canvasHeight = json["textures"][0]["frames"][i]["frame"]["h"]
-            frameX = json["textures"][0]["frames"][i]["frame"]["x"]
-            frameY = json["textures"][0]["frames"][i]["frame"]["y"]
-            break
+    if("textures" in json){
+        for(i = 0; i < json["textures"][0]["frames"].length; i++){
+            if(json["textures"][0]["frames"][i]["filename"] === "0001.png"){
+                canvasWidth = json["textures"][0]["frames"][i]["frame"]["w"]
+                canvasHeight = json["textures"][0]["frames"][i]["frame"]["h"]
+                frameX = json["textures"][0]["frames"][i]["frame"]["x"]
+                frameY = json["textures"][0]["frames"][i]["frame"]["y"]
+                break
+            }
+        }
+        if(i == json["textures"][0]["frames"].length){
+            canvasWidth = json["textures"][0]["frames"][0]["frame"]["w"]
+            canvasHeight = json["textures"][0]["frames"][0]["frame"]["h"]
+            frameX = json["textures"][0]["frames"][0]["frame"]["x"]
+            frameY = json["textures"][0]["frames"][0]["frame"]["y"]
         }
     }
-    if(i == json["textures"][0]["frames"].length){
-        canvasWidth = json["textures"][0]["frames"][0]["frame"]["w"]
-        canvasHeight = json["textures"][0]["frames"][0]["frame"]["h"]
-        frameX = json["textures"][0]["frames"][0]["frame"]["x"]
-        frameY = json["textures"][0]["frames"][0]["frame"]["y"]
+    else{
+        for(i = 0; i < json["frames"].length; i++){
+            if(json["frames"][i]["filename"] === "0001.png"){
+                canvasWidth = json["frames"][i]["frame"]["w"]
+                canvasHeight = json["frames"][i]["frame"]["h"]
+                frameX = json["frames"][i]["frame"]["x"]
+                frameY = json["frames"][i]["frame"]["y"]
+                break
+            }
+        }
+        if(i == json["frames"].length){
+            canvasWidth = json["frames"][0]["frame"]["w"]
+            canvasHeight = json["frames"][0]["frame"]["h"]
+            frameX = json["frames"][0]["frame"]["x"]
+            frameY = json["frames"][0]["frame"]["y"]
+        }
     }
 
     if(canvasWidth > canvasHeight){
