@@ -497,6 +497,13 @@ function fetchVarSprite(variantContainer, i, clicked = false, back = false, fema
             variantsContainer.children[j].classList.remove("activeVariant")
         }
 
+        if(back && female && species[targetSpecies]["backF"][i] == undefined){
+            i = 0
+        }
+        else if(female && species[targetSpecies]["variantF"][i] == undefined){
+            i = 0
+        }
+
         let method = species[targetSpecies]["variant"][i]
         if(female){
             method = species[targetSpecies]["variantF"][i]
@@ -514,6 +521,9 @@ function fetchVarSprite(variantContainer, i, clicked = false, back = false, fema
         }
         else if(method == 1){
             applyPalVar(targetSpecies, i, back, female)
+        }
+        else{
+            speciesSprite.src = sprites[panelSpecies]
         }
         variantContainer.classList.add("activeVariant")
     }

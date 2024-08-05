@@ -104,7 +104,7 @@ function regexBaseStats(textBaseStats, species, jsonMasterlist){
 
                     const femaleMatch = speciesInit.match(/\d+\s*,\s*\d+\s*,\s*\d+\s*,\s*\d+\s*,\s*\d+\s*,\s*\d+\s*,\s*\d+.*?(false|true)/i)
                     if(femaleMatch){
-                        if(femaleMatch[1].toLowerCase() == "true"){
+                        if(femaleMatch[1].toLowerCase() == "true" && !/_mega$|_gigantamax$/i.test(speciesName)){
                             species[speciesName]["variantF"] = [0]
                             species[speciesName]["backF"] = [0]
                         }
