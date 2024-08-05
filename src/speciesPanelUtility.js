@@ -499,21 +499,38 @@ function fetchVarSprite(variantContainer, i, clicked = false, back = false, fema
 
         let method = species[targetSpecies]["variant"][i]
         if(female){
-            method = species[targetSpecies]["variantF"][i]
+            if(species[targetSpecies]["variantF"][i] != undefined){
+                method = species[targetSpecies]["variantF"][i]
+            }
+            else{
+                female = false
+            }
         }
 
         if(back){
-            method = species[targetSpecies]["back"][i]
+            if(species[targetSpecies]["back"][i] != undefined){
+                method = species[targetSpecies]["back"][i]
+            }
             if(female){
-                method = species[targetSpecies]["backF"][i]
+                if(species[targetSpecies]["backF"][i] != undefined){
+                    method = species[targetSpecies]["backF"][i]
+                }
+                else{
+                    female = false
+                }
             }
         }
+
+        console.log(method, female, back)
 
         if(method == 0 || method == 2){
             downloadVarSprite(targetSpecies, i, method, back, female)
         }
         else if(method == 1){
             applyPalVar(targetSpecies, i, back, female)
+        }
+        else{
+            speciesSprite.src = sprites[panelSpecies]
         }
         variantContainer.classList.add("activeVariant")
     }
