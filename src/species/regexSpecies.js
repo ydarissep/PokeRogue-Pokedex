@@ -102,7 +102,7 @@ function regexBaseStats(textBaseStats, species, jsonMasterlist){
                     }
 
 
-                    const femaleMatch = speciesInit.match(/GrowthRate.*?(false|true)/i)
+                    const femaleMatch = speciesInit.match(/\d+\s*,\s*\d+\s*,\s*\d+\s*,\s*\d+\s*,\s*\d+\s*,\s*\d+\s*,\s*\d+.*?(false|true)/i)
                     if(femaleMatch){
                         if(femaleMatch[1].toLowerCase() == "true"){
                             species[speciesName]["variantF"] = [0]
