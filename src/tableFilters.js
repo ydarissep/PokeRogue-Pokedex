@@ -8,6 +8,9 @@ fetch("https://raw.githubusercontent.com/ydarissep/dex-core/main/src/tableFilter
     text = text.replace("function filterBaseStats(", "function filterBaseStatsOld(")
     text = text.replace("function createFilterGroup(", "function createFilterGroupOld(")
     text = text.replace("newFilter.innerText = `${label}: ${value}`", "newFilter.innerText = `${staticTranslationTable[label] ??= label}: ${value}`")
+    text = text.replace('createFilterGroup(["HP", "Atk", "Def", "SpA", "SpD", "Spe", "BST"], "Base Stats", [speciesFilterList, locationsFilterList], true)', 'createFilterGroup(["HP", "Atk", "Def", "SpA", "SpD", "Spe", "BST"], "Base Stats", [speciesFilterList, locationsFilterList], true)\ncreateFilterGroup(["Cost"], "Starter", [speciesFilterList, locationsFilterList], true)')
+    text = text.replace("function filterBaseStatsOld(", "function filterStarter(value, label){value = 'starterCost'\nlabel = 'Cost'\nfilterOperators(value, label, species)}\nfunction filterBaseStatsOld(")
+    text = text.replace('else if(label === "Base Stats")', 'else if(label === "Starter"){filterStarter(value, label)}\nelse if(label === "Base Stats")')
 
     eval.call(window,text)
 }).catch(error => {
