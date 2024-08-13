@@ -880,7 +880,11 @@ async function handleSheetAnimation(speciesName, back, female, sheet, json){
     window.spriteAnimation = {"sheet": sheet, "frames": {}}
     if("textures" in json){
         if(json["textures"][0]["frames"].length == 1){
+            animateIconContainer.classList.add("hide")
             return
+        }
+        else{
+            animateIconContainer.classList.remove("hide")
         }
         canvas.width = json["textures"][0]["frames"][i]["sourceSize"]["w"]
         canvas.height = json["textures"][0]["frames"][i]["sourceSize"]["h"]
@@ -893,12 +897,16 @@ async function handleSheetAnimation(speciesName, back, female, sheet, json){
     }
     else{
         if(json["frames"].length == 1){
+            animateIconContainer.classList.add("hide")
             return
+        }
+        else{
+            animateIconContainer.classList.remove("hide")
         }
         canvas.width = json["frames"][i]["sourceSize"]["w"]
         canvas.height = json["frames"][i]["sourceSize"]["h"]
 
-        sheetSpecies = json["image"].replace(/_\d$/, "")
+        sheetSpecies = json["meta"]["image"].replace(/(?:_\d)?\.png$/, "")
 
         for(let i = 0; i < json["frames"].length; i++){
             spriteAnimation["frames"][parseInt(json["frames"][i]["filename"].replace(".png", ""))] = [json["frames"][i]["frame"]["w"], json["frames"][i]["frame"]["h"], json["frames"][i]["frame"]["x"], json["frames"][i]["frame"]["y"], json["frames"][i]["spriteSourceSize"]["x"], json["frames"][i]["spriteSourceSize"]["y"]]
