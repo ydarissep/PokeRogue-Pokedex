@@ -92,13 +92,6 @@ function regexBaseStats(textBaseStats, species, jsonMasterlist){
 
                     if(spritePath in jsonMasterlist){
                         species[speciesName]["variant"] = jsonMasterlist[spritePath]
-                        if(speciesName === "SPECIES_ETERNATUS_ETERNAMAX"){
-                            for(let k = 0; k < species[speciesName]["variant"].length; k++){
-                                if(species[speciesName]["variant"][k] == 2){
-                                    species[speciesName]["variant"][k] = 1
-                                }
-                            }
-                        }
                     }
 
 
@@ -119,6 +112,12 @@ function regexBaseStats(textBaseStats, species, jsonMasterlist){
                     }
                     if(spritePath in jsonMasterlist["back"]["female"]){
                         species[speciesName]["backF"] = jsonMasterlist["back"]["female"][spritePath]
+                    }
+                    if(spritePath in jsonMasterlist["exp"]){
+                        species[speciesName]["exp"] = jsonMasterlist["exp"][spritePath]
+                    }
+                    if(spritePath in jsonMasterlist["exp"]["back"]){
+                        species[speciesName]["backExp"] = jsonMasterlist["exp"]["back"][spritePath]
                     }
 
                     if(!species[originalSpecies]["forms"].includes(originalSpecies)){
@@ -179,6 +178,10 @@ function regexBaseStats(textBaseStats, species, jsonMasterlist){
         })
     }
     
+    species["SPECIES_ETERNATUS_ETERNAMAX"]["exp"] = []
+    species["SPECIES_ETERNATUS_ETERNAMAX"]["backExp"] = []
+
+
     return species
 }
 
@@ -810,6 +813,36 @@ function regexEggMovesLearnsets(textEggMoves, species){
 
 
 
+
+
+
+
+
+function regexExp(jsonExp, species){
+    jsonExp = Array.from(new Set(jsonExp))
+    let idToSpecies = {}
+    Object.keys(species).forEach(name => {
+        idToSpecies[species[name]["sprite"]] = name
+    })
+
+    jsonExp.forEach(id => {
+        const info = id.match(/(s?b?)(?:-|$)/i)
+        if(info){
+            id = id.replace(info[1], "")
+
+            if(id in idToSpecies){
+                if(info[1] == "s" && species[idToSpecies[id]]["exp"].length == 0){
+                    species[idToSpecies[id]]["exp"] = [0]
+                }
+                else if(info[1] == "sb" && species[idToSpecies[id]]["backExp"].length == 0){
+                    species[idToSpecies[id]]["backExp"] = [0]
+                }
+            }
+        }
+    })
+
+    return species
+}
 
 
 

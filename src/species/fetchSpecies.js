@@ -63,6 +63,13 @@ async function getChanges(species){
     return regexChanges(textChanges, species)
 }
 
+async function getExp(species){
+    const rawExp = await fetch("https://raw.githubusercontent.com/pagefaultgames/pokerogue/main/public/exp-sprites.json")
+    const jsonExp = await rawExp.json()
+
+    return regexExp(jsonExp, species)
+}
+
 
 
 
@@ -77,6 +84,7 @@ async function buildSpeciesObj(){
     species = await getTMHMLearnsets(species)
     species = await getEggMovesLearnsets(species)
     species = await getIngameNamme(species)
+    species = await getExp(species)
     //species = await getChanges(species)
 
     await localStorage.setItem("species", LZString.compressToUTF16(JSON.stringify(species)))
@@ -111,8 +119,10 @@ function initializeSpeciesObj(speciesObj){
     speciesObj["forms"] = []
     speciesObj["variant"] = [0]
     speciesObj["variantF"] = []
+    speciesObj["exp"] = []
     speciesObj["back"] = [0]
     speciesObj["backF"] = []
+    speciesObj["backExp"] = []
     speciesObj["weight"] = "?"
 }
 

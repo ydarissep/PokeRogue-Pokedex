@@ -1,5 +1,5 @@
 window.repo = "pagefaultgames/pokerogue/main"
-window.checkUpdate = "22 PR"
+window.checkUpdate = "23 PR"
 window.lang = "en"
 
 
@@ -52,6 +52,44 @@ fetch('https://raw.githubusercontent.com/ydarissep/dex-core/main/index.html').th
     })
     document.getElementById("locationsFilter").insertBefore(hideLinksFilter, document.getElementById("locationsFilterList"))
     */
+
+    speciesSprite.addEventListener("contextmenu", (e) => { // right click download sprite animation as gif in speciesPanel
+        if(typeof spriteAnimation != "undefined" && animateIconContainer.classList.contains("animateActive")){
+            if(Object.keys(spriteAnimation["frames"]).length > 1){
+                let index = variantsContainer.querySelector(".activeVariant")
+                if(index && !index.classList.contains("hide")){
+                    index = parseInt(index.id.match(/\d/)[0])
+                }
+                else{
+                    index = "base"
+                }
+                if(index == spriteAnimation["index"]){
+                    e.preventDefault()
+                    let canvas = document.createElement("canvas")
+                    const sheet = spriteAnimation["sheet"]
+                    canvas.width = spriteAnimation["width"]
+                    canvas.height = spriteAnimation["height"]
+                    const context = canvas.getContext('2d')
+
+                    let encoder = new GIFEncoder()
+                    encoder.setRepeat(0)
+                    encoder.setDelay(83)
+                    encoder.setQuality(1)
+                    encoder.start()
+
+                    Object.keys(spriteAnimation["frames"]).forEach(key => {
+                        context.clearRect(0, 0, canvas.width, canvas.height)
+                        context.drawImage(sheet, spriteAnimation["frames"][key][2], spriteAnimation["frames"][key][3], spriteAnimation["frames"][key][0], spriteAnimation["frames"][key][1], spriteAnimation["frames"][key][4], spriteAnimation["frames"][key][5], spriteAnimation["frames"][key][0], spriteAnimation["frames"][key][1])
+
+                        encoder.addFrame(context)
+                    })
+
+                    encoder.finish()
+                    encoder.download(`${sanitizeString(panelSpecies)}_${index}.gif`)
+                }
+            }
+        }
+    })
 
     await fetch("https://raw.githubusercontent.com/ydarissep/dex-core/main/src/global.js").then(async response => {
         return response.text()

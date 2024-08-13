@@ -17,7 +17,7 @@
 	margin-top: 10px;
 }
 
-.variantContainer, .femaleIconContainer, .backIconContainer {
+.variantContainer, .femaleIconContainer, .backIconContainer, .animateIconContainer {
 	display: inline-flex;
 	margin-right: 10px;
 	padding: 3px;
@@ -27,12 +27,12 @@
 	cursor: pointer;
 }
 
-.variantContainer:hover, .femaleIconContainer:hover, .backIconContainer:hover {
+.variantContainer:hover, .femaleIconContainer:hover, .backIconContainer:hover, .animateIconContainer:hover {
 	border: 2px solid var(--theme-color) !important;
     transition: border 0.1s ease-in-out;
 }
 
-.variantContainer.activeVariant, .femaleIconContainer.femaleActive, .backIconContainer.backActive {
+.variantContainer.activeVariant, .femaleIconContainer.femaleActive, .backIconContainer.backActive, .animateIconContainer.animateActive {
 	border: 2px solid green !important;
 }
 

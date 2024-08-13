@@ -227,7 +227,7 @@ function sortLearnsetsArray(thead, learnsetsArray, label, asc){
 
 
 
-function setPanelSpeciesMainSpriteSrc(back = false, female = false){
+async function setPanelSpeciesMainSpriteSrc(back = false, female = false, animate = animateIconContainer.classList.contains("animateActive")){
     let extra = ""
     if(back && female && sprites[`BACK_F_${panelSpecies}`]){
         extra = "BACK_F"
@@ -238,6 +238,7 @@ function setPanelSpeciesMainSpriteSrc(back = false, female = false){
     else if(back && sprites[`BACK_${panelSpecies}`]){
         extra = "BACK"
     }
+
     if(sprites[`${extra}_${panelSpecies}`]){
         speciesSprite.src = sprites[`${extra}_${panelSpecies}`]
     }
@@ -245,6 +246,11 @@ function setPanelSpeciesMainSpriteSrc(back = false, female = false){
         speciesSprite.src = getSpeciesSpriteSrc(panelSpecies)
     }
     setPanelSpeciesMainSpriteScaling(back, female)
+
+    let index = variantsContainer.querySelector(".activeVariant")
+    if(animate && (!index || (index && index.classList.contains("hide")))){
+        await downloadAndAnimateSheet(back, female)
+    }
 }
 function setPanelSpeciesMainSpriteScaling(back = false, female = false){
     let extra = ""
@@ -427,24 +433,19 @@ function insertVariantsContainer(){
         })
     }
 
+
+
+
+
     window.femaleIconContainer = document.createElement("div"); femaleIconContainer.setAttribute("ID", "femaleIconContainer"); femaleIconContainer.className = "femaleIconContainer"
     const femaleIconSprite = document.createElement("img"); femaleIconSprite.src = `https://raw.githubusercontent.com/ydarissep/PokeRogue-Pokedex/main/sprites/female.png`
 
     femaleIconContainer.append(femaleIconSprite)
     variantsContainer.append(femaleIconContainer)
 
-    femaleIconContainer.addEventListener("click", async () => {
-        femaleIconContainer.classList.toggle("femaleActive")
-        for(let i = 0; i < 3; i++){
-            if(variantsContainer.children[i].classList.contains("activeVariant") && !variantsContainer.children[i].classList.contains("hide")){
-                fetchVarSprite(variantsContainer.children[i], i, false)
-                break
-            }
-            if(i === 2){
-                setPanelSpeciesMainSpriteSrc(backIconContainer.classList.contains("backActive"), femaleIconContainer.classList.contains("femaleActive"))
-            }
-        }
-    })
+
+
+
 
     window.backIconContainer = document.createElement("div"); backIconContainer.setAttribute("ID", "backIconContainer"); backIconContainer.className = "backIconContainer"
     const backIconSprite = document.createElement("img"); backIconSprite.src = `https://raw.githubusercontent.com/ydarissep/PokeRogue-Pokedex/main/sprites/back.png`
@@ -452,18 +453,36 @@ function insertVariantsContainer(){
     backIconContainer.append(backIconSprite)
     variantsContainer.append(backIconContainer)
 
-    backIconContainer.addEventListener("click", async () => {
-        backIconContainer.classList.toggle("backActive")
-        for(let i = 0; i < 3; i++){
-            if(variantsContainer.children[i].classList.contains("activeVariant") && !variantsContainer.children[i].classList.contains("hide")){
-                fetchVarSprite(variantsContainer.children[i], i, false)
-                break
+
+
+
+
+    window.animateIconContainer = document.createElement("div"); animateIconContainer.setAttribute("ID", "animateIconContainer"); animateIconContainer.className = "animateIconContainer"
+    const animateIconSprite = document.createElement("img"); animateIconSprite.src = `https://raw.githubusercontent.com/ydarissep/PokeRogue-Pokedex/main/sprites/animate.png`
+
+    animateIconContainer.append(animateIconSprite)
+    variantsContainer.append(animateIconContainer)
+
+
+
+
+
+    const toggleActive = ["femaleActive", "backActive", "animateActive"]
+    const iconContainers = [femaleIconContainer, backIconContainer, animateIconContainer]
+    for(let i = 0; i < iconContainers.length; i++){
+        iconContainers[i].addEventListener("click", async () => {
+            iconContainers[i].classList.toggle(toggleActive[i])
+            for(let j = 0; j < 3; j++){
+                if(variantsContainer.children[j].classList.contains("activeVariant") && !variantsContainer.children[j].classList.contains("hide")){
+                    fetchVarSprite(variantsContainer.children[j], j, false)
+                    break
+                }
+                if(j === 2){
+                    setPanelSpeciesMainSpriteSrc(backIconContainer.classList.contains("backActive"), femaleIconContainer.classList.contains("femaleActive"))
+                }
             }
-            if(i === 2){
-                setPanelSpeciesMainSpriteSrc(backIconContainer.classList.contains("backActive"), femaleIconContainer.classList.contains("femaleActive"))
-            }
-        }
-    })
+        })
+    }
 }
 
 
@@ -489,8 +508,8 @@ function fetchVarSprite(variantContainer, i, clicked = false, back = false, fema
 
     const targetSpecies = returnTargetSpeciesSprite(panelSpecies)
     if(variantContainer.classList.contains("activeVariant") && clicked){
-        setPanelSpeciesMainSpriteSrc(back, female)
         variantContainer.classList.remove("activeVariant")
+        setPanelSpeciesMainSpriteSrc(back, female)
     }
     else{
         for(let j = 0; j < 3; j++){
@@ -628,6 +647,15 @@ async function downloadVarSprite(speciesName, index, method, back, female){
 
         speciesSprite.src = canvas.toDataURL()
         setPanelSpeciesMainSpriteScaling(back, female)
+
+        if(animateIconContainer.classList.contains("animateActive")){
+            if((back && species[speciesName]["backExp"].length > 0) || species[speciesName]["exp"].length > 0){
+                await downloadAndAnimateSheet(back, female)
+            }
+            else{
+                await handleSheetAnimation(speciesName, back, female, sprite, json)
+            }
+        }
     }
 }
 
@@ -692,10 +720,11 @@ async function applyPalVar(speciesName, index, back, female){
     context.putImageData(imageData, 0, 0)
     speciesSprite.src = canvas.toDataURL()
     setPanelSpeciesMainSpriteScaling(back, female)
+
+    if(animateIconContainer.classList.contains("animateActive")){
+        await downloadAndAnimateSheet(back, female)
+    }
 }
-
-
-
 
 
 
@@ -806,9 +835,15 @@ async function getSpriteInfo(speciesName, species, back = false, female = false)
 
 
 
-function returnSpriteURL(back = false, female = false, id = "1", extension = "png", method = -1){
+function returnSpriteURL(back = false, female = false, id = "1", extension = "png", method = -1, exp = false){
     let url = `https://raw.githubusercontent.com/${repo}/public/images/pokemon/`
-    if(method == 1 || method == 2){
+    if(exp){
+        if(method == 1 || method == 2){
+            url += "variant/"
+        }
+        url += "exp/"
+    }
+    else if(method == 1 || method == 2){
         url += "variant/"
     }
     if(back){
@@ -823,4 +858,224 @@ function returnSpriteURL(back = false, female = false, id = "1", extension = "pn
     url += `${id}.${extension}`
 
     return url
+}
+
+
+
+
+
+
+
+
+
+window.animateCounter = 0
+async function handleSheetAnimation(speciesName, back, female, sheet, json){
+    let sheetSpecies = null
+    let index = variantsContainer.querySelector(".activeVariant")
+    let frameCounter = 1
+    let canvas = document.createElement("canvas")
+    canvas.width = 128
+    canvas.height = 128
+
+    window.spriteAnimation = {"sheet": sheet, "frames": {}}
+    if("textures" in json){
+        if(json["textures"][0]["frames"].length == 1){
+            return
+        }
+        canvas.width = json["textures"][0]["frames"][i]["sourceSize"]["w"]
+        canvas.height = json["textures"][0]["frames"][i]["sourceSize"]["h"]
+
+        sheetSpecies = json["textures"][0]["image"].replace(/(?:_\d)?\.png$/, "")
+        
+        for(let i = 0; i < json["textures"][0]["frames"].length; i++){
+            spriteAnimation["frames"][parseInt(json["textures"][0]["frames"][i]["filename"].replace(".png", ""))] = [json["textures"][0]["frames"][i]["frame"]["w"], json["textures"][0]["frames"][i]["frame"]["h"], json["textures"][0]["frames"][i]["frame"]["x"], json["textures"][0]["frames"][i]["frame"]["y"], json["textures"][0]["frames"][i]["spriteSourceSize"]["x"], json["textures"][0]["frames"][i]["spriteSourceSize"]["y"]]
+        }
+    }
+    else{
+        if(json["frames"].length == 1){
+            return
+        }
+        canvas.width = json["frames"][i]["sourceSize"]["w"]
+        canvas.height = json["frames"][i]["sourceSize"]["h"]
+
+        sheetSpecies = json["image"].replace(/_\d$/, "")
+
+        for(let i = 0; i < json["frames"].length; i++){
+            spriteAnimation["frames"][parseInt(json["frames"][i]["filename"].replace(".png", ""))] = [json["frames"][i]["frame"]["w"], json["frames"][i]["frame"]["h"], json["frames"][i]["frame"]["x"], json["frames"][i]["frame"]["y"], json["frames"][i]["spriteSourceSize"]["x"], json["frames"][i]["spriteSourceSize"]["y"]]
+        }
+    }
+    spriteAnimation["width"] = canvas.width
+    spriteAnimation["height"] = canvas.height
+    if(index && !index.classList.contains("hide")){
+        spriteAnimation["index"] = parseInt(index.id.match(/\d/)[0])
+    }
+    else{
+        spriteAnimation["index"] = "base"
+    }
+
+    if(canvas.width > canvas.height){
+        speciesSprite.style.transform = `scale(1, ${1 / (canvas.width / canvas.height)})`
+    }
+    else{
+        speciesSprite.style.transform = `scale(${1 / (canvas.height / canvas.width)}, 1)`
+    }
+
+    const context = canvas.getContext('2d')
+
+    animateCounter++
+    
+    const frameInterval = setInterval(changeImg, 83) // 83ms = 12fps
+
+    function changeImg(){
+        if(!speciesPanelMainContainer.classList.contains("hide")){
+            if(!animateIconContainer.classList.contains("animateActive")){
+                animateCounter = 0
+                clearInterval(frameInterval)
+                return
+            }
+            if(sheetSpecies != species[panelSpecies]["sprite"]){
+                animateCounter--
+                clearInterval(frameInterval)
+                return
+            }
+            if(speciesName != panelSpecies 
+            || variantsContainer.querySelector(".activeVariant") != index
+            || (female != femaleIconContainer.classList.contains("femaleActive") && !femaleIconContainer.classList.contains("hide"))
+            || back != backIconContainer.classList.contains("backActive")
+            || animateCounter > 1){
+                animateCounter--
+                clearInterval(frameInterval)
+                return
+            }
+            if(!spriteAnimation["frames"][frameCounter]){
+                frameCounter = 1
+            }
+            //console.log(frameCounter)
+
+            context.clearRect(0, 0, canvas.width, canvas.height)
+            context.drawImage(sheet, spriteAnimation["frames"][frameCounter][2], spriteAnimation["frames"][frameCounter][3], spriteAnimation["frames"][frameCounter][0], spriteAnimation["frames"][frameCounter][1], spriteAnimation["frames"][frameCounter][4], spriteAnimation["frames"][frameCounter][5], spriteAnimation["frames"][frameCounter][0], spriteAnimation["frames"][frameCounter][1])
+
+            speciesSprite.src = canvas.toDataURL()
+
+            frameCounter++
+        }
+    }
+}
+
+
+
+
+
+
+
+
+
+
+async function downloadAndAnimateSheet(back = false, female = false, exp = false){
+    if((back && species[panelSpecies]["backExp"].length > 0) || species[panelSpecies]["exp"].length > 0){
+        female = false
+    }
+
+    let sprite = new Image()
+
+    if(femaleIconContainer.classList.contains("hide")){
+        female = false
+    }
+
+    let method = -1
+    let index = variantsContainer.querySelector(".activeVariant")
+    if(index && index.classList.contains("hide")){
+        index = null
+    }
+    if(index){
+        index = parseInt(index.id.match(/\d/)[0])
+        if((back && species[panelSpecies]["backExp"][index] != null)){
+            method = species[panelSpecies]["backExp"][index]
+            exp = true
+            female = false
+        }
+        else if(species[panelSpecies]["exp"][index] != null){
+            method = species[panelSpecies]["exp"][index]
+            exp = true
+            female = false
+        }
+        else if(female && back && species[panelSpecies]["backF"][index] != null){
+            method = species[panelSpecies]["backF"][index]
+        }
+        else if(back && species[panelSpecies]["back"][index] != null){
+            method = species[panelSpecies]["back"][index]
+        }
+        else if(female && species[panelSpecies]["variantF"][index] != null){
+            method = species[panelSpecies]["variantF"][index]
+        }
+        else if(species[panelSpecies]["variant"][index] != null){
+            method = species[panelSpecies]["variant"][index]
+        }
+    }
+    else if(species[panelSpecies]["exp"].length > 0){
+        exp = true
+    }
+
+    let spritePath = species[panelSpecies]["sprite"]
+    if(method == 2){
+        spritePath += `_${index + 1}`
+    }
+
+    let rawJson = null
+    let json = null
+
+    if(method == 1){
+        let tempSprite = new Image()
+        tempSprite.crossOrigin = 'anonymous'
+        tempSprite.src = returnSpriteURL(back, female, spritePath, "png", -1, exp)
+
+        tempSprite.onload = async () => {
+            let canvas = document.createElement("canvas")
+
+            const rawPalJson = await fetch(returnSpriteURL(back, female, spritePath, "json", method, exp))
+            const palJson = await rawPalJson.json()
+
+            rawJson = await fetch(returnSpriteURL(back, female, spritePath, "json", -1, exp))
+            json = await rawJson.json()
+
+            let pal = {}
+            for(let i = 0; i < Object.keys(palJson[index]).length; i++){
+                const jsonKey = Object.keys(palJson[index])[i]
+                pal[`${parseInt(jsonKey.slice(0, 2), 16)},${parseInt(jsonKey.slice(2, 4), 16)},${parseInt(jsonKey.slice(4, 6), 16)}`] = [parseInt(palJson[index][jsonKey].slice(0, 2), 16),parseInt(palJson[index][jsonKey].slice(2, 4), 16),parseInt(palJson[index][jsonKey].slice(4, 6), 16)]
+            }
+
+            canvas.width = tempSprite.width
+            canvas.height = tempSprite.height
+
+            const context = canvas.getContext('2d')
+
+            context.clearRect(0, 0, canvas.width, canvas.height)
+            context.drawImage(tempSprite, 0, 0)
+
+            const imageData = context.getImageData(0, 0, canvas.width, canvas.height)
+
+            for(let i = 0; i < imageData.data.length; i += 4) {
+                if(`${imageData.data[i]},${imageData.data[i + 1]},${imageData.data[i + 2]}` in pal){
+                    const palKey = `${imageData.data[i]},${imageData.data[i + 1]},${imageData.data[i + 2]}`
+                    imageData.data[i] = pal[palKey][0]
+                    imageData.data[i + 1] = pal[palKey][1]
+                    imageData.data[i + 2] = pal[palKey][2]
+                }
+            }
+            
+            context.putImageData(imageData, 0, 0)
+            sprite.src = canvas.toDataURL()
+        }
+    }
+    else{
+        rawJson = await fetch(returnSpriteURL(back, female, spritePath, "json", method, exp))
+        json = await rawJson.json()
+
+        sprite.crossOrigin = 'anonymous'
+        sprite.src = returnSpriteURL(back, female, spritePath, "png", method, exp)
+    }
+
+    sprite.onload = async () => {
+        await handleSheetAnimation(panelSpecies, back, female, sprite, json)
+    }
 }
