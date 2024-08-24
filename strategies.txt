@@ -13,3 +13,18 @@ Shedinja
 These three facts alone make Shedinja the very best Pokémon for endless as it can single-handedly beat the current Endless gamemode.
     tags = Endless
 }
+Shedinja
+{
+    name = S-Tier - Conversion Lategame Carry
+    author = Lucas
+    tags = Endless
+    passive = Prankster
+    ability = Wonder Guard
+    fusion = Smeargle -> Shedinja
+    nature = Any
+    moves = Nature's Madness (spliced), Conversion, Dragon Tail (spliced/sketched), Sappy Seed (spliced/sketched) / Leech Seed (spliced/sketched) / Worry Seed (spliced/sketched)
+    comment = - By switching the order of your moves you can change what typing you will gain through the use of conversion. You want to be a typing that cannot be hit super effectively by your opponent.
+- Wonder Guard is the only ability with true immunity, allowing you to ignore most attacks.
+- Prankster allows you to use Conversion with priority, letting you outspeed opposing non-priority moves.
+It is recommended to have seperate Pokémon able to Gastro Acid and Soak opposing Pokémon, as those moves beat Smeargle-Shedinja counters.
+}
