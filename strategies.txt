@@ -1,0 +1,14 @@
+Shedinja
+{
+    name = S-tier Endless Carry
+    item = 
+    ability = Wonder Guard
+    evs = 0
+    nature = Whatever
+    moves = Leech Seed / Sappy Seed, Salt Cure, Soak, Ruination / Super Fang
+    comment = - Access to the only item and shiny duplication in the game. Give it any item and once you evolve it, both Ninjask and Shedinja will have Nincadas items.
+- Wonder Guard Shedinja is the only Pokémon with true immunity, allowing you full control over a fight
+- Magic Guard allows Shedinja to ignore non-direct hits, making Wonder Guard more potent.
+These three facts alone make Shedinja the very best Pokémon for endless as it can single-handedly beat the current Endless gamemode.
+    tags = Endless
+}
