@@ -12,7 +12,9 @@ async function getStrategies(strategies){
 async function buildStrategiesObj(){
     let strategies = {}
     
-    strategies = await getStrategies(strategies)
+    if(lang == "en"){
+        strategies = await getStrategies(strategies)
+    }
 
     //await localStorage.setItem("strategies", LZString.compressToUTF16(JSON.stringify(strategies)))
     return strategies
