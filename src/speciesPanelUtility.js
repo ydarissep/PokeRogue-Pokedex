@@ -708,7 +708,7 @@ async function applyPalVar(speciesName, index, back, female){
 
     const imageData = context.getImageData(0, 0, canvas.width, canvas.height)
 
-    for(let i = 0; i < imageData.data.length; i += 4) {
+    for(let i = 0; i < imageData.data.length; i += 4){
         if(`${imageData.data[i]},${imageData.data[i + 1]},${imageData.data[i + 2]}` in pal){
             const palKey = `${imageData.data[i]},${imageData.data[i + 1]},${imageData.data[i + 2]}`
             imageData.data[i] = pal[palKey][0]
