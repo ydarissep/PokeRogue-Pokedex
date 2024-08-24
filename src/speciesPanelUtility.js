@@ -12,6 +12,7 @@ fetch("https://raw.githubusercontent.com/ydarissep/dex-core/main/src/speciesPane
         })
     }
 
+    text = text.replace("function createSpeciesStrategy(", "function createSpeciesStrategyOld(")
     text = text.replace("speciesAbilitiesMainContainer.classList.remove(\"hide\")", "prependAbilityStarterEl(name)\nspeciesAbilitiesMainContainer.classList.remove(\"hide\")")
     text = text.replace("speciesEggGroups.append(eggGroup1)", "speciesEggGroups.append(eggGroup1)\nspeciesEggGroups.prepend(returnStarterCostEl(name))\nspeciesPanelWeight.innerText = `${species[name][\"weight\"]} kg`")
     text = text.replace("speciesSprite.src = getSpeciesSpriteSrc(name)", "handleVariants()\nappendBiomes(name)\nsetPanelSpeciesMainSpriteSrc(backIconContainer.classList.contains('backActive'), femaleIconContainer.classList.contains('femaleActive'))")
@@ -29,6 +30,124 @@ fetch("https://raw.githubusercontent.com/ydarissep/dex-core/main/src/speciesPane
 }).catch(error => {
     console.warn(error)
 })
+
+
+
+
+
+
+
+
+function createSpeciesStrategy(strategy, speciesName){
+    const strategyContainer = document.createElement("div")
+    const strategyName = document.createElement("h3"); strategyName.className = "strategyName"
+    const strategySpriteContainer = document.createElement("span"); strategySpriteContainer.className = "strategySpriteContainer"
+    const strategySprite = document.createElement("img"); strategySprite.className = `miniSprite sprite${speciesName} strategySprite`
+    const strategyTagsContainer = document.createElement("div"); strategyTagsContainer.className = "strategyTagsContainer"
+    const strategyInfo = document.createElement("div"); strategyInfo.className = "strategyInfo"
+    const strategyMoves = document.createElement("div"); strategyMoves.className = "strategyTableContainer"
+    const strategyMovesTable = document.createElement("table"); strategyMovesTable.className = "strategyTable"
+    const strategyMovesTbody = document.createElement("Tbody")
+    const strategyMisc = document.createElement("div"); strategyMisc.className = "strategyTableContainer"
+    const strategyMiscTable = document.createElement("table"); strategyMiscTable.className = "strategyTable"
+    const strategyMiscTbody = document.createElement("Tbody")
+    const strategyCommentContainer = document.createElement("div"); strategyCommentContainer.className = "strategyCommentContainer"
+    const strategyExportButton = document.createElement("button"); strategyExportButton.className = "strategyExportButton"; strategyExportButton.type = "button"
+    
+    strategyName.innerText = strategy["name"]
+    strategySpriteContainer.append(strategySprite)
+    strategySprite.src = sprites[speciesName]
+    strategySpriteContainer.append(strategyName)
+    strategyContainer.append(strategySpriteContainer)
+
+    if(strategy["tags"].length > 0){
+        for(let i = 0; i < strategy["tags"].length; i++){
+            const strategyTag = document.createElement("span"); strategyTag.className = "strategyTag"
+            strategyTag.innerText = strategy["tags"][i].trim()
+            strategyTagsContainer.append(strategyTag)
+            if(i >= 2){
+                break
+            }
+        }
+        strategyContainer.append(strategyTagsContainer)
+    }
+
+    strategyMoves.append(strategyMovesTable)
+    strategyMovesTable.append(strategyMovesTbody)
+    strategyMisc.append(strategyMiscTable)
+    strategyMiscTable.append(strategyMiscTbody)
+
+    for(let i = 0; i < strategy["moves"].length; i++){
+        strategyMovesTbody.append(createStrategyMove(i, strategy["moves"][i]))
+    }
+    strategyMiscTbody.append(createStrategyMisc("Passive", strategy["passive"], speciesName))
+    strategyMiscTbody.append(createStrategyMisc("Ability", strategy["ability"], speciesName))
+    strategyMiscTbody.append(createStrategyMisc("Nature", strategy["nature"], speciesName))
+    strategyMiscTbody.append(createStrategyMisc("Fusion", strategy["fusion"], speciesName))
+
+    for(let i = 0; i < strategy["comment"].length; i++){
+        const strategyComment = document.createElement("div")
+        if(strategy["comment"][i] === ""){
+            strategyComment.append(document.createElement("br"))
+        }
+        else{
+            strategyComment.innerText = strategy["comment"][i]
+        }
+        strategyCommentContainer.append(strategyComment)
+    }
+
+    strategyExportButton.innerText = "Export"
+
+    strategyInfo.append(strategyMoves)
+    strategyInfo.append(strategyMisc)
+    strategyInfo.append(strategyCommentContainer)
+    strategyContainer.append(strategyInfo)
+
+    if(strategy["paste"].length > 0){
+        strategyContainer.append(strategyExportButton)
+
+        strategyExportButton.addEventListener("click", () => {
+            let paste = ""
+
+            for(let i = 0; i < strategy["paste"].length; i++){
+                if(strategy["paste"][i] !== ""){
+                    paste += `${strategy["paste"][i]}\n`
+                }
+            }
+
+            try{
+                navigator.clipboard.writeText(paste).then(() => {
+                    strategyExportButton.classList.add("exportSuccess")
+                    strategyExportButton.innerText = "Exported"
+                })
+                setTimeout(() => {
+                    strategyExportButton.classList.remove("exportSuccess")
+                    strategyExportButton.innerText = "Export"
+                }, "3000");
+            }
+            catch(e){
+                try{
+                    copyToClipboard(paste)
+                    strategyExportButton.classList.add("exportSuccess")
+                    strategyExportButton.innerText = "Exported"
+                    setTimeout(() => {
+                        strategyExportButton.classList.remove("exportSuccess")
+                        strategyExportButton.innerText = "Export"
+                    }, "3000");
+                }
+                catch(e){
+                    strategyExportButton.classList.add("exportFailure")
+                    strategyExportButton.innerText = "Nuh uh"
+                    console.log(e)
+                }
+            }
+            
+        })
+    }
+
+    return strategyContainer
+}
+
 
 
 

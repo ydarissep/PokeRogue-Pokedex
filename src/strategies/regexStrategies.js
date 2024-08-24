@@ -32,13 +32,8 @@ async function regexStrategies(textStrategies, strategies){
             if(/name *=/i.test(line)){
                 strategies[name][i]["name"] = line.match(/= *(.*)$/)[1].trim() // regex is fun
             }
-            else if(/item *=/i.test(line)){
-                if(/ITEM_\w+/i.test(line)){
-                    strategies[name][i]["item"] = line.match(/ITEM_\w+/i)[0]
-                }
-                else{
-                    strategies[name][i]["item"] = line.match(/= *(.*)/i)[1]
-                }
+            else if(/passive *=/i.test(line)){
+                strategies[name][i]["passive"] = line.match(/= *(.*)/i)[1]
             }
             else if(/ability *=/i.test(line)){
                 if(/= *\d+/i.test(line)){
@@ -48,8 +43,8 @@ async function regexStrategies(textStrategies, strategies){
                     strategies[name][i]["ability"] = line.match(/= *(.*)/i)[1]
                 }
             }
-            else if(/evs *=/i.test(line)){
-                strategies[name][i]["evs"] = line.match(/\d+/g)
+            else if(/fusion *=/i.test(line)){
+                strategies[name][i]["fusion"] = line.match(/= *(.*)/i)[1]
             }
             else if(/nature *=/i.test(line)){
                 if(/NATURE_\w+/i.test(line)){
@@ -117,9 +112,9 @@ function createAndInitializeSetForSpecies(strategies, name){
     const i = strategies[name].length - 1
 
     strategies[name][i]["name"] = ""
-    strategies[name][i]["item"] = ""
+    strategies[name][i]["passive"] = ""
     strategies[name][i]["ability"] = 0
-    strategies[name][i]["evs"] = []
+    strategies[name][i]["fusion"] = []
     strategies[name][i]["nature"] = ""
     strategies[name][i]["moves"] = []
     strategies[name][i]["comment"] = []

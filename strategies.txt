@@ -1,11 +1,11 @@
 Shedinja
 {
     name = S-tier Endless Carry
-    item = 
+    passive = Any
     ability = Wonder Guard
-    evs = 0
+    fusion = Shedinja -> Any Dark/Normal type
     nature = Whatever
-    moves = Leech Seed / Sappy Seed, Salt Cure, Soak, Ruination / Super Fang
+    moves = Leech Seed (spliced) / Sappy Seed (spliced), Salt Cure (spliced), Soak (spliced), Ruination (spliced) / Super Fang (spliced)
     comment = - Access to the only item and shiny duplication in the game. Give it any item and once you evolve it, both Ninjask and Shedinja will have Nincadas items.
 - Wonder Guard Shedinja is the only Pokémon with true immunity, allowing you full control over a fight
 - Magic Guard allows Shedinja to ignore non-direct hits, making Wonder Guard more potent.
