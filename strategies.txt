@@ -13,7 +13,6 @@ Shedinja
 - Magic Guard allows Shedinja to ignore non-direct hits, making Wonder Guard more potent
 
 These three facts alone make Shedinja the very best Pokémon for endless as it can single-handedly beat the current Endless gamemode.
-    tags = Endless
 }
 Shedinja
 {
