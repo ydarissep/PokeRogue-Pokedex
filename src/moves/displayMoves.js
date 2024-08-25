@@ -6,6 +6,9 @@ fetch("https://raw.githubusercontent.com/ydarissep/dex-core/main/src/moves/displ
     text = text.replace('movePower.innerText = `${move["power"]}\\nPower`', 'movePower.innerText = `${move["power"]}\\n${staticTranslationTable["Power"] ??= "Power"}`')
     text = text.replace('moveAccuracy.innerText = `${move["accuracy"]}\\nAcc`', 'moveAccuracy.innerText = `${move["accuracy"]}\\n${staticTranslationTable["Acc"] ??= "Acc"}`')
     text = text.replace("inputHeader.innerText = headerText", "inputHeader.innerText = staticTranslationTable[headerText] ??= headerText")
+    text = text.replace('"-\\nPower"', '\`-\\n${staticTranslationTable["Power"] ??= "Power"}\`')
+    text = text.replace('"-\\nAcc"', '\`-\\n${staticTranslationTable["Acc"] ??= "Acc"}\`')
+    console.log(text)
     eval.call(window,text)
 }).catch(error => {
     console.warn(error)

@@ -21,7 +21,6 @@ fetch("https://raw.githubusercontent.com/ydarissep/dex-core/main/src/speciesPane
     text = text.replaceAll("checkType.innerText = sanitizeString(type)", 'checkType.innerText = translationTable[sanitizeString(type)] ??= sanitizeString(type)')
     text = text.replace('speciesType1.innerText = sanitizeString(species[name]["type1"])', 'speciesType1.innerText = translationTable[sanitizeString(species[name]["type1"])] ??= sanitizeString(species[name]["type1"])')
     text = text.replace('speciesType2.innerText = sanitizeString(species[name]["type2"])', 'speciesType2.innerText = translationTable[sanitizeString(species[name]["type2"])] ??= sanitizeString(species[name]["type2"])')
-    text = text.replace('sanitizeString(moves[move]["type"]).slice(0,3)', '(translationTable[sanitizeString(moves[move]["type"])] ??= sanitizeString(moves[move]["type"])).slice(0,3)')
     text = text.replaceAll('sanitizeString(moves[move[0]]["type"]).slice(0,3)', '(translationTable[sanitizeString(moves[move[0]]["type"])] ??= sanitizeString(moves[move[0]]["type"])).slice(0,3)')
     text = text.replace("function sortLearnsetsArray(", "function sortLearnsetsArrayOld(")
     text = text.replace("function buildSpeciesPanelSingleLearnsetsTable", "function buildSpeciesPanelSingleLearnsetsTableOld")
@@ -184,7 +183,7 @@ function buildSpeciesPanelSingleLearnsetsTable(table, name, input, label = "", a
 
         const typeContainer = document.createElement("td")
         const type = document.createElement("div")
-        type.innerText = sanitizeString(moves[move]["type"]).slice(0,3)
+        type.innerText = (translationTable[sanitizeString(moves[move]["type"])] ??= sanitizeString(moves[move]["type"])).slice(0,3)
         type.className = `${moves[move]["type"]} backgroundSmall`
         typeContainer.append(type)
         row.append(typeContainer)
