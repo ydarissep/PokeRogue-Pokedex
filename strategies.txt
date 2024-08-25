@@ -277,7 +277,7 @@ Rayquaza Mega
     moves = Core Enforcer, Oblivion Wing, Water Spout (Spliced), Eruption (Spliced)
     comment = - Make sure to have the move Dragon Ascent to mega evolve Rayquaza
 
-Catch Pokémon for Eruption and Waterspout to fuse tutor onto Mega Rayquaza. The easiest to find are Jellicent, Wailord and Camerupt. This step is entirely optional, you can just other coverage moves instead.
+Catch Pokémon for Eruption and Waterspout to fuse tutor onto Mega Rayquaza. The easiest to find are Jellicent, Wailord and Camerupt. This step is entirely optional, you can just use other coverage moves instead.
 }
 Yveltal
 {
@@ -291,7 +291,7 @@ Yveltal
     moves = Fiery Wrath, Oblivion Wing, Water Spout (Spliced), Eruption (Spliced)
     comment = - Gains special attack with every single defeat
 
-Catch Pokémon for Eruption and Waterspout to fuse tutor onto Yveltal. The easiest to find are Jellicent, Wailord and Camerupt. This step is entirely optional, you can just other coverage moves instead.
+Catch Pokémon for Eruption and Waterspout to fuse tutor onto Yveltal. The easiest to find are Jellicent, Wailord and Camerupt. This step is entirely optional, you can just use other coverage moves instead.
 }
 Calyrex Shadow
 {
@@ -306,7 +306,7 @@ Calyrex Shadow
     comment = - Gains special attack with every single KO'd enemy
 - Make sure you have Spectrier in your collection or you won't be able to get the Shadow Reins of Unity necessary to get Calyrex Shadow
 
-Catch Pokémon for Eruption and Waterspout to fuse tutor onto Calyrex. The easiest to find are Jellicent, Wailord and Camerupt. This step is entirely optional, you can just other coverage moves instead.
+Catch Pokémon for Eruption and Waterspout to fuse tutor onto Calyrex. The easiest to find are Jellicent, Wailord and Camerupt. This step is entirely optional, you can just use other coverage moves instead.
 }
 Blacephalon
 {
@@ -320,7 +320,7 @@ Blacephalon
     moves = Astral Barrage, Mind Blown / Eruption (Spliced), Water Spout (Spliced), Chloroblast
     comment = - Gains special attack with every single KO'd enemy
 
-Catch Pokémon for Eruption and Waterspout to fuse tutor onto Blacephalon. The easiest to find are Jellicent, Wailord and Camerupt. This step is entirely optional, you can just other coverage moves instead.
+Catch Pokémon for Eruption and Waterspout to fuse tutor onto Blacephalon. The easiest to find are Jellicent, Wailord and Camerupt. This step is entirely optional, you can just use other coverage moves instead.
 }
 Necrozma Ultra
 {
@@ -334,7 +334,7 @@ Necrozma Ultra
     moves = Astral Barrage, Eruption (Spliced), Water Spout (Spliced), Dynamax Cannon / Photon Geyser
     comment = - Gains special attack with every single KO'd enemy
 
-Catch Pokémon for Eruption and Waterspout to fuse tutor onto Necrozma. The easiest to find are Jellicent, Wailord and Camerupt. This step is entirely optional, you can just other coverage moves instead.
+Catch Pokémon for Eruption and Waterspout to fuse tutor onto Necrozma. The easiest to find are Jellicent, Wailord and Camerupt. This step is entirely optional, you can just use other coverage moves instead.
 }
 Hoopa Unbound
 {
@@ -346,7 +346,7 @@ Hoopa Unbound
     fusion = None
     nature = Modest
     moves = Fiery Wrath, Eruption (Spliced), Water Spout (Spliced), Photon Geyser
-    comment = Catch Pokémon for Eruption and Waterspout to fuse tutor onto Hoopa. The easiest to find are Jellicent, Wailord and Camerupt. This step is entirely optional, you can just other coverage moves instead.
+    comment = Catch Pokémon for Eruption and Waterspout to fuse tutor onto Hoopa. The easiest to find are Jellicent, Wailord and Camerupt. This step is entirely optional, you can just use other coverage moves instead.
 }
 Chi Yu
 {
@@ -361,7 +361,7 @@ Chi Yu
     comment = - Cuts the special defense of other Pokémon due to its ability Beads of Ruin
 - Has the move Ruination, which can be fuse tutored onto other Pokémon in the late game
 
-Catch Pokémon for Eruption and Waterspout to fuse tutor onto Chi-Yu. The easiest to find are Jellicent, Wailord and Camerupt. This step is entirely optional, you can just other coverage moves instead.
+Catch Pokémon for Eruption and Waterspout to fuse tutor onto Chi-Yu. The easiest to find are Jellicent, Wailord and Camerupt. This step is entirely optional, you can just use other coverage moves instead.
 
 You can bring a drought passive Pokémon to fuse Chi-Yu onto in order to power up Hydro Steam and Blue Flare / Eruption.
 }
