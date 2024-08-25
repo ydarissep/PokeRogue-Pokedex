@@ -1,21 +1,23 @@
 Shedinja
 {
-    name = S-tier Endless Carry
-    passive = Any
+    name = S-Tier - DoT Late Game Carry
+    tags = Endless
+    author = Ydarissep
+    passive = Any (after splicing), preferably Magic Guard
     ability = Wonder Guard
-    fusion = Shedinja -> Any Dark/Normal type
-    nature = Whatever
-    moves = Leech Seed (spliced) / Sappy Seed (spliced), Salt Cure (spliced), Soak (spliced), Ruination (spliced) / Super Fang (spliced)
-    comment = - Access to the only item and shiny duplication in the game. Give it any item and once you evolve it, both Ninjask and Shedinja will have Nincadas items.
-- Wonder Guard Shedinja is the only Pokémon with true immunity, allowing you full control over a fight
-- Magic Guard allows Shedinja to ignore non-direct hits, making Wonder Guard more potent.
+    fusion = Any Dark/Normal type -> Shedinja
+    nature = Any
+    moves = Leech Seed (Spliced) / Sappy Seed (Spliced), Salt Cure (Spliced), Soak (Spliced), Ruination (Spliced) / Super Fang (Spliced)
+    comment = - Access to the only item and shiny duplication in the game. Give it any item and once you evolve it, both Ninjask and Shedinja will have Nincadas items
+- Wonder Guard Shedinja has a lot of immunities, allowing you full control over a fight
+- Magic Guard allows Shedinja to ignore non-direct hits, making Wonder Guard more potent
 
 These three facts alone make Shedinja the very best Pokémon for endless as it can single-handedly beat the current Endless gamemode.
     tags = Endless
 }
 Shedinja
 {
-    name = S-Tier - Conversion Lategame Carry
+    name = S-Tier - Conversion Late Game Carry
     author = Lucas
     tags = Endless
     passive = Prankster
@@ -23,8 +25,175 @@ Shedinja
     fusion = Smeargle -> Shedinja
     nature = Any
     moves = Nature's Madness (spliced), Conversion, Dragon Tail (spliced/sketched), Sappy Seed (spliced/sketched) / Leech Seed (spliced/sketched) / Worry Seed (spliced/sketched)
-    comment = - By switching the order of your moves you can change what typing you will gain through the use of conversion. You want to be a typing that cannot be hit super effectively by your opponent.
-- Wonder Guard is the only ability with true immunity, allowing you to ignore most attacks.
-- Prankster allows you to use Conversion with priority, letting you outspeed opposing non-priority moves.
+    comment = - By switching the order of your moves you can change what typing you will gain through the use of conversion. You want to be a typing that cannot be hit super effectively by your opponent
+- Wonder Guard is the only ability with true immunity, allowing you to ignore most attacks
+- Prankster allows you to use Conversion with priority, letting you outspeed opposing non-priority moves
+    
 It is recommended to have seperate Pokémon able to Gastro Acid and Soak opposing Pokémon, as those moves beat Smeargle-Shedinja counters.
+
+Here you will find more detailed information: 
+https://docs.google.com/document/d/1KLYtEs3uAlalIU0y_40N2jFSqqqeRtphS1WQKW5V9vo/edit
+and
+https://docs.google.com/document/d/18sXKKgrorcpo3gkqIVykEwLiEp2HtaRWIaNEuBZ3wSQ/edit#heading=h.q0ednqdzl7xc
+}
+Smeargle
+{
+    name = S-Tier - Conversion Late Game Carry
+    author = Lucas
+    tags = Endless
+    passive = Prankster
+    ability = Wonder Guard
+    fusion = Smeargle -> Shedinja
+    nature = Any
+    moves = Nature's Madness (spliced), Conversion, Dragon Tail (spliced/sketched), Sappy Seed (spliced/sketched) / Leech Seed (spliced/sketched) / Worry Seed (spliced/sketched)
+    comment = - By switching the order of your moves you can change what typing you will gain through the use of conversion. You want to be a typing that cannot be hit super effectively by your opponent
+- Wonder Guard is the only ability with true immunity, allowing you to ignore most attacks
+- Prankster allows you to use Conversion with priority, letting you outspeed opposing non-priority moves
+    
+It is recommended to have seperate Pokémon able to Gastro Acid and Soak opposing Pokémon, as those moves beat Smeargle-Shedinja counters.
+
+Here you will find more detailed information: 
+https://docs.google.com/document/d/1KLYtEs3uAlalIU0y_40N2jFSqqqeRtphS1WQKW5V9vo/edit
+and
+https://docs.google.com/document/d/18sXKKgrorcpo3gkqIVykEwLiEp2HtaRWIaNEuBZ3wSQ/edit#heading=h.q0ednqdzl7xc
+}
+Blastoise Gigantamax
+{
+    name = S-Tier - Metal Burst Late Game Carry
+    author = Lucas
+    tags = Endless
+    passive = Sturdy
+    ability = Poison Heal (optional)
+    fusion = Blastoise -> Breloom (optional)
+    nature = Any -speed Nature
+    moves = Metal Burst (Spliced), Protect, Roar (TM) / Dragon Tail (TM), Gastro Acid (Spliced)
+    comment = - You want to make sure this does not have any Lum Berries if you run the Poison Heal variant
+- Stock up on all healing items other than berries
+- You want a minimum of 50k HP by wave 5500, preferably above 100k HP.
+- Make sure you have the Toxic Orb on your Blastoise when fused with the Poison Heal Breloom.
+- Use Protect to stall a turn in order to heal back up to full.
+
+Using Metal Burst with this set up allows you to deal damage equal to your Pokémon's HP upon being hit. The Toxic Orb + Poison Heal Variant allows you to heal back up without Berries.
+It is recommended to have other Pokémon able to use Damage over Time (DoT) moves such as Leech Seed, Salt Cure and Curse.
+}
+Wormadam Trash
+{
+    name = S-Tier - Metal Burst Late Game Carry
+    author = Lucas
+    tags = Endless
+    passive = Sturdy
+    ability = Poison Heal (optional)
+    fusion = Wormadam -> Breloom (optional)
+    nature = Any -speed Nature
+    moves = Metal Burst, Protect, Roar (Spliced) / Dragon Tail (Spliced), Gastro Acid (Spliced)
+    comment = - You want to make sure this does not have any Lum Berries if you run the Poison Heal variant
+- Stock up on all healing items other than berries
+- You want a minimum of 50k HP by wave 5500, preferably above 100k HP.
+- Make sure you have the Toxic Orb on your Wormadam when fused with the Poison Heal Breloom.
+- Use Protect to stall a turn in order to heal back up to full.
+
+Using Metal Burst with this set up allows you to deal damage equal to your Pokémon's HP upon being hit. The Toxic Orb + Poison Heal Variant allows you to heal back up without Berries.
+It is recommended to have other Pokémon able to use Damage over Time (DoT) moves such as Leech Seed, Salt Cure and Curse.
+}
+Kyogre Primal
+{
+    name = S-Tier - Early Game Carry
+    author = Lucas
+    tags = Endless
+    passive = Mold Breaker
+    ability = Primordial Sea
+    fusion = None
+    nature = Modest
+    moves = Water Spout, Electro Shot, Freeze-Dry, Origin Pulse
+    comment = Bring all its Egg Moves that you have in the early game. You will learn Water Spout at level 90.
+
+Fully commit into using Water Spout. Grab any Mystic Water you see.
+}
+Reshiram
+{
+    name = S-Tier - Early Game Carry
+    author = Lucas
+    tags = Endless
+    passive = Orichalcum Pulse
+    ability = Turboblaze
+    fusion = None
+    nature = Modest
+    moves = Eruption, Fickle Beam, Extrasensory, Take Heart / Blue Flare
+    comment = Bring all its Egg Moves that you have in the early game. You may fuse Camerupt or Torkoal temporarily to Reshiram to teach it Eruption. Unfuse after.
+
+    Fully commit into using Eruption. Grab any Charcoal you see.
+}
+Groudon Primal
+{
+    name = S-Tier - Early Game Carry
+    author = Lucas
+    tags = Endless
+    passive = Turboblaze
+    ability = Desolate Land
+    fusion = None
+    nature = Modest
+    moves = Eruption, Solar Beam, Earth Power, Fire Blast / Morning Sun
+    comment = Bring all its Egg Moves that you have in the early game.
+
+    Fully commit into using Eruption. Grab any Charcoal you see. You will learn Eruption at level 90.
+}
+Linoone
+{
+    name = S-Tier - Utility Pokémon
+    author = Lucas
+    tags = Endless
+    passive = Run Away
+    ability = Pickup
+    fusion = None / Any Ghost Type* / Any Shiny
+    nature = Adamant / Jolly
+    moves = Extreme Speed, Nuzzle, High Horsepower, Belly Drum / Super Fang (TM)
+    comment = - Gathers an item from Opponents after each battle
+- Let's you run away easily during the late game when fighting becomes tedious
+
+*If you're running the Normalize Entrainment Strategy then you want to fuse a Ghost Type onto it. I recommend fusing Damage over Time moves onto Linoone first.
+}
+Furret
+{
+    name = S-Tier - Utility Pokémon
+    author = Lucas
+    tags = Endless
+    passive = Pickup
+    ability = Run Away
+    fusion = None / Any Ghost Type* / Any Shiny
+    nature = Adamant / Jolly
+    moves = Extreme Speed / Quick Attack, Nuzzle, Thief, Super Fang (TM)
+    comment = - Gathers an item from Opponents after each battle
+- Let's you run away easily during the late game when fighting becomes tedious
+
+*If you're running the Normalize Entrainment Strategy then you want to fuse it onto a Ghost Type. I recommend fusing Damage over Time moves onto Furret first.
+}
+Pyukumuku
+{
+    name = S-Tier - Fuse Tutor Pokémon
+    author = Lucas
+    tags = Endless
+    passive = Pyukumuku
+    ability = Any
+    fusion = Any -> Pyukumuku
+    nature = Any
+    moves = Comeuppance / Baneful Bunker, Soak, Salt Cure, Gastro Acid
+    comment = - Access to the most powerful utility moves in the game
+
+Fuse this onto Prankster, Wonder Guard or Sturdy Pokémon to donate the moves. Unfuse after.
+}
+Delcatty
+{
+    name = S-Tier - Support of Ghost Types
+    author = Lucas
+    tags = Endless
+    passive = Sturdy
+    ability = Normalize
+    fusion = Sturdy Passive -> Delcatty
+    nature = Any
+    moves = Fake Out, Entrainment, Gastro Acid (Spliced), Whirlwind (Spliced) / Roar (Spliced)
+    comment = - Using Entrainment gives the opponent the Normalize ability
+- Fake Out, Gastro Acid and Roar exist to support the team against troublesome opponents
+- Stock up on Reviver Seeds and Focus Bands to ensure your moves going off
+
+Entraining Normalize onto opponents allows you to immune all opposing attacks onto your ghost types as their attacks become normal type.
 }
