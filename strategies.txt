@@ -400,7 +400,7 @@ Garganacl
     tags = Endless
     passive = -
     ability = Sturdy / Purifying Salt*
-    fusion = None / Sturdy Passiv Pokémon* -> Garganacl
+    fusion = None / Sturdy Passive Pokémon* -> Garganacl
     nature = Any -speed Nature
     moves = Metal Burst (Spliced), Salt Cure, Soak (Spliced), Protect (TM)
     comment = - Stock up on all healing items
