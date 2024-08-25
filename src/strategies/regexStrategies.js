@@ -32,6 +32,9 @@ async function regexStrategies(textStrategies, strategies){
             if(/name *=/i.test(line)){
                 strategies[name][i]["name"] = line.match(/= *(.*)$/)[1].trim() // regex is fun
             }
+            if(/author *=/i.test(line)){
+                strategies[name][i]["author"] = line.match(/= *(.*)$/)[1].trim()
+            }
             else if(/passive *=/i.test(line)){
                 strategies[name][i]["passive"] = line.match(/= *(.*)/i)[1]
             }
@@ -112,6 +115,7 @@ function createAndInitializeSetForSpecies(strategies, name){
     const i = strategies[name].length - 1
 
     strategies[name][i]["name"] = ""
+    strategies[name][i]["author"] = ""
     strategies[name][i]["passive"] = ""
     strategies[name][i]["ability"] = 0
     strategies[name][i]["fusion"] = []

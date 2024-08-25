@@ -39,7 +39,7 @@ fetch("https://raw.githubusercontent.com/ydarissep/dex-core/main/src/speciesPane
 
 function createSpeciesStrategy(strategy, speciesName){
     const strategyContainer = document.createElement("div")
-    const strategyName = document.createElement("h3"); strategyName.className = "strategyName"
+    let strategyName = document.createElement("h3"); strategyName.className = "strategyName"
     const strategySpriteContainer = document.createElement("span"); strategySpriteContainer.className = "strategySpriteContainer"
     const strategySprite = document.createElement("img"); strategySprite.className = `miniSprite sprite${speciesName} strategySprite`
     const strategyTagsContainer = document.createElement("div"); strategyTagsContainer.className = "strategyTagsContainer"
@@ -54,6 +54,9 @@ function createSpeciesStrategy(strategy, speciesName){
     const strategyExportButton = document.createElement("button"); strategyExportButton.className = "strategyExportButton"; strategyExportButton.type = "button"
     
     strategyName.innerText = strategy["name"]
+    if(strategy["author"]){
+        strategyName.innerText += `\nBy @${strategy["author"]}`
+    }
     strategySpriteContainer.append(strategySprite)
     strategySprite.src = getSpeciesSpriteSrc(speciesName)
     strategySprite.style.transform = `scale(${spritesInfo[returnTargetSpeciesSprite(speciesName)]})`
@@ -80,7 +83,17 @@ function createSpeciesStrategy(strategy, speciesName){
     for(let i = 0; i < strategy["moves"].length; i++){
         strategyMovesTbody.append(createStrategyMove(i, strategy["moves"][i]))
     }
-    strategyMiscTbody.append(createStrategyMisc("Passive", strategy["passive"], speciesName))
+
+    for(let strategyTr of strategyMovesTbody.children){
+        strategyTr.children[1].innerHTML = strategyTr.children[1].innerHTML.replaceAll(/spliced/ig, "<img src=https://raw.githubusercontent.com/pagefaultgames/pokerogue/main/public/images/ui/icon_spliced.png>")
+    }
+
+    if(!strategy["passive"] || strategy["passive"] == "-"){
+        strategyMiscTbody.append(createStrategyMisc("Passive", species[speciesName]["starterAbility"], speciesName))
+    }
+    else{
+        strategyMiscTbody.append(createStrategyMisc("Passive", strategy["passive"], speciesName))
+    }
     strategyMiscTbody.append(createStrategyMisc("Ability", strategy["ability"], speciesName))
     strategyMiscTbody.append(createStrategyMisc("Nature", strategy["nature"], speciesName))
     strategyMiscTbody.append(createStrategyMisc("Fusion", strategy["fusion"], speciesName))
@@ -92,6 +105,12 @@ function createSpeciesStrategy(strategy, speciesName){
         }
         else{
             strategyComment.innerText = strategy["comment"][i]
+            const matchHTTPS = strategyComment.innerText.match(/https:\S+/g)
+            if(matchHTTPS){
+                matchHTTPS.forEach(https => {
+                    strategyComment.innerHTML = strategyComment.innerHTML.replace(https, `<a href="${https}">${https}</a>`)
+                })
+            }
         }
         strategyCommentContainer.append(strategyComment)
     }
