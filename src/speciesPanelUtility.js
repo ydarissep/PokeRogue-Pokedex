@@ -55,7 +55,7 @@ function createSpeciesStrategy(strategy, speciesName){
     
     strategyName.innerText = strategy["name"]
     strategySpriteContainer.append(strategySprite)
-    strategySprite.src = sprites[speciesName]
+    strategySprite.src = getSpeciesSpriteSrc(speciesName)
     strategySpriteContainer.append(strategyName)
     strategyContainer.append(strategySpriteContainer)
 
