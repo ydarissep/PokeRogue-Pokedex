@@ -44,10 +44,10 @@ function createSpeciesStrategy(strategy, speciesName){
     const strategySprite = document.createElement("img"); strategySprite.className = `miniSprite sprite${speciesName} strategySprite`
     const strategyTagsContainer = document.createElement("div"); strategyTagsContainer.className = "strategyTagsContainer"
     const strategyInfo = document.createElement("div"); strategyInfo.className = "strategyInfo"
-    const strategyMoves = document.createElement("div"); strategyMoves.className = "strategyTableContainer"; strategyMoves.style.flex = 3
+    const strategyMoves = document.createElement("div"); strategyMoves.className = "strategyTableContainer"
     const strategyMovesTable = document.createElement("table"); strategyMovesTable.className = "strategyTable"
     const strategyMovesTbody = document.createElement("Tbody")
-    const strategyMisc = document.createElement("div"); strategyMisc.className = "strategyTableContainer"; strategyMisc.style.flex = 2
+    const strategyMisc = document.createElement("div"); strategyMisc.className = "strategyTableContainer"
     const strategyMiscTable = document.createElement("table"); strategyMiscTable.className = "strategyTable"
     const strategyMiscTbody = document.createElement("Tbody")
     const strategyCommentContainer = document.createElement("div"); strategyCommentContainer.className = "strategyCommentContainer"
