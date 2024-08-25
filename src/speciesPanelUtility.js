@@ -56,6 +56,7 @@ function createSpeciesStrategy(strategy, speciesName){
     strategyName.innerText = strategy["name"]
     strategySpriteContainer.append(strategySprite)
     strategySprite.src = getSpeciesSpriteSrc(speciesName)
+    strategySprite.style.transform = `scale(${spritesInfo[returnTargetSpeciesSprite(speciesName)]})`
     strategySpriteContainer.append(strategyName)
     strategyContainer.append(strategySpriteContainer)
 
