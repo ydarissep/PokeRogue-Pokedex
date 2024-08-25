@@ -68,9 +68,9 @@ Blastoise Gigantamax
     moves = Metal Burst (Spliced), Protect, Roar (TM) / Dragon Tail (TM), Gastro Acid (Spliced)
     comment = - You want to make sure this does not have any Lum Berries if you run the Poison Heal variant
 - Stock up on all healing items other than berries
-- You want a minimum of 50k HP by wave 5500, preferably above 100k HP.
-- Make sure you have the Toxic Orb on your Blastoise when fused with the Poison Heal Breloom.
-- Use Protect to stall a turn in order to heal back up to full.
+- You want a minimum of 50k HP by wave 5500, preferably above 100k HP
+- Make sure you have the Toxic Orb on your Blastoise when fused with the Poison Heal Breloom
+- Use Protect to stall a turn in order to heal back up to full
 
 Using Metal Burst with this set up allows you to deal damage equal to your Pokémon's HP upon being hit. The Toxic Orb + Poison Heal Variant allows you to heal back up without Berries.
 It is recommended to have other Pokémon able to use Damage over Time (DoT) moves such as Leech Seed, Salt Cure and Curse.
@@ -87,9 +87,9 @@ Wormadam Trash
     moves = Metal Burst, Protect, Roar (Spliced) / Dragon Tail (Spliced), Gastro Acid (Spliced)
     comment = - You want to make sure this does not have any Lum Berries if you run the Poison Heal variant
 - Stock up on all healing items other than berries
-- You want a minimum of 50k HP by wave 5500, preferably above 100k HP.
-- Make sure you have the Toxic Orb on your Wormadam when fused with the Poison Heal Breloom.
-- Use Protect to stall a turn in order to heal back up to full.
+- You want a minimum of 50k HP by wave 5500, preferably above 100k HP
+- Make sure you have the Toxic Orb on your Wormadam when fused with the Poison Heal Breloom
+- Use Protect to stall a turn in order to heal back up to full
 
 Using Metal Burst with this set up allows you to deal damage equal to your Pokémon's HP upon being hit. The Toxic Orb + Poison Heal Variant allows you to heal back up without Berries.
 It is recommended to have other Pokémon able to use Damage over Time (DoT) moves such as Leech Seed, Salt Cure and Curse.
@@ -99,7 +99,7 @@ Kyogre Primal
     name = S-Tier - Early Game Carry
     author = Lucas
     tags = Endless
-    passive = Mold Breaker
+    passive = -
     ability = Primordial Sea
     fusion = None
     nature = Modest
@@ -113,7 +113,7 @@ Reshiram
     name = S-Tier - Early Game Carry
     author = Lucas
     tags = Endless
-    passive = Orichalcum Pulse
+    passive = -
     ability = Turboblaze
     fusion = None
     nature = Modest
@@ -127,7 +127,7 @@ Groudon Primal
     name = S-Tier - Early Game Carry
     author = Lucas
     tags = Endless
-    passive = Turboblaze
+    passive = -
     ability = Desolate Land
     fusion = None
     nature = Modest
@@ -141,7 +141,7 @@ Linoone
     name = S-Tier - Utility Pokémon
     author = Lucas
     tags = Endless
-    passive = Run Away
+    passive = -
     ability = Pickup
     fusion = None / Any Ghost Type* / Any Shiny
     nature = Adamant / Jolly
@@ -156,7 +156,7 @@ Furret
     name = S-Tier - Utility Pokémon
     author = Lucas
     tags = Endless
-    passive = Pickup
+    passive = -
     ability = Run Away
     fusion = None / Any Ghost Type* / Any Shiny
     nature = Adamant / Jolly
@@ -171,7 +171,7 @@ Pyukumuku
     name = S-Tier - Fuse Tutor Pokémon
     author = Lucas
     tags = Endless
-    passive = Pyukumuku
+    passive = -
     ability = Any
     fusion = Any -> Pyukumuku
     nature = Any
@@ -195,4 +195,218 @@ Delcatty
 - Stock up on Reviver Seeds and Focus Bands to ensure your moves going off
 
 Entraining Normalize onto opponents allows you to immune all opposing attacks onto your ghost types as their attacks become normal type.
+}
+Pachirisu
+{
+    name = A-Tier - Utility Pokémon
+    author = Lucas
+    tags = Endless
+    passive = -
+    ability = Run Away / Pickup
+    fusion = None / Any Ghost Type* / Any Shiny
+    nature = Jolly
+    moves = Super Fang, Nuzzle, Endure, Zippy Zap
+    comment = - Gathers money for you after each battle, including running away
+- Let's you run away easily during the late game when fighting becomes tedious
+
+*If you're running the Normalize Entrainment Strategy then you want to fuse it onto a Ghost Type. I recommend fusing Damage over Time moves onto Pachirisu first.
+}
+Breloom
+{
+    name = S-Tier - Metal Burst Late Game Carry
+    author = Lucas
+    tags = Endless
+    passive = Sturdy
+    ability = Poison Heal
+    fusion = Sturdy Passive -> Breloom
+    nature = Any -speed Nature
+    moves = Metal Burst (Spliced), Protect (TM), Roar (Spliced) / Dragon Tail (Spliced), Gastro Acid (Spliced) / Leech Seed
+    comment = - You want to make sure this does not have any Lum Berries
+- Stock up on all healing items other than berries
+- You want a minimum of 50k HP by wave 5500, preferably above 100k HP
+- Make sure you have the Toxic Orb on your Breloom
+- Use Protect to stall a turn in order to heal back up to full
+- Learns Leech Seed as an extra option
+
+Using Metal Burst with this set up allows you to deal damage equal to your Pokémon's HP upon being hit. The Toxic Orb + Poison Heal Variant allows you to heal back up without Berries.
+It is recommended to have other Pokémon able to use Damage over Time (DoT) moves such as Leech Seed, Salt Cure and Curse.
+}
+Miraidon
+{
+    name = A-Tier - Early Game Carry
+    author = Lucas
+    tags = Endless
+    passive = -
+    ability = Hadron Engine
+    fusion = None
+    nature = Modest
+    moves = Ice Beam, Core Enforcer, Rising Voltage, Discharge / Electro Drift / Metal Sound
+    comment = - Access to fast carefree stat boosts through its passive and ability
+
+Make sure to think about when Rising Voltage hits harder than Core Enforcer (e.g. when opposing Pokémon has levitate or is flying type)
+}
+Wobbuffet
+{
+    name = A-Tier - Metal Burst Late Game Carry
+    author = Lucas
+    tags = Endless
+    passive = Sturdy
+    ability = Poison Heal (optional)
+    fusion = Blastoise -> Breloom (optional)
+    nature = Any -speed Nature
+    moves = Metal Burst (Spliced) / Comeuppance, Protect (Spliced), Roar (Spliced) / Dragon Tail (Spliced), Gastro Acid (Spliced)
+    comment = - You want to make sure this does not have any Lum Berries if you run the Poison Heal variant
+- Stock up on all healing items other than berries
+- You want a minimum of 50k HP by wave 5500, preferably above 100k HP
+- Make sure you have the Toxic Orb on your Wobbuffet when fused with the Poison Heal Breloom
+- Use Protect to stall a turn in order to heal back up to full
+- Has the most base HP out of any sturdy passive Pokémon but lacks good moves
+
+Using Metal Burst with this set up allows you to deal damage equal to your Pokémon's HP upon being hit. The Toxic Orb + Poison Heal Variant allows you to heal back up without Berries.
+It is recommended to have other Pokémon able to use Damage over Time (DoT) moves such as Leech Seed, Salt Cure and Curse.
+}
+Rayquaza Mega
+{
+    name = A-Tier - Early Game Carry
+    author = Lucas
+    tags = Endless
+    passive = -
+    ability = Delta Stream
+    fusion = None
+    nature = Modest
+    moves = Core Enforcer, Oblivion Wing, Water Spout (Spliced), Eruption (Spliced)
+    comment = - Make sure to have the move Dragon Ascent to mega evolve Rayquaza
+
+Catch Pokémon for Eruption and Waterspout to fuse tutor onto Mega Rayquaza. The easiest to find are Jellicent, Wailord and Camerupt. This step is entirely optional, you can just other coverage moves instead.
+}
+Yveltal
+{
+    name = A-Tier - Early Game Carry
+    author = Lucas
+    tags = Endless
+    passive = -
+    ability = Dark Aura
+    fusion = None
+    nature = Modest
+    moves = Fiery Wrath, Oblivion Wing, Water Spout (Spliced), Eruption (Spliced)
+    comment = - Gains special attack with every single defeat
+
+Catch Pokémon for Eruption and Waterspout to fuse tutor onto Yveltal. The easiest to find are Jellicent, Wailord and Camerupt. This step is entirely optional, you can just other coverage moves instead.
+}
+Calyrex Shadow
+{
+    name = A-Tier - Early Game Carry
+    author = Lucas
+    tags = Endless
+    passive = -
+    ability = As One
+    fusion = None
+    nature = Modest
+    moves = Astral Barrage, Photon Geyser, Water Spout (Spliced), Eruption (Spliced)
+    comment = - Gains special attack with every single KO'd enemy
+- Make sure you have Spectrier in your collection or you won't be able to get the Shadow Reins of Unity necessary to get Calyrex Shadow
+
+Catch Pokémon for Eruption and Waterspout to fuse tutor onto Calyrex. The easiest to find are Jellicent, Wailord and Camerupt. This step is entirely optional, you can just other coverage moves instead.
+}
+Blacephalon
+{
+    name = A-Tier - Early Game Carry
+    author = Lucas
+    tags = Endless
+    passive = -
+    ability = Beast Boost
+    fusion = None
+    nature = Modest
+    moves = Astral Barrage, Mind Blown / Eruption (Spliced), Water Spout (Spliced), Chloroblast
+    comment = - Gains special attack with every single KO'd enemy
+
+Catch Pokémon for Eruption and Waterspout to fuse tutor onto Blacephalon. The easiest to find are Jellicent, Wailord and Camerupt. This step is entirely optional, you can just other coverage moves instead.
+}
+Necrozma Ultra
+{
+    name = A-Tier - Early Game Carry
+    author = Lucas
+    tags = Endless
+    passive = -
+    ability = Neuroforce
+    fusion = None
+    nature = Modest
+    moves = Astral Barrage, Eruption (Spliced), Water Spout (Spliced), Dynamax Cannon / Photon Geyser
+    comment = - Gains special attack with every single KO'd enemy
+
+Catch Pokémon for Eruption and Waterspout to fuse tutor onto Necrozma. The easiest to find are Jellicent, Wailord and Camerupt. This step is entirely optional, you can just other coverage moves instead.
+}
+Hoopa Unbound
+{
+    name = A-Tier - Early Game Carry
+    author = Lucas
+    tags = Endless
+    passive = -
+    ability = Magician
+    fusion = None
+    nature = Modest
+    moves = Fiery Wrath, Eruption (Spliced), Water Spout (Spliced), Photon Geyser
+    comment = Catch Pokémon for Eruption and Waterspout to fuse tutor onto Hoopa. The easiest to find are Jellicent, Wailord and Camerupt. This step is entirely optional, you can just other coverage moves instead.
+}
+Chi Yu
+{
+    name = A-Tier - Early Game Carry
+    author = Lucas
+    tags = Endless
+    passive = -
+    ability = Beads of Ruin
+    fusion = None
+    nature = Modest
+    moves = Fiery Wrath, Blue Flare / Eruption (Spliced), Hydro Stream / Water Spout (Spliced), Ruination
+    comment = - Cuts the special defense of other Pokémon due to its ability Beads of Ruin
+- Has the move Ruination, which can be fuse tutored onto other Pokémon in the late game
+
+Catch Pokémon for Eruption and Waterspout to fuse tutor onto Chi-Yu. The easiest to find are Jellicent, Wailord and Camerupt. This step is entirely optional, you can just other coverage moves instead.
+
+You can bring a drought passive Pokémon to fuse Chi-Yu onto in order to power up Hydro Steam and Blue Flare / Eruption.
+}
+Mewtwo Mega Y
+{
+    name = A-Tier - Early Game Carry
+    author = Lucas
+    tags = Endless
+    passive = -
+    ability = Insomnia
+    fusion = None
+    nature = Modest
+    moves = Photon Geyser / Psychic, Eruption (Spliced), Water Spout (Spliced), Moonblast
+    comment = Highest special attack but lacks moves. Fuse good moves onto it or this Pokémon will end up feeling awkward.
+
+Catch Pokémon for Eruption and Waterspout to fuse tutor onto Mewtwo. The easiest to find are Jellicent, Wailord and Camerupt.
+}
+Garganacl
+{
+    name = A-Tier - Fuse Tutor Pokémon
+    author = Lucas
+    tags = Endless
+    passive = -
+    ability = Any
+    fusion = Any -> Garganacl
+    nature = Any
+    moves = Salt Cure, Curse, Any, Any
+    comment = - Access to some of the most powerful moves in the game.
+
+Fuse this onto Prankster, Wonder Guard or Sturdy Pokémon to donate the moves. Unfuse after.
+}
+Garganacl
+{
+    name = A-Tier - Metal Burst Late Game Carry
+    author = Lucas
+    tags = Endless
+    passive = -
+    ability = Sturdy / Purifying Salt*
+    fusion = None / Sturdy Passiv Pokémon* -> Garganacl
+    nature = Any -speed Nature
+    moves = Metal Burst (Spliced), Salt Cure, Soak (Spliced), Protect (TM)
+    comment = - Stock up on all healing items
+- You want a minimum of 50k HP by wave 5500, preferably above 100k HP
+- Use Protect to stall a turn in order to heal back up to full
+
+Using Metal Burst with this set up allows you to deal damage equal to your Pokémon's HP upon being hit.
+*If you are using a Sturdy Passive Pokémon then you can fuse Garganacl with Purifying Salt onto them in order to give them status immunity.
 }
