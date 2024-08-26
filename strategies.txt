@@ -258,7 +258,7 @@ Wobbuffet
     tags = Endless
     passive = Sturdy
     ability = Poison Heal (optional)
-    fusion = Blastoise -> Breloom (optional)
+    fusion = Wobbuffet -> Breloom (optional)
     nature = Any -speed Nature
     moves = Metal Burst (Spliced) / Comeuppance, Protect (Spliced), Roar (Spliced) / Dragon Tail (Spliced), Gastro Acid (Spliced)
     comment = - You want to make sure this does not have any Lum Berries if you run the Poison Heal variant
@@ -492,4 +492,231 @@ Noctowl
     moves = Boomburst, Aeroblast, Esper Wing, Moonblast
     comment = - The primary objective is to click Boomburst. It's a 150 Base Power Move hitting all other Pokémo
 *You want to splice Magnezone onto Noctowl as soon as you feel your Noctowl is in danger to die after opponents endure. Sturdy will let you take this Pokémon to higher rounds.
+}
+Dugtrio
+{
+    name = A-Tier - Metal Burst Late Game Carry
+    author = Lucas
+    tags = Endless
+    passive = Sturdy
+    ability = Poison Heal (optional)
+    fusion = Dugtrio -> Breloom (optional)
+    nature = Any -speed Nature
+    moves = Metal Burst (Spliced), Protect (TM), Roar (Spliced) / Dragon Tail (Spliced), Gastro Acid (Spliced)
+    comment = - You want to make sure this does not have any Lum Berries if you run the Poison Heal variant
+- Stock up on all healing items other than berries
+- You want a minimum of 50k HP by wave 5500, preferably above 100k HP
+- Make sure you have the Toxic Orb on your Dugtrio when fused with the Poison Heal Breloom
+- Use Protect to stall a turn in order to heal back up to full
+- Has the most base HP out of any sturdy passive Pokémon but lacks good moves
+
+Using Metal Burst with this set up allows you to deal damage equal to your Pokémon's HP upon being hit. The Toxic Orb + Poison Heal Variant allows you to heal back up without Berries.
+It is recommended to have other Pokémon able to use Damage over Time (DoT) moves such as Leech Seed, Salt Cure and Curse.
+}
+Alola Dugtrio
+{
+    name = A-Tier - Metal Burst Late Game Carry
+    author = Lucas
+    tags = Endless
+    passive = Sturdy
+    ability = Poison Heal (optional)
+    fusion = Dugtrio -> Breloom (optional)
+    nature = Any -speed Nature
+    moves = Metal Burst (Spliced), Protect (TM), Roar (Spliced) / Dragon Tail (Spliced), Gastro Acid (Spliced)
+    comment = - You want to make sure this does not have any Lum Berries if you run the Poison Heal variant
+- Stock up on all healing items other than berries
+- You want a minimum of 50k HP by wave 5500, preferably above 100k HP
+- Make sure you have the Toxic Orb on your Dugtrio when fused with the Poison Heal Breloom
+- Use Protect to stall a turn in order to heal back up to full
+- Has the most base HP out of any sturdy passive Pokémon but lacks good moves
+
+Using Metal Burst with this set up allows you to deal damage equal to your Pokémon's HP upon being hit. The Toxic Orb + Poison Heal Variant allows you to heal back up without Berries.
+It is recommended to have other Pokémon able to use Damage over Time (DoT) moves such as Leech Seed, Salt Cure and Curse.
+}
+Wugtrio
+{
+    name = A-Tier - Metal Burst Late Game Carry
+    author = Lucas
+    tags = Endless
+    passive = Sturdy
+    ability = Poison Heal (optional)
+    fusion = Dugtrio -> Breloom (optional)
+    nature = Any -speed Nature
+    moves = Metal Burst (Spliced), Protect (TM), Roar (Spliced) / Dragon Tail (Spliced), Gastro Acid (Spliced)
+    comment = - You want to make sure this does not have any Lum Berries if you run the Poison Heal variant
+- Stock up on all healing items other than berries
+- You want a minimum of 50k HP by wave 5500, preferably above 100k HP
+- Make sure you have the Toxic Orb on your Dugtrio when fused with the Poison Heal Breloom
+- Use Protect to stall a turn in order to heal back up to full
+- Has the most base HP out of any sturdy passive Pokémon but lacks good moves
+
+Using Metal Burst with this set up allows you to deal damage equal to your Pokémon's HP upon being hit. The Toxic Orb + Poison Heal Variant allows you to heal back up without Berries.
+It is recommended to have other Pokémon able to use Damage over Time (DoT) moves such as Leech Seed, Salt Cure and Curse.
+}
+Omastar
+{
+    name = A-Tier - Metal Burst Late Game Carry
+    author = Lucas
+    tags = Endless
+    passive = Sturdy
+    ability = Poison Heal (optional)
+    fusion = Omastar -> Breloom (optional)
+    nature = Any -speed Nature
+    moves = Metal Burst (Spliced), Protect (TM), Roar (Spliced) / Dragon Tail (Spliced), Gastro Acid (Spliced)
+    comment = - You want to make sure this does not have any Lum Berries if you run the Poison Heal variant
+- Stock up on all healing items other than berries
+- You want a minimum of 50k HP by wave 5500, preferably above 100k HP
+- Make sure you have the Toxic Orb on your Omastar when fused with the Poison Heal Breloom
+- Use Protect to stall a turn in order to heal back up to full
+- Has the most base HP out of any sturdy passive Pokémon but lacks good moves
+
+Using Metal Burst with this set up allows you to deal damage equal to your Pokémon's HP upon being hit. The Toxic Orb + Poison Heal Variant allows you to heal back up without Berries.
+It is recommended to have other Pokémon able to use Damage over Time (DoT) moves such as Leech Seed, Salt Cure and Curse.
+}
+Stonjourner
+{
+    name = A-Tier - Metal Burst Late Game Carry
+    author = Lucas
+    tags = Endless
+    passive = Sturdy
+    ability = Poison Heal (optional)
+    fusion = Stonjourner -> Breloom (optional)
+    nature = Any -speed Nature
+    moves = Metal Burst (Spliced), Protect (TM), Roar (Spliced) / Dragon Tail (Spliced), Gastro Acid (Spliced)
+    comment = - You want to make sure this does not have any Lum Berries if you run the Poison Heal variant
+- Stock up on all healing items other than berries
+- You want a minimum of 50k HP by wave 5500, preferably above 100k HP
+- Make sure you have the Toxic Orb on your Stonjourner when fused with the Poison Heal Breloom
+- Use Protect to stall a turn in order to heal back up to full
+- Has the most base HP out of any sturdy passive Pokémon but lacks good moves
+
+Using Metal Burst with this set up allows you to deal damage equal to your Pokémon's HP upon being hit. The Toxic Orb + Poison Heal Variant allows you to heal back up without Berries.
+It is recommended to have other Pokémon able to use Damage over Time (DoT) moves such as Leech Seed, Salt Cure and Curse.
+}
+Minior
+{
+    name = A-Tier - Metal Burst Late Game Carry
+    author = Lucas
+    tags = Endless
+    passive = Sturdy
+    ability = Poison Heal (optional)
+    fusion = Minior -> Breloom (optional)
+    nature = Any -speed Nature
+    moves = Metal Burst (Spliced), Protect (TM), Roar (Spliced) / Dragon Tail (Spliced), Gastro Acid (Spliced)
+    comment = - You want to make sure this does not have any Lum Berries if you run the Poison Heal variant
+- Stock up on all healing items other than berries
+- You want a minimum of 50k HP by wave 5500, preferably above 100k HP
+- Make sure you have the Toxic Orb on your Minior when fused with the Poison Heal Breloom
+- Use Protect to stall a turn in order to heal back up to full
+- Has the most base HP out of any sturdy passive Pokémon but lacks good moves
+
+Using Metal Burst with this set up allows you to deal damage equal to your Pokémon's HP upon being hit. The Toxic Orb + Poison Heal Variant allows you to heal back up without Berries.
+It is recommended to have other Pokémon able to use Damage over Time (DoT) moves such as Leech Seed, Salt Cure and Curse.
+}
+Charizard Mega Y
+{
+    name = A-Tier - Cheap Early Game Carry
+    author = Lucas
+    tags = Endless
+    passive = -
+    ability = Drought
+    fusion = None
+    nature = Modest
+    moves = Eruption (Spliced) / Heat Wave, Oblivion Wing, Earth Power, Any
+    comment = - Gains special attack with each KO.
+
+Catch Pokémon for Eruption to fuse tutor onto Charizard. The easiest to find are Camerupt and Torkoal. This step is entirely optional, you can just use other moves instead.
+}
+Zygarde
+{
+    name = A-Tier - Early Game Carry
+    author = Lucas
+    tags = Endless
+    passive = -
+    ability = Any
+    fusion = Zygarde -> Kartana or similar
+    nature = Adamant
+    moves = Dragon Darts, Double Iron Bash, Thousand Arrows, Any
+    comment = - Has doubled attack due to Huge Power
+
+This Pokémon is much weaker without the passive unlocked. I do not recommend using it without it.
+}
+Eevee Gigantamax
+{
+    name = A-Tier - Utility Pokémon
+    author = Lucas
+    tags = Endless
+    passive = -
+    ability = Run Away
+    fusion = None / Any Ghost Type* / Any Shiny
+    nature = Adamant / Jolly
+    moves = Zippy Zap / Quick Attack, Boomburst, No Retreat, Helping Hand
+    comment = - Gathers an item from Opponents after each battle
+- Let's you run away easily during the late game when fighting becomes tedious
+
+*If you're running the Normalize Entrainment Strategy then you want to fuse it onto a Ghost Type. I recommend fusing Damage over Time moves onto Eevee first.
+}
+Galar Linoone
+{
+    name = A-Tier - Metal Burst Fusion Pokémon
+    author = Lucas
+    tags = Endless
+    passive = -
+    ability = Pickup
+    fusion = Linoone -> Sturdy Pokémon
+    nature = Any -speed Nature
+    moves = Metal Burst (Spliced), Protect (TM), Roar (Spliced) / Dragon Tail (Spliced), Gastro Acid (Spliced)
+    comment = - You want to make sure this does not have any Lum Berries
+- Stock up on all healing items other than berries
+- You want a minimum of 50k HP by wave 5500, preferably above 100k HP
+- Make sure you have the Toxic Orb on your Linoone
+- Use Protect to stall a turn in order to heal back up to full
+
+Using Metal Burst with this set up allows you to deal damage equal to your Pokémon's HP upon being hit. The Toxic Orb + Poison Heal Variant allows you to heal back up without Berries.
+It is recommended to have other Pokémon able to use Damage over Time (DoT) moves such as Leech Seed, Salt Cure and Curse. 
+}
+Guzzlord
+{
+    name = B-Tier - Metal Burst Fusion Pokémon
+    author = Lucas
+    tags = Endless
+    passive = -
+    ability = Beast Boost
+    fusion = Guzzlord -> Sturdy Pokémon
+    nature = Any -speed Nature
+    moves = Comeuppance / Metal Burst (Spliced), Protect (TM), Dragon Tail, Gastro Acid
+    comment = - You want to make sure this does not have any Lum Berries
+- Stock up on all healing items other than berries
+- You want a minimum of 50k HP by wave 5500, preferably above 100k HP
+- Make sure you have the Toxic Orb on your Guzzlord
+- Use Protect to stall a turn in order to heal back up to full
+
+Using Metal Burst or Comeuppance with this set up allows you to deal damage equal to your Pokémon's HP upon being hit. The Toxic Orb + Poison Heal Variant allows you to heal back up without Berries.
+It is recommended to have other Pokémon able to use Damage over Time (DoT) moves such as Leech Seed, Salt Cure and Curse. 
+}
+Ribombee
+{
+    name = A-Tier - Economy Pokémon
+    author = Lucas
+    tags = Endless
+    passive = -
+    ability = Honey Gather
+    fusion = None / Any Ghost Type* / Any Shiny
+    nature = Jolly
+    moves = Spore, Pollen Puff, Helping Hand (TM), Moonblast / Dazzling Gleam
+    comment = - Gathers money for you after each battle, including running away
+
+*If you're running the Normalize Entrainment Strategy then you want to fuse it onto a Ghost Type. I recommend fusing Damage over Time moves onto Ribombee first.
+}
+Gholdengo
+{
+    name = A-Tier - Economy Pokémon
+    author = Lucas
+    tags = Endless
+    passive = -
+    ability = Good as Gold
+    fusion = None Any Shiny
+    nature = Jolly
+    moves = Astral Barrage, Happy Hour / Aura Sphere, Make It Rain, Surf / Nasty Plot
+    comment = - Gathers money for you after each battle, including running away
 }
