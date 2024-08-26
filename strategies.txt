@@ -74,6 +74,8 @@ Blastoise Gigantamax
 
 Using Metal Burst with this set up allows you to deal damage equal to your Pokémon's HP upon being hit. The Toxic Orb + Poison Heal Variant allows you to heal back up without Berries.
 It is recommended to have other Pokémon able to use Damage over Time (DoT) moves such as Leech Seed, Salt Cure and Curse.
+
+This Strategy only works if Blastoise is brought from the Starter screen as a Squirtle with its Passive enabled.
 }
 Wormadam Trash
 {
@@ -93,6 +95,8 @@ Wormadam Trash
 
 Using Metal Burst with this set up allows you to deal damage equal to your Pokémon's HP upon being hit. The Toxic Orb + Poison Heal Variant allows you to heal back up without Berries.
 It is recommended to have other Pokémon able to use Damage over Time (DoT) moves such as Leech Seed, Salt Cure and Curse.
+
+This Strategy only works if Wormadam is brought from the Starter screen as a Female Trash Form Burmy with its Passive enabled.
 }
 Kyogre Primal
 {
@@ -229,7 +233,9 @@ Breloom
 - Learns Leech Seed as an extra option
 
 Using Metal Burst with this set up allows you to deal damage equal to your Pokémon's HP upon being hit. The Toxic Orb + Poison Heal Variant allows you to heal back up without Berries.
-It is recommended to have other Pokémon able to use Damage over Time (DoT) moves such as Leech Seed, Salt Cure and Curse.
+It is recommended to have other Pokémon able to use Damage over Time (DoT) moves such as Leech Seed, Salt Cure and Curse. 
+
+You can just catch and use this mid-run. You do not need to bring this from the Starter Select Screen. The Sturdy Passive Pokémon, however, needs to be brough from the Starter Select Screen.
 }
 Miraidon
 {
@@ -392,13 +398,16 @@ Garganacl
     comment = - Access to some of the most powerful moves in the game.
 
 Fuse this onto Prankster, Wonder Guard or Sturdy Pokémon to donate the moves. Unfuse after.
+
+You can just catch and use this mid-run. You do not need to bring this from the Starter Select Screen.
+
 }
 Garganacl
 {
     name = A-Tier - Metal Burst Late Game Carry
     author = Lucas
     tags = Endless
-    passive = -
+    passive = Solid Rock / Sturdy*
     ability = Sturdy / Purifying Salt*
     fusion = None / Sturdy Passive Pokémon* -> Garganacl
     nature = Any -speed Nature
@@ -409,4 +418,78 @@ Garganacl
 
 Using Metal Burst with this set up allows you to deal damage equal to your Pokémon's HP upon being hit.
 *If you are using a Sturdy Passive Pokémon then you can fuse Garganacl with Purifying Salt onto them in order to give them status immunity.
+
+You can just catch and use this mid-run. You do not need to bring this from the Starter Select Screen.
+
+}
+Fletchling
+{
+    name = A-Tier - Fusion for Shedinja Carry
+    tags = Endless
+    author = Lucas
+    passive = -
+    ability = Wonder Guard
+    fusion = Fletchling -> Shedinja
+    nature = Any
+    moves = Leech Seed (Spliced) / Sappy Seed (Spliced), Salt Cure (Spliced), Soak (Spliced), Ruination (Spliced) / Super Fang (Spliced)
+    comment = - Magic Guard allows Shedinja to ignore non-direct hits, making Wonder Guard more potent
+
+Fletchlings main purpose is to be brought from the starter select screen with its passive enabled to then splice it onto shedinja, giving you a Normal + Ghost Type with Magic Guard and Wonder Guard.
+}
+Eternal Floette
+{
+    name = A-Tier - Fusion for Shedinja Carry
+    tags = Endless
+    author = Lucas
+    passive = -
+    ability = Wonder Guard
+    fusion = Floette -> Shedinja
+    nature = Any
+    moves = Leech Seed (Spliced) / Sappy Seed (Spliced), Salt Cure (Spliced), Soak (Spliced), Ruination (Spliced) / Super Fang (Spliced)
+    comment = - Magic Guard allows Shedinja to ignore non-direct hits, making Wonder Guard more potent
+
+Eternal Floettes main purpose in this strategy is to be brought from the starter select screen with its passive enabled to then splice it onto shedinja, giving you a Fairy + Ghost Type with Magic Guard and Wonder Guard.
+}
+Primarina
+{
+    name = A-Tier - Cheap Early Game Carry
+    author = Lucas
+    tags = Endless
+    passive = Punk Rock
+    ability = Any / Sturdy*
+    fusion = None / Primarina -> Magnezone*
+    nature = Modest
+    moves = Torch Song, Sparkling Aria / Bouncy Bubble, Moonblast, Psychic Noise
+    comment = This Pokémon is nowhere near the great legendaries, but it does the job well for being a 4 cost. Make sure to take vitamins, more specifically Carbon and Calcium, as much as possible.
+
+*You want to splice Magnezone onto Primarina as soon as you feel your Primarina is in danger to die after opponents endure. Sturdy will let you take this Pokémon to higher rounds.
+}
+Gardevoir Mega
+{
+    name = A-Tier - Cheap Early Game Carry
+    author = Lucas
+    tags = Endless
+    passive = -
+    ability = Pixilate / Sturdy*
+    fusion = None / Gardevoir -> Magnezone*
+    nature = Modest
+    moves = Boomburst, Expanding Force (TM), Misty Terrain, Dazzling Gleam / Endure
+    comment = - The primary objective is to click Expanding Force while in Psychic Terrain. This is a 150 Base Power Spread Move in Psychic Terrain
+- Pick up all Twisted Spoons you come across. 
+- You can use generic Psychic-Type moves before obtaining the Expanding Force TM.
+
+*You want to splice Magnezone onto Gardevoir as soon as you feel your Gardevoir is in danger to die after opponents endure. Sturdy will let you take this Pokémon to higher rounds.
+}
+Noctowl
+{
+    name = A-Tier - Cheap Early Game Carry
+    author = Lucas
+    tags = Endless
+    passive = -
+    ability = Tinted Lens / Sturdy*
+    fusion = None / Noctowl -> Magnezone*
+    nature = Modest
+    moves = Boomburst, Aeroblast, Esper Wing, Moonblast
+    comment = - The primary objective is to click Boomburst. It's a 150 Base Power Move hitting all other Pokémo
+*You want to splice Magnezone onto Noctowl as soon as you feel your Noctowl is in danger to die after opponents endure. Sturdy will let you take this Pokémon to higher rounds.
 }
