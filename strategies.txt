@@ -720,3 +720,108 @@ Gholdengo
     moves = Astral Barrage, Happy Hour / Aura Sphere, Make It Rain, Surf / Nasty Plot
     comment = - Gathers money for you after each battle, including running away
 }
+Teddiursa
+{
+    name = A-Tier - Utility Pokémon
+    author = Lucas
+    tags = Endless
+    passive = -
+    ability = Honey Gather / Pickup
+    fusion = None / Any Ghost Type* / Any Shiny
+    nature = Adamant
+    moves = Any, Any, Any, Any
+    comment = - Gathers money for you after each battle, including running away or picks up items after each KO.
+
+*If you're running the Normalize Entrainment Strategy then you want to fuse it onto a Ghost Type. I recommend fusing Damage over Time moves onto Teddiursa first.
+}
+Chatot
+{
+    name = A-Tier - Cheap Early Game Carry
+    author = Lucas
+    tags = Endless
+    passive = -
+    ability = Sturdy
+    fusion = Noctowl -> Magnezone
+    nature = Modest
+    moves = Boomburst, Torch Song, Sparkling Aria, Flash Cannon (Spliced)
+    comment = - The primary objective is to click Boomburst. It's a 140 Base Power Move hitting all other Pokémo
+*You want to splice Magnezone onto Noctowl as soon as you feel your Noctowl is in danger to die after opponents endure. Sturdy will let you take this Pokémon to higher rounds.
+}
+Mega Sceptile
+{
+    name = A-Tier - Cheap Early Game Carry
+    author = Lucas
+    tags = Endless
+    passive = -
+    ability = Lightning Rod 
+    fusion = None
+    nature = Modest
+    moves = Dragon Energy, Apple Acid, Eruption (Spliced), Water Spout (Spliced)
+    comment = High special attack but lacks moves. Fuse good moves onto it or this Pokémon will end up feeling awkward.
+
+Catch Pokémon for Eruption and Waterspout to fuse tutor onto Sceptile. The easiest to find are Jellicent, Wailord and Camerupt.
+}
+Latios Mega
+{
+    name = A-Tier - Early Game Carry
+    author = Lucas
+    tags = Endless
+    passive = -
+    ability = Sturdy
+    fusion = Latios -> Magnezone
+    nature = Modest
+    moves = Core Enforcer, Blue Flare, Tachyon Cutter, Luster Purge
+    comment = Make sure to grab a Sturdy Magnezone, it has 3 possible abilities.
+}
+Kyurem White
+{
+    name = A-Tier - Early Game Carry
+    author = Lucas
+    tags = Endless
+    passive = -
+    ability = Turboblaze
+    fusion = None
+    nature = Modest
+    moves = Core Enforcer, Blizzard, Eruption (Spliced), Water Spout (Spliced)
+    comment = Catch Pokémon for Eruption and Water Spout to fuse tutor onto Kyurem. The easiest to find are Camerupt and Torkoal for Eruption and Jellicent and Wailord for Water Spout. This step is entirely optional, you can just use other moves instead.
+}
+Eternatus Eternamax
+{
+    name = A-Tier - Early Game Carry
+    author = Lucas
+    tags = Endless
+    passive = -
+    ability = Pressure
+    fusion = None
+    nature = Modest
+    moves = Dragon Energy, Malignant Chain, Eruption (Spliced) / Flamethrower, Water Spout (Spliced)
+    comment = Catch Pokémon for Eruption and Water Spout to fuse tutor onto Eternatus. The easiest to find are Camerupt and Torkoal for Eruption and Jellicent and Wailord for Water Spout. This step is entirely optional, you can just use other moves instead.
+}
+Zacian Crowned
+{
+    name = A-Tier - Early Game Carry
+    author = Lucas
+    tags = Endless
+    passive = -
+    ability = Intrepid Sword / Beast Boost
+    fusion = None / Kartana
+    nature = Adamant
+    moves = Precipice Blades, Magical Torque, Bitter Blade, Behemoth Blade
+    comment = Many people intend to fuse Flash Fire Heatran or Well-Baked Body Dachsbun onto Zacian in order to fully immune all of Eternatus' attacks. While this works, I advise against this. 
+    
+Instead, I recommend focusing getting Late-Game Setup ready. Many Shedinja fusions, for example, can fully immune Eternatus and a lot more Pokémon on top of that.
+}
+Unown
+{
+    name = A-Tier - Utility Pokémon
+    author = Lucas
+    tags = Endless
+    passive = Pickup
+    ability = Any
+    fusion = Any Ghost Type* / Any Shiny
+    nature = Modest
+    moves = Any, Any, Any, Any
+    comment = - Picks up opposing items for you after KO'ing the opponent(s).
+
+*If you're running the Normalize Entrainment Strategy then you want to fuse a Ghost Type onto this. I recommend fusing Damage over Time moves onto Unown first.
+}
