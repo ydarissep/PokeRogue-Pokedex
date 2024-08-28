@@ -825,3 +825,19 @@ Unown
 
 *If you're running the Normalize Entrainment Strategy then you want to fuse a Ghost Type onto this. I recommend fusing Damage over Time moves onto Unown first.
 }
+Latias
+{
+    name = A-tier - Special Attacker
+    tags = Classic
+    author = TheZigglez
+    passive = Prism Armor
+    ability = Levitate
+    fusion = None
+    nature = Timid
+    moves = Mystical Power / Psychic, Core Enforcer, Fusion Flare, Aura Sphere / Calm Mind
+    comment = - Latias is a strong Special Attacker in Mega form with good enough Speed to have sweeping capabilities
+- Timid allows outspeeding of many top threats and with Carbos/X Speed can easily out-speed the final bosses
+- Mystical Power and Aura Sphere is the better combination overall but if you're missing an Egg Move you can use Calm Mind and Psychic to close to the same effect
+
+Latias is a strong, fast and surprisingly bulky Special Attacker with the added benefit of Prism Armor to help its survivability. It does want its Mega Evolution to truly shine but with its high stats in the early stages it can easily be useful until you pull the Mega Evolution.
+}
