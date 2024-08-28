@@ -841,3 +841,35 @@ Latias
 
 Latias is a strong, fast and surprisingly bulky Special Attacker with the added benefit of Prism Armor to help its survivability. It does want its Mega Evolution to truly shine but with its high stats in the early stages it can easily be useful until you pull the Mega Evolution.
 }
+Chandelure
+{
+    name = Special Attacker
+    tags = Classic, Offense
+    author = TheZigglez
+    passive =
+    ability = Flash Fire
+    fusion = None
+    nature = Timid
+    moves = Fiery Dance, Astral Barrage, Moonblast, Earth Power
+    comment = - Chandelure has an extremely high Special Attack for a non-Legendary
+- Timid is necessary to make up for its middling Speed (probably also want Carbos/Soul Dews/X Speed to be safe)
+- Soul-Heart allows it to snowball quickly with boosts, if you're not comfortable with that and 50% chance from Fiery Dance and want to boost before attacking you can slot Calm Mind in for one of the coverage moves
+
+Chandelure hits extremely hard especially when snowballing through slower enemies with Soul-Heart and Fiery Dance. Ability isn't as important but if you are able to read a Fire type attack and switch in to it with Chandelure Flash Fire will make Fiery Dance hit like a nuke.
+}
+Chandelure
+{
+    name = Passive Damage
+    tags = Classic, Stall
+    author = TheZigglez
+    passive =
+    ability = Flame Body / Flash Fire
+    fusion = None
+    nature = Timid / Calm
+    moves = Curse, Will-O-Wisp / Toxic, Fire Spin / Fiery Dance, Pain Split
+    comment = - Chandelure has a unique trait of 4 passive damage options as well as Pain Split
+- Timid is good for improving its Speed but Calm is also an option to help remedy its middling bulk
+- Soul-Heart still activates off of Passive Damage which means this set can still do good boosted damage with only one Attacking move as well
+
+Chandelure has an interesting set of features to pull off a set like this, its bulk isn't the greatest so it'll need to use Pain Split quite a bit to heal itself after getting Curse off which is only really used for significant threats such as the final 2 bosses. If you run Flame Body you may prefer Toxic for more passive damage options but Will-O-Wisp guarantees crippling physical attackers allowing it to survive longer
+}
