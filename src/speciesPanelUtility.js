@@ -55,7 +55,7 @@ function createSpeciesStrategy(strategy, speciesName){
     
     strategyName.innerText = strategy["name"]
     if(strategy["author"]){
-        strategyName.innerText += `\nBy @${strategy["author"]}`
+        strategyName.innerText += `\nAuthor: @${strategy["author"]}`
     }
     strategySpriteContainer.append(strategySprite)
     strategySprite.src = getSpeciesSpriteSrc(speciesName)
