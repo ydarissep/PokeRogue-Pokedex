@@ -172,12 +172,10 @@ async function setDataList(){
         if(species[name]["baseSpeed"] <= 0){
             continue
         }
-        else if(!speciesIngameNameArray.includes(name)){
-            const option = document.createElement("option")
-            option.innerText = species[name]["ingameName"]
-            speciesIngameNameArray.push(species[name]["ingameName"])
-            speciesPanelInputSpeciesDataList.append(option)
-        }
+        const option = document.createElement("option")
+        option.innerText = species[name]["ingameName"]
+        speciesIngameNameArray.push(species[name]["ingameName"])
+        speciesPanelInputSpeciesDataList.append(option)
     }
 
     window.abilitiesIngameNameArray = []
