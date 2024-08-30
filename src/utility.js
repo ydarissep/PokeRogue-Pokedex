@@ -6,6 +6,7 @@ fetch("https://raw.githubusercontent.com/ydarissep/dex-core/main/src/utility.js"
     text = text.replace("await forceUpdate()", "await getLang(urlParams)\nawait forceUpdate()")
     text = text.replaceAll("${checkUpdate}", "${checkUpdate} ${lang}")
     text = text.replace('createFilter(filter.split(":")[1], filter.split(":")[0])', 'createFilter(filter.split(":")[1], returnFilterLabel(filter.split(":")[0]))')
+    text = text.replace('function setDataList(', 'function setDatalistOld(')
     eval.call(window,text)
 }).catch(error => {
     console.warn(error)
@@ -155,4 +156,38 @@ function getLangFullName(langString){
 function returnFilterLabel(string){
     const filterLabelArray = ["Move", "Ability", "Type", "Form", "Egg Group", "Base Stats", "Biome", "Split", "Target", "Flag", "Item"]
     return Object.values(staticTranslationTable).includes(string) ? Object.keys(staticTranslationTable).find(key => staticTranslationTable[key] === string && filterLabelArray.includes(key)) : string
+}
+
+
+
+
+
+
+
+
+
+async function setDataList(){
+    window.speciesIngameNameArray = []
+    for(const name in species){
+        if(species[name]["baseSpeed"] <= 0){
+            continue
+        }
+        else if(!speciesIngameNameArray.includes(name)){
+            const option = document.createElement("option")
+            option.innerText = species[name]["ingameName"]
+            speciesIngameNameArray.push(species[name]["ingameName"])
+            speciesPanelInputSpeciesDataList.append(option)
+        }
+    }
+
+    window.abilitiesIngameNameArray = []
+    for(const abilityName in abilities){
+        if(!abilities[abilityName]["description"] || !/[1-9aA-zZ]/.test(abilities[abilityName]["ingameName"])){
+            continue
+        }
+        const option = document.createElement("option")
+        option.innerText = abilities[abilityName]["ingameName"]
+        abilitiesIngameNameArray.push(abilities[abilityName]["ingameName"])
+        abilitiesInputDataList.append(option)
+    }
 }

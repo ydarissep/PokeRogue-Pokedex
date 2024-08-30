@@ -96,6 +96,7 @@ fetch('https://raw.githubusercontent.com/ydarissep/dex-core/main/index.html').th
     }).then(async text => {
         text = text.replaceAll("filterLocationsTableInput", "filterLocationsTableInputNew")
         text = text.replace(/filterTableInput\(value, species, \[.*?\]\)/, 'filterTableInput(value, species, ["name", "ingameName", "abilities", "innates", "starterAbility", "ID"])')
+        text = text.replace('const species = `SPECIES_${value.replaceAll(" ", "_").toUpperCase()}`', 'const species = Object.keys(species).find(speciesName => species[speciesName]["ingameName"] == value)')
         await eval.call(window,text)
     }).catch(error => {
         console.warn(error)
