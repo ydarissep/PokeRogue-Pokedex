@@ -1,23 +1,12 @@
-async function regexPokemonInfo(textPokemonInfo){
-    const typesMatch = textPokemonInfo.match(/Type\s*:\s*{.*?}\s*,/is)
-    if(typesMatch){
-        const typesInfo = typesMatch[0].match(/".*?"\s*:\s*".*?"/g)
-        if(typesInfo){
-            typesInfo.forEach(typeInfo => {
-                typeInfo = typeInfo.match(/"(.*?)"\s*:\s*"(.*?)"/)
-                translationTable[sanitizeString(typeInfo[1])] = typeInfo[2]
-            })
-        }
-    }
-
+async function regexPokemonInfo(jsonPokemonInfo){
+    Object.keys(jsonPokemonInfo["Type"]).forEach(type => {
+        translationTable[sanitizeString(type)] = jsonPokemonInfo["Type"][type]
+    })
 
     if(lang !== "en"){
         const statsObj = {"HP": "HPshortened", "Atk": "ATKshortened", "Def": "DEFshortened", "SpA": "SPATKshortened", "SpD": "SPDEFshortened", "Spe": "SPDshortened"}
         Object.keys(statsObj).forEach(stat => {
-            const statInfo = textPokemonInfo.match(new RegExp(`"${statsObj[stat]}"\\s*:\\s*".*?"`, "i"))
-            if(statInfo){
-                translationTable[stat] = statInfo[0].match(/".*?"\s*:\s*"(.*?)"/)[1]
-            }
+            translationTable[stat] = jsonPokemonInfo["Stat"][statsObj[stat]]
         })
 
         if(["en", "fr", "es", "it", "de", "ko", "zh_CN", "zh_TW", "pt_BR"].includes(lang)){

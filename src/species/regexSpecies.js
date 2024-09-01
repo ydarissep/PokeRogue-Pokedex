@@ -193,21 +193,40 @@ function regexBaseStats(textBaseStats, species, jsonMasterlist){
 
 
 
-function regexIngameName(textIngameName, species){
-    let translationTable = {}
-    const matchIngameNames = textIngameName.match(/".*?"\s*:\s*".*?"/g)
-    if(matchIngameNames){
-        matchIngameNames.forEach(ingameName => {
-            const matchIngameName = ingameName.match(/"(.*?)"\s*:\s*"(.*?)"/)
-            translationTable[`SPECIES_${matchIngameName[1].toUpperCase()}`] = matchIngameName[2]
-        })
-    }
+function regexIngameName(jsonIngameName, jsonPokemonForm, jsonPokemonFormBattle, species){
+    let translated = []
+    Object.keys(jsonIngameName).forEach(ingameName => {
+        if(`SPECIES_${ingameName.toUpperCase()}` in species){
+            species[`SPECIES_${ingameName.toUpperCase()}`]["ingameName"] = jsonIngameName[ingameName]
+            translated.push(`SPECIES_${ingameName.toUpperCase()}`)
+        }
+    })
+
+    Object.keys(jsonPokemonForm).forEach(form => {
+        let formName = `SPECIES_${form.replace(/([A-Z])/g, " $1").replace(/(\d+)/g, " $1").trim().replaceAll(" ", "_").toUpperCase()}`
+        while(formName.includes("_") && !(formName in species)){
+            formName = formName.replace(formName.match(/.*(_.*)$/)[1], "")
+        }
+        if(formName in species){
+            species[formName]["ingameName"] = jsonPokemonForm[form]
+            translated.push(formName)
+        }
+    })
+
+    const formBattleObj = {"Mega": "mega", "Mega X": "mega-x", "Mega Y": "mega-y", "Primal": "primal", "Gigantamax": "gigantamax", "Eternamax": "eternamax"}
+    Object.keys(species).forEach(speciesName => {
+        const formBattleMatch = species[speciesName]["ingameName"].match(/Mega$|Mega X$|Mega Y$|Primal$|Gigantamax$|Eternamax$/)
+        if(formBattleMatch){
+            species[speciesName]["ingameName"] = jsonPokemonFormBattle[formBattleObj[formBattleMatch[0]]].replace("{{pokemonName}}", species[species[speciesName]["forms"][0]]["ingameName"])
+            translated.push(speciesName)
+        }
+    })
 
     Object.keys(species).forEach(speciesName => {
-        if(speciesName in translationTable){
-            species[speciesName]["forms"].forEach(formName => {
-                species[formName]["ingameName"] = translationTable[speciesName]
-            })
+        for(let i = 1; i < species[speciesName]["forms"].length; i++){
+            if(!translated.includes(species[speciesName]["forms"][i])){
+                species[species[speciesName]["forms"][i]]["ingameName"] = species[species[speciesName]["forms"][0]]["ingameName"]
+            }
         }
     })
 

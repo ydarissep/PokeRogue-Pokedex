@@ -50,10 +50,16 @@ async function getIngameNamme(species){
         return species
     }
 
-    const rawIngameName = await fetch(`https://raw.githubusercontent.com/${repo}/src/locales/${lang}/pokemon.ts`)
-    const textIngameName = await rawIngameName.text()
+    const rawIngameName = await fetch(`https://raw.githubusercontent.com/${repo}/src/locales/${lang}/pokemon.json`)
+    const jsonIngameName = await rawIngameName.json()
 
-    return regexIngameName(textIngameName, species)
+    const rawPokemonForm = await fetch(`https://raw.githubusercontent.com/${repo}/src/locales/${lang}/pokemon-form.json`)
+    const jsonPokemonForm = await rawPokemonForm.json()
+
+    const rawPokemonFormBattle = await fetch(`https://raw.githubusercontent.com/${repo}/src/locales/${lang}/pokemon-form-battle.json`)
+    const jsonPokemonFormBattle = await rawPokemonFormBattle.json()
+
+    return regexIngameName(jsonIngameName, jsonPokemonForm, jsonPokemonFormBattle, species)
 }
 
 async function getChanges(species){

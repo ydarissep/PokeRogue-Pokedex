@@ -83,22 +83,16 @@ function regexBiomes(textBiomes, locations, conversionTable){
 
 				biomeMatch = biomeMatch.replace(biomeNameMatch[0], "")
 
-				const biomeBracketMatch = biomeMatch.match(/\[\s*Biome\.\w+\s*,\s*\d+\s*\]/ig)
-				if(biomeBracketMatch){
-					biomeBracketMatch.forEach(biomeBracket => {
-						biomeLinks[biomeName].push([sanitizeString(biomeBracket.match(/Biome\.(\w+)/i)[1]), parseInt(100 / parseInt(biomeBracket.match(/,\s*(\d+)/)[1]))])
-						biomeMatch = biomeMatch.replace(biomeBracket, "")
-					})
-				}
-				let chance = 100
-				biomeLinks[biomeName].forEach(nextBiome => {
-					chance -= nextBiome[1]
-				})
-
-				const remainingBiomes = biomeMatch.match(/Biome\.(\w+)/ig)
-				if(remainingBiomes){
-					remainingBiomes.forEach(remainingBiome => {
-						biomeLinks[biomeName].push([sanitizeString(remainingBiome.match(/Biome\.(\w+)/i)[1]), parseInt(chance / remainingBiomes.length)])
+				const linkMatch = biomeMatch.match(/Biome.\w+\s*(?:,\s*\d+)?/ig)
+				if(linkMatch){
+					linkMatch.forEach(nextLink => {
+						const weightMatch = nextLink.match(/,\s*(\d+)/)
+						if(weightMatch){
+							biomeLinks[biomeName].push([sanitizeString(nextLink.match(/Biome.(\w+)/i)[1]), parseInt(100 / weightMatch[1])])
+						}
+						else{
+							biomeLinks[biomeName].push([sanitizeString(nextLink.match(/Biome.(\w+)/i)[1]), 100])
+						}
 					})
 				}
 			})
@@ -173,15 +167,11 @@ async function getBiomesFormsConverionTable(textBiomesForms){
 
 
 
-async function getBiomesTranslationTable(textBiomesTranslation){
+async function getBiomesTranslationTable(jsonBiomesTranslation){
 	let translationTable = {}
-	const matchTranslations = textBiomesTranslation.match(/".*?"\s*:\s*".*?"/igs)
-	if(matchTranslations){
-		matchTranslations.forEach(translation => {
-			translation = translation.match(/"(.*?)"\s*:\s*"(.*?)"/)
-			translationTable[sanitizeString(translation[1])] = translation[2]
-		})
-	}
+	Object.keys(jsonBiomesTranslation).forEach(biome => {
+		translationTable[sanitizeString(biome)] = jsonBiomesTranslation[biome]
+	})
 
 	return translationTable
 }

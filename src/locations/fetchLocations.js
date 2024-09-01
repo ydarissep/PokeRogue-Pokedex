@@ -6,11 +6,11 @@ async function getBiomes(locations){
     const rawBiomesForms = await fetch(`https://raw.githubusercontent.com/${repo}/src/field/arena.ts`)
     const textBiomesForms = await rawBiomesForms.text()
 
-    const rowBiomeTranslation = await fetch(`https://raw.githubusercontent.com/${repo}/src/locales/${lang}/biome.ts`)
-    const textBiomeTranslation = await rowBiomeTranslation.text()
+    const rawBiomeTranslation = await fetch(`https://raw.githubusercontent.com/${repo}/src/locales/${lang}/biome.json`)
+    const jsonBiomeTranslation = await rawBiomeTranslation.json()
 
     const conversionTable = await getBiomesFormsConverionTable(textBiomesForms)
-    window.biomeTranslation = await getBiomesTranslationTable(textBiomeTranslation)
+    window.biomeTranslation = await getBiomesTranslationTable(jsonBiomeTranslation)
 
     localStorage.setItem("biomeTranslation", LZString.compressToUTF16(JSON.stringify(biomeTranslation)))
 

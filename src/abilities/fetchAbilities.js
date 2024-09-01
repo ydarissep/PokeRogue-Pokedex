@@ -1,9 +1,9 @@
 async function getAbilities(abilities){
     footerP("Fetching abilities")
-    const rawAbilities = await fetch(`https://raw.githubusercontent.com/${repo}/src/locales/${lang}/ability.ts`)
-    const textAbilities = await rawAbilities.text()
+    const rawAbilities = await fetch(`https://raw.githubusercontent.com/${repo}/src/locales/${lang}/ability.json`)
+    const jsonAbilities = await rawAbilities.json()
 
-    return regexAbilities(textAbilities, abilities)
+    return regexAbilities(jsonAbilities, abilities)
 }
 
 async function getAbilitiesFlags(abilities){

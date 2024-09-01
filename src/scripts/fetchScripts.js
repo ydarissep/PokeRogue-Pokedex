@@ -31,10 +31,10 @@ async function getTrainers(){
 
 async function getTranslationTable(){
     footerP("Fetching translation table")
-    const rawPokemonInfo = await fetch(`https://raw.githubusercontent.com/${repo}/src/locales/${lang}/pokemon-info.ts`)
-    const textPokemonInfo = await rawPokemonInfo.text()
+    const rawPokemonInfo = await fetch(`https://raw.githubusercontent.com/${repo}/src/locales/${lang}/pokemon-info.json`)
+    const jsonPokemonInfo = await rawPokemonInfo.json()
 
-    await regexPokemonInfo(textPokemonInfo)
+    await regexPokemonInfo(jsonPokemonInfo)
 }
 
 async function buildScriptsObjs(){

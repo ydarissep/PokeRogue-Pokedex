@@ -7,10 +7,10 @@ async function getMoves(Moves){
 }
 
 async function getMovesDescription(Moves){
-    const rawMovesDescription = await fetch(`https://raw.githubusercontent.com/${repo}/src/locales/${lang}/move.ts`)
-    const textMovesDescription = await rawMovesDescription.text()
+    const rawMovesDescription = await fetch(`https://raw.githubusercontent.com/${repo}/src/locales/${lang}/move.json`)
+    const jsonMovesDescription = await rawMovesDescription.json()
 
-    return regexMovesDescription(textMovesDescription, Moves)
+    return regexMovesDescription(jsonMovesDescription, Moves)
 }
 
 
