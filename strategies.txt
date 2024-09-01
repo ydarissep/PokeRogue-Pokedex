@@ -873,3 +873,28 @@ Chandelure
 
 Chandelure has an interesting set of features to pull off a set like this, its bulk isn't the greatest so it'll need to use Pain Split quite a bit to heal itself after getting Curse off which is only really used for significant threats such as the final 2 bosses. If you run Flame Body you may prefer Toxic for more passive damage options but Will-O-Wisp guarantees crippling physical attackers allowing it to survive longer
 }
+Thievul
+{
+  name = Steal Their Hearts
+  author = Lily
+  tags = Classic
+  passive = -
+  ability = Stakeout
+  fusion = None
+  nature = Modest
+  moves = Baddy Bad, Burning Jealousy, Sparkling Swirl, Fiery Wrath
+  comment = - Steal their items and their hearts at the same time. 
+- Fiery Wrath may clutch out flinches.
+}
+Thievul
+{
+  name = Steal Their Hearts
+  author = Lily
+  tags = Endless
+  passive = -
+  ability = Sturdy Spliced / Wonder Guard Spliced
+  fusion = Thievul -> Sturdy Pokémon / Shedinja
+  nature = Any
+  moves = Soak (Spliced), Leech Seed (Spliced) / Sappy Seed (Spliced), Salt Cure (Spliced), Ruination (Spliced)
+  comment = Using the Classic set for early game will let you transition into this late game strategy to beat Endless.
+}
