@@ -54,6 +54,32 @@ async function staticTranslation(){
             caption.innerHTML = caption.innerHTML.replace(captionInnerText, staticTranslationTable[captionInnerText] ?? captionInnerText)
         })
 
+        hideLevelUpFromPreviousEvolution = document.getElementById("hideLevelUpFromPreviousEvolution")
+        hideLevelUp = document.getElementById("hideLevelUp")
+        hideTMHM = document.getElementById("hideTMHM")
+        hideTutor = document.getElementById("hideTutor")
+        hideEggMoves = document.getElementById("hideEggMoves")
+        hideLevelUpFromPreviousEvolution.addEventListener("click", () => {
+            hideLevelUpFromPreviousEvolution.classList.toggle("activeSetting")
+            changeSetting("hideLevelUpFromPreviousEvolution", hideLevelUpFromPreviousEvolution.classList.contains("activeSetting"))
+        })
+        hideLevelUp.addEventListener("click", () => {
+            hideLevelUp.classList.toggle("activeSetting")
+            changeSetting("hideLevelUp", hideLevelUp.classList.contains("activeSetting"))
+        })
+        hideTMHM.addEventListener("click", () => {
+            hideTMHM.classList.toggle("activeSetting")
+            changeSetting("hideTMHM", hideTMHM.classList.contains("activeSetting"))
+        })
+        hideTutor.addEventListener("click", () => {
+            hideTutor.classList.toggle("activeSetting")
+            changeSetting("hideTutor", hideTutor.classList.contains("activeSetting"))
+        })
+        hideEggMoves.addEventListener("click", () => {
+            hideEggMoves.classList.toggle("activeSetting")
+            changeSetting("hideEggMoves", hideEggMoves.classList.contains("activeSetting"))
+        })
+
         document.getElementById("onlyShowVariantPokemon").innerText = staticTranslationTable[document.getElementById("onlyShowVariantPokemon").innerText] ??= document.getElementById("onlyShowVariantPokemon").innerText
         document.getElementById("onlyShowVariantPokemonLocations").innerText = staticTranslationTable[document.getElementById("onlyShowVariantPokemonLocations").innerText] ??= document.getElementById("onlyShowVariantPokemonLocations").innerText
     }
