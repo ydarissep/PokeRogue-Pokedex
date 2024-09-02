@@ -225,7 +225,7 @@ function regexIngameName(jsonIngameName, jsonPokemonForm, jsonPokemonFormBattle,
     Object.keys(species).forEach(speciesName => {
         for(let i = 1; i < species[speciesName]["forms"].length; i++){
             if(!translated.includes(species[speciesName]["forms"][i])){
-                species[species[speciesName]["forms"][i]]["ingameName"] = species[species[speciesName]["forms"][0]]["ingameName"]
+                species[species[speciesName]["forms"][i]]["ingameName"] = jsonIngameName[species[species[speciesName]["forms"][0]]["name"].replace("SPECIES_", "").toLowerCase()]
             }
         }
     })
