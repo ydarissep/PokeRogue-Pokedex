@@ -208,7 +208,13 @@ function regexIngameName(jsonIngameName, jsonPokemonForm, jsonPokemonFormBattle,
             formName = formName.replace(formName.match(/.*(_.*)$/)[1], "")
         }
         if(formName in species){
-            species[formName]["ingameName"] = `${jsonIngameName[species[species[formName]["forms"][0]]["name"].replace("SPECIES_", "").toLowerCase()]} ${jsonPokemonForm[form]}`
+            const jsonIngameNameKey = species[species[formName]["forms"][0]]["name"].replace("SPECIES_", "").toLowerCase()
+            if(jsonIngameName[jsonIngameNameKey]){
+                species[formName]["ingameName"] = `${jsonIngameName[jsonIngameNameKey]} ${jsonPokemonForm[form]}`
+            }
+            else{
+                species[formName]["ingameName"] = `${sanitizeString(jsonIngameNameKey)} ${jsonPokemonForm[form]}`
+            }
             translated.push(formName)
         }
     })
@@ -225,7 +231,13 @@ function regexIngameName(jsonIngameName, jsonPokemonForm, jsonPokemonFormBattle,
     Object.keys(species).forEach(speciesName => {
         for(let i = 1; i < species[speciesName]["forms"].length; i++){
             if(!translated.includes(species[speciesName]["forms"][i])){
-                species[species[speciesName]["forms"][i]]["ingameName"] = jsonIngameName[species[species[speciesName]["forms"][0]]["name"].replace("SPECIES_", "").toLowerCase()]
+                const jsonIngameNameKey = species[species[speciesName]["forms"][0]]["name"].replace("SPECIES_", "").toLowerCase()
+                if(jsonIngameName[jsonIngameNameKey]){
+                    species[species[speciesName]["forms"][i]]["ingameName"] = jsonIngameName[jsonIngameNameKey]
+                }
+                else{
+                    species[species[speciesName]["forms"][i]]["ingameName"] = sanitizeString(jsonIngameNameKey)
+                }
             }
         }
     })
