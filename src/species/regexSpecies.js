@@ -208,7 +208,7 @@ function regexIngameName(jsonIngameName, jsonPokemonForm, jsonPokemonFormBattle,
             formName = formName.replace(formName.match(/.*(_.*)$/)[1], "")
         }
         if(formName in species){
-            species[formName]["ingameName"] = jsonPokemonForm[form]
+            species[formName]["ingameName"] = `${jsonIngameName[species[species[formName]["forms"][0]]["name"].replace("SPECIES_", "").toLowerCase()]} ${jsonPokemonForm[form]}`
             translated.push(formName)
         }
     })
