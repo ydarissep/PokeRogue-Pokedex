@@ -4,8 +4,7 @@ function regexMovesDescription(jsonMovesDescription, moves){
         if(moveName in moves){
             moves[moveName]["ingameName"] = jsonMovesDescription[move]["name"]
 
-            moves[moveName]["description"] = jsonMovesDescription[move]["effect"].replaceAll(/Sp\s*\./ig, "Sp").replaceAll("\\n", "").replaceAll(/\.+/g, ".ceciEstUnPoint").split("ceciEstUnPoint")
-            moves[moveName]["description"] = moves[moveName]["description"].filter(desc => desc.trim() !== "")
+            moves[moveName]["description"] = [jsonMovesDescription[move]["effect"].replaceAll("\\n", "")]
         }
     })
 
