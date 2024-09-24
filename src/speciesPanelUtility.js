@@ -12,11 +12,12 @@ fetch("https://raw.githubusercontent.com/ydarissep/dex-core/main/src/speciesPane
         })
     }
 
+    window.targetSpriteSpecies = "SPECIES_BULBASAUR"
     text = text.replace("function createSpeciesStrategy(", "function createSpeciesStrategyOld(")
     text = text.replace("speciesAbilitiesMainContainer.classList.remove(\"hide\")", "prependAbilityStarterEl(name)\nspeciesAbilitiesMainContainer.classList.remove(\"hide\")")
     text = text.replace("speciesEggGroups.append(eggGroup1)", "speciesEggGroups.append(eggGroup1)\nspeciesEggGroups.prepend(returnStarterCostEl(name))\nspeciesPanelWeight.innerText = `${species[name][\"weight\"]} kg`")
     text = text.replace("speciesSprite.src = getSpeciesSpriteSrc(name)", "handleVariants()\nappendBiomes(name)\nsetPanelSpeciesMainSpriteSrc(backIconContainer.classList.contains('backActive'), femaleIconContainer.classList.contains('femaleActive'))")
-    text = text.replace('speciesName.innerText = sanitizeString(name)', 'speciesName.innerText = species[name]["ingameName"]')
+    text = text.replace('speciesName.innerText = sanitizeString(name)', 'targetSpriteSpecies = returnTargetSpeciesSprite(name)\nspeciesName.innerText = species[name]["ingameName"]')
     text = text.replace('name.innerText = sanitizeString(species[speciesName]["name"])', 'name.innerText = species[speciesName]["ingameName"]')
     text = text.replaceAll("checkType.innerText = sanitizeString(type)", 'checkType.innerText = translationTable[sanitizeString(type)] ??= sanitizeString(type)')
     text = text.replace('speciesType1.innerText = sanitizeString(species[name]["type1"])', 'speciesType1.innerText = translationTable[sanitizeString(species[name]["type1"])] ??= sanitizeString(species[name]["type1"])')
@@ -367,18 +368,18 @@ function sortLearnsetsArray(thead, learnsetsArray, label, asc){
 
 async function setPanelSpeciesMainSpriteSrc(back = false, female = false, animate = animateIconContainer.classList.contains("animateActive")){
     let extra = ""
-    if(back && female && sprites[`BACK_F_${panelSpecies}`]){
+    if(back && female && sprites[`BACK_F_${targetSpriteSpecies}`]){
         extra = "BACK_F"
     }
-    else if(female && sprites[`F_${panelSpecies}`]){
+    else if(female && sprites[`F_${targetSpriteSpecies}`]){
         extra = "F"
     }
-    else if(back && sprites[`BACK_${panelSpecies}`]){
+    else if(back && sprites[`BACK_${targetSpriteSpecies}`]){
         extra = "BACK"
     }
 
-    if(sprites[`${extra}_${panelSpecies}`]){
-        speciesSprite.src = sprites[`${extra}_${panelSpecies}`]
+    if(sprites[`${extra}_${targetSpriteSpecies}`]){
+        speciesSprite.src = sprites[`${extra}_${targetSpriteSpecies}`]
     }
     else{
         speciesSprite.src = getSpeciesSpriteSrc(panelSpecies)
@@ -392,20 +393,20 @@ async function setPanelSpeciesMainSpriteSrc(back = false, female = false, animat
 }
 function setPanelSpeciesMainSpriteScaling(back = false, female = false){
     let extra = ""
-    if(back && female && sprites[`BACK_F_${panelSpecies}`]){
+    if(back && female && sprites[`BACK_F_${targetSpriteSpecies}`]){
         extra = "BACK_F"
     }
-    else if(female && sprites[`F_${panelSpecies}`]){
+    else if(female && sprites[`F_${targetSpriteSpecies}`]){
         extra = "F"
     }
-    else if(back && sprites[`BACK_${panelSpecies}`]){
+    else if(back && sprites[`BACK_${targetSpriteSpecies}`]){
         extra = "BACK"
     }
-    if(sprites[`${extra}_${panelSpecies}`] && spritesInfo[`${extra}_${panelSpecies}`]){
-        speciesSprite.style.transform = `scale(${spritesInfo[`${extra}_${panelSpecies}`]})`
+    if(sprites[`${extra}_${targetSpriteSpecies}`] && spritesInfo[`${extra}_${targetSpriteSpecies}`]){
+        speciesSprite.style.transform = `scale(${spritesInfo[`${extra}_${targetSpriteSpecies}`]})`
     }
     else{
-        speciesSprite.style.transform = `scale(${spritesInfo[panelSpecies]})`
+        speciesSprite.style.transform = `scale(${spritesInfo[targetSpriteSpecies]})`
     }
 }
 
@@ -630,14 +631,14 @@ function insertVariantsContainer(){
 function fetchVarSprite(variantContainer, i, clicked = false, back = false, female = false){
     if(backIconContainer.classList.contains("backActive")){
         back = true
-        if(species[panelSpecies]["backF"].length > 0){
+        if(species[targetSpriteSpecies]["backF"].length > 0){
             if(femaleIconContainer.classList.contains("femaleActive")){
                 female = true
             }
         }
     }
     else{
-        if(species[panelSpecies]["variantF"].length > 0){
+        if(species[targetSpriteSpecies]["variantF"].length > 0){
             if(femaleIconContainer.classList.contains("femaleActive")){
                 female = true
             }
@@ -680,7 +681,7 @@ function fetchVarSprite(variantContainer, i, clicked = false, back = false, fema
             applyPalVar(targetSpecies, i, back, female)
         }
         else{
-            speciesSprite.src = sprites[panelSpecies]
+            speciesSprite.src = sprites[targetSpecies]
         }
         variantContainer.classList.add("activeVariant")
     }
@@ -692,7 +693,7 @@ function fetchVarSprite(variantContainer, i, clicked = false, back = false, fema
 
 
 function handleVariants(){
-    if(species[panelSpecies]["variantF"].length > 0){
+    if(species[targetSpriteSpecies]["variantF"].length > 0){
         femaleIconContainer.classList.remove("hide")
     }
     else{
@@ -701,7 +702,7 @@ function handleVariants(){
 
     for(let i = 0; i < 3; i++){
         //variantsContainer.children[i].classList.remove("activeVariant") // Uncomment to disable automatic shiny when changing species
-        if(typeof species[panelSpecies]["variant"][i] !== "undefined"){
+        if(typeof species[targetSpriteSpecies]["variant"][i] !== "undefined"){
             variantsContainer.children[i].classList.remove("hide")
             if(variantsContainer.children[i].classList.contains("activeVariant")){
                 fetchVarSprite(variantsContainer.children[i], i, false)
@@ -811,20 +812,20 @@ async function applyPalVar(speciesName, index, back, female){
     let canvas = document.createElement("canvas")
 
     let extra = ""
-    if(back && female && sprites[`BACK_F_${panelSpecies}`]){
+    if(back && female && sprites[`BACK_F_${targetSpriteSpecies}`]){
         extra = "BACK_F"
     }
-    else if(female && sprites[`F_${panelSpecies}`]){
+    else if(female && sprites[`F_${targetSpriteSpecies}`]){
         extra = "F"
     }
-    else if(back && sprites[`BACK_${panelSpecies}`]){
+    else if(back && sprites[`BACK_${targetSpriteSpecies}`]){
         extra = "BACK"
     }
-    if(sprites[`${extra}_${panelSpecies}`]){
-        sprite.src = sprites[`${extra}_${panelSpecies}`]
+    if(sprites[`${extra}_${targetSpriteSpecies}`]){
+        sprite.src = sprites[`${extra}_${targetSpriteSpecies}`]
     }
     else{
-        sprite.src = getSpeciesSpriteSrc(panelSpecies)
+        sprite.src = getSpeciesSpriteSrc(targetSpriteSpecies)
     }
 
     const rawJson = await fetch(returnSpriteURL(back, female, species[speciesName]["sprite"], "json", 1))

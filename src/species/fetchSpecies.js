@@ -70,7 +70,7 @@ async function getChanges(species){
 }
 
 async function getExp(species){
-    const rawExp = await fetch("https://raw.githubusercontent.com/pagefaultgames/pokerogue/main/public/exp-sprites.json")
+    const rawExp = await fetch(`https://raw.githubusercontent.com/${repo}/public/exp-sprites.json`)
     const jsonExp = await rawExp.json()
 
     return regexExp(jsonExp, species)

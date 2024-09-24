@@ -1,7 +1,7 @@
 function regexBaseStats(textBaseStats, species, jsonMasterlist){
     const statsOrder = ["BST", "baseHP", "baseAttack", "baseDefense", "baseSpAttack", "baseSpDefense", "baseSpeed"]
-    const shareSprite = [656, 657, 664, 665, 710, 711, 744, 774, 854, 855, 1007, 1008, 1012, 1013]
-    const spriteReset = ["SPECIES_PIKACHU_PARTNER", "SPECIES_EEVEE_PARTNER", "SPECIES_DEOXYS", "SPECIES_GRENINJA_BATTLE_BOND", "SPECIES_SCATTERBUG", "SPECIES_SPEWPA", "SPECIES_MEOWSTIC", "SPECIES_AEGISLASH", "SPECIES_ZYGARDE", "SPECIES_ZYGARDE_50_PC", "SPECIES_ORICORIO", "SPECIES_LYCANROC", "SPECIES_SILVALLY", "SPECIES_MINIOR", "SPECIES_TOXTRICITY", "SPECIES_SINISTEA", "SPECIES_POLTEAGEIST", "SPECIES_ALCREMIE", "SPECIES_INDEEDEE", "SPECIES_MORPEKO", "SPECIES_ZAMAZENTA", "SPECIES_ZACIAN", "SPECIES_URSHIFU", "SPECIES_BASCULEGION", "SPECIES_OINKOLOGNE", "SPECIES_DUDUNSPARCE", "SPECIES_GIMMIGHOUL"]
+    const shareSprite = [656, 657, 664, 665, 710, 711, 744, 854, 855, 1007, 1008, 1012, 1013]
+    const spriteReset = ["SPECIES_PIKACHU_PARTNER", "SPECIES_EEVEE_PARTNER", "SPECIES_DEOXYS", "SPECIES_GRENINJA_BATTLE_BOND", "SPECIES_SCATTERBUG", "SPECIES_SPEWPA", "SPECIES_MEOWSTIC", "SPECIES_AEGISLASH", "SPECIES_ZYGARDE", "SPECIES_ZYGARDE_50_PC", "SPECIES_ORICORIO", "SPECIES_LYCANROC", "SPECIES_SILVALLY", "SPECIES_MINIOR", "SPECIES_MINIOR_ORANGE_METEOR", "SPECIES_MINIOR_YELLOW_METEOR", "SPECIES_MINIOR_GREEN_METEOR", "SPECIES_MINIOR_BLUE_METEOR", "SPECIES_MINIOR_INDIGO_METEOR", "SPECIES_MINIOR_VIOLET_METEOR", "SPECIES_TOXTRICITY", "SPECIES_SINISTEA", "SPECIES_POLTEAGEIST", "SPECIES_ALCREMIE", "SPECIES_INDEEDEE", "SPECIES_MORPEKO", "SPECIES_ZAMAZENTA", "SPECIES_ZACIAN", "SPECIES_URSHIFU", "SPECIES_BASCULEGION", "SPECIES_OINKOLOGNE", "SPECIES_DUDUNSPARCE", "SPECIES_GIMMIGHOUL"]
     const spriteReplace = {"493-unknown": "493-normal", "718-10-pc": "718-10", "778": "778-disguised", "1044": "2670", "1082": "8901"}
     let counter = 0
 
@@ -863,14 +863,22 @@ function regexExp(jsonExp, species){
 
             if(id in idToSpecies){
                 if(info[1] == "s" && species[idToSpecies[id]]["exp"].length == 0){
-                    species[idToSpecies[id]]["exp"] = [0]
+                    spreadMasterlistToForms(idToSpecies[id], "exp")
                 }
                 else if(info[1] == "sb" && species[idToSpecies[id]]["backExp"].length == 0){
-                    species[idToSpecies[id]]["backExp"] = [0]
+                    spreadMasterlistToForms(idToSpecies[id], "backExp")
                 }
             }
         }
     })
+
+    function spreadMasterlistToForms(speciesName, key){
+        for(let i = 0; i < species[speciesName]["forms"].length; i++){
+            if(species[speciesName]["sprite"] == species[species[speciesName]["forms"][i]]["sprite"]){
+                species[species[speciesName]["forms"][i]][key] = [0]
+            }
+        }
+    }
 
     return species
 }
