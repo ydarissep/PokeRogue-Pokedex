@@ -247,7 +247,7 @@ function buildSpeciesPanelSingleLearnsetsTable(table, name, input, label = "", a
 
         row.addEventListener('click', function () {
             createPopupForMove(moves[move])
-            overlay.style.display = 'block'
+            overlay.style.display = "flex"
         }) 
 
         row.append(movedescription)
