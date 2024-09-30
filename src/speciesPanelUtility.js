@@ -792,7 +792,7 @@ async function downloadVarSprite(speciesName, index, method, back, female){
                 await downloadAndAnimateSheet(back, female)
             }
             else{
-                await handleSheetAnimation(speciesName, back, female, sprite, json)
+                await handleSheetAnimation(panelSpecies, back, female, sprite, json)
             }
         }
     }
