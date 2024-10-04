@@ -1,7 +1,7 @@
 function regexBaseStats(textBaseStats, species, jsonMasterlist){
     const statsOrder = ["BST", "baseHP", "baseAttack", "baseDefense", "baseSpAttack", "baseSpDefense", "baseSpeed"]
     const shareSprite = [656, 657, 664, 665, 710, 711, 744, 854, 855, 1007, 1008, 1012, 1013]
-    const spriteReset = ["SPECIES_PIKACHU_PARTNER", "SPECIES_EEVEE_PARTNER", "SPECIES_DEOXYS", "SPECIES_GRENINJA_BATTLE_BOND", "SPECIES_SCATTERBUG", "SPECIES_SPEWPA", "SPECIES_MEOWSTIC", "SPECIES_AEGISLASH", "SPECIES_ZYGARDE", "SPECIES_ZYGARDE_50_PC", "SPECIES_ORICORIO", "SPECIES_LYCANROC", "SPECIES_SILVALLY", "SPECIES_MINIOR", "SPECIES_MINIOR_ORANGE_METEOR", "SPECIES_MINIOR_YELLOW_METEOR", "SPECIES_MINIOR_GREEN_METEOR", "SPECIES_MINIOR_BLUE_METEOR", "SPECIES_MINIOR_INDIGO_METEOR", "SPECIES_MINIOR_VIOLET_METEOR", "SPECIES_TOXTRICITY", "SPECIES_SINISTEA", "SPECIES_POLTEAGEIST", "SPECIES_ALCREMIE", "SPECIES_INDEEDEE", "SPECIES_MORPEKO", "SPECIES_ZAMAZENTA", "SPECIES_ZACIAN", "SPECIES_URSHIFU", "SPECIES_BASCULEGION", "SPECIES_OINKOLOGNE", "SPECIES_DUDUNSPARCE", "SPECIES_GIMMIGHOUL"]
+    const spriteReset = ["SPECIES_PIKACHU_PARTNER", "SPECIES_EEVEE_PARTNER", "SPECIES_DEOXYS", "SPECIES_GRENINJA_BATTLE_BOND", "SPECIES_SCATTERBUG", "SPECIES_SPEWPA", "SPECIES_MEOWSTIC", "SPECIES_AEGISLASH", "SPECIES_ZYGARDE", "SPECIES_ZYGARDE_50_PC", "SPECIES_ORICORIO", "SPECIES_LYCANROC", "SPECIES_SILVALLY", "SPECIES_MINIOR", "SPECIES_MINIOR_ORANGE_METEOR", "SPECIES_MINIOR_YELLOW_METEOR", "SPECIES_MINIOR_GREEN_METEOR", "SPECIES_MINIOR_BLUE_METEOR", "SPECIES_MINIOR_INDIGO_METEOR", "SPECIES_MINIOR_VIOLET_METEOR", "SPECIES_TOXTRICITY", "SPECIES_SINISTEA", "SPECIES_POLTEAGEIST", "SPECIES_ALCREMIE", "SPECIES_INDEEDEE", "SPECIES_MORPEKO", "SPECIES_ZAMAZENTA", "SPECIES_ZACIAN", "SPECIES_URSHIFU", "SPECIES_BASCULEGION", "SPECIES_OINKOLOGNE", "SPECIES_DUDUNSPARCE", "SPECIES_GIMMIGHOUL", "SPECIES_PALDEA_TAUROS"]
     const spriteReplace = {"493-unknown": "493-normal", "718-10-pc": "718-10", "778": "778-disguised", "1044": "2670", "1082": "8901"}
     let counter = 0
 
@@ -66,7 +66,7 @@ function regexBaseStats(textBaseStats, species, jsonMasterlist){
                     species[speciesName]["ID"] = counter
 
                     if(spriteReset.includes(speciesName)){
-                        spritePath = counter
+                        spritePath = counter.toString()
                     }
                     else if(spritePath in spriteReplace){
                         spritePath = spriteReplace[spritePath]
@@ -76,7 +76,7 @@ function regexBaseStats(textBaseStats, species, jsonMasterlist){
                         const trySpecies = speciesName.replace(`_${regionMatch[1]}`, "")
                         if(trySpecies in species){
                             const bonus = {"ALOLA": 2000, "GALAR": 4000, "HISUI": 6000, "PALDEA": 8000}
-                            spritePath = species[trySpecies]["ID"] + bonus[regionMatch[1]]
+                            spritePath = spritePath.replace(spritePath.match(/\d+/)[0], species[trySpecies]["ID"] + bonus[regionMatch[1]])
                         }
                         else{
                             spritePath = spritePath.replace(/\d+/, species[originalSpecies]["sprite"].toString().match(/\d+/)[0])
@@ -94,7 +94,6 @@ function regexBaseStats(textBaseStats, species, jsonMasterlist){
                         species[speciesName]["variant"] = jsonMasterlist[spritePath]
                     }
 
-
                     const femaleMatch = speciesInit.match(/\d+\s*,\s*\d+\s*,\s*\d+\s*,\s*\d+\s*,\s*\d+\s*,\s*\d+\s*,\s*\d+.*?(false|true)/i)
                     if(femaleMatch){
                         if(femaleMatch[1].toLowerCase() == "true" && !/_mega$|_gigantamax$/i.test(speciesName)){
@@ -102,7 +101,6 @@ function regexBaseStats(textBaseStats, species, jsonMasterlist){
                             species[speciesName]["backF"] = [0]
                         }
                     }
-
 
                     if(spritePath in jsonMasterlist["female"]){
                         species[speciesName]["variantF"] = jsonMasterlist["female"][spritePath]
@@ -874,7 +872,7 @@ function regexExp(jsonExp, species){
 
     function spreadMasterlistToForms(speciesName, key){
         for(let i = 0; i < species[speciesName]["forms"].length; i++){
-            if(species[speciesName]["sprite"] == species[species[speciesName]["forms"][i]]["sprite"]){
+            if(species[speciesName]["sprite"] == species[species[speciesName]["forms"][i]]["sprite"] && species[species[speciesName]["forms"][i]][key].length == 0){
                 species[species[speciesName]["forms"][i]][key] = [0]
             }
         }
