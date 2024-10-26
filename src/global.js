@@ -1,5 +1,6 @@
 window.repo = "pagefaultgames/pokerogue/main"
-window.checkUpdate = "33 PR"
+window.localesRepo = "pagefaultgames/pokerogue-locales/refs/heads/main"
+window.checkUpdate = "34 PR"
 window.lang = "en"
 
 
@@ -7,7 +8,7 @@ fetch('https://raw.githubusercontent.com/ydarissep/dex-core/main/index.html').th
 	return response.text()
 }).then(async rawHTMLText => {
 	const parser = new DOMParser()
-	const doc = parser.parseFromString(rawHTMLText, 'text/html')
+	const doc = parser.parseFromString(rawHTMLText.replace('<link rel="stylesheet" href="style/itemsTable.css">', '<link rel="stylesheet" href="style/itemsTable.css">\n<link rel="stylesheet" href="style/eventsTable.css">'), 'text/html')
     document.querySelector('html').innerHTML = doc.querySelector('html').innerHTML
 
 
@@ -97,6 +98,8 @@ fetch('https://raw.githubusercontent.com/ydarissep/dex-core/main/index.html').th
         text = text.replaceAll("filterLocationsTableInput", "filterLocationsTableInputNew")
         text = text.replace(/filterTableInput\(value, species, \[.*?\]\)/, 'filterTableInput(value, species, ["name", "ingameName", "abilities", "innates", "starterAbility", "ID"])')
         text = text.replace('const panelSpeciesName = `SPECIES_${value.replaceAll(" ", "_").toUpperCase()}`', 'const panelSpeciesName = Object.keys(species).find(speciesName => species[speciesName]["ingameName"] == value)')
+        text = text.replace('filterItemsTableInput(value, ["description", "name"])', 'filterItemsTableInput(value, ["description", "ingameName"])')
+        await setupEvents()
         await eval.call(window,text)
     }).catch(error => {
         console.warn(error)

@@ -89,6 +89,7 @@ async function staticTranslation(){
 function getStaticTranslationTable(lang){
     const staticTranslationTable = {
         "en": {
+            "Pokemon": "Pokémon",
             "Species": "Species",
             "Starter Cost": "Starter Cost",
             "Variant": "Variant",
@@ -119,10 +120,15 @@ function getStaticTranslationTable(lang){
             "Biomes": "Biomes",
             "Moves": "Moves",
             "Move": "Move",
+            "Tier": "Tier",
+            "Requirements": "Requirements",
             "Ability": "Ability",
-            "Abilities": "Abilities"
+            "Abilities": "Abilities",
+            "Event": "Event",
+            "Random": "Random"
         },
         "fr": {
+            "Pokemon": "Pokémon",
             "Species": "Pokémon",
             "Starter Cost": "Coût",
             "Variant": "Chromatique",
@@ -153,10 +159,15 @@ function getStaticTranslationTable(lang){
             "Biomes": "Biomes",
             "Moves": "Capacités",
             "Move": "Capacité",
+            "Tier": "Rang",
+            "Requirements": "Conditions",
             "Ability": "Talent",
-            "Abilities": "Talents"
+            "Abilities": "Talents",
+            "Event": "Évènement",
+            "Random": "Aléatoire"
         },
         "it": {
+            "Pokemon": "Pokémon",
             "Species": "Pokémon",
             "Starter Cost": "Costo",
             "Variant": "Cromatico",
@@ -187,10 +198,15 @@ function getStaticTranslationTable(lang){
             "Biomes": "Biomi",
             "Moves": "Mosse",
             "Move": "Mossa",
+            "Tier": "Grado",
+            "Requirements": "Condizioni",
             "Ability": "Abilità",
-            "Abilities": "Abilità"
+            "Abilities": "Abilità",
+            "Event": "Evento",
+            "Random": "Casuale"
         },
         "de": {
+            "Pokemon": "Pokémon",
             "Species": "Pokémon",
             "Starter Cost": "Kosten",
             "Variant": "Schillernd",
@@ -221,10 +237,15 @@ function getStaticTranslationTable(lang){
             "Biomes": "Biome",
             "Moves": "Attacken",
             "Move": "Attacke",
+            "Tier": "Rang",
+            "Requirements": "Bedingungen",
             "Ability": "Fähigkeit",
-            "Abilities": "Fähigkeiten"
+            "Abilities": "Fähigkeiten",
+            "Event": "Ereignis",
+            "Random": "Zufällig"
         },
         "es": {
+            "Pokemon": "Pokémon",
             "Species": "Pokémon",
             "Starter Cost": "Costo",
             "Variant": "Variocolor",
@@ -255,10 +276,15 @@ function getStaticTranslationTable(lang){
             "Biomes": "Biomas",
             "Moves": "Movimientos",
             "Move": "Movimiento",
+            "Tier": "Rango",
+            "Requirements": "Requisitos",
             "Ability": "Habilidad",
-            "Abilities": "Habilidades"
+            "Abilities": "Habilidades",
+            "Event": "Evento",
+            "Random": "Aleatorio"
         },
         "ko": {
+            "Pokemon": "포켓몬",
             "Species": "포켓몬",
             "Starter Cost": "코스트",
             "Variant": "색이 다른 모습",
@@ -289,10 +315,15 @@ function getStaticTranslationTable(lang){
             "Biomes": "바이옴",
             "Moves": "기술",
             "Move": "기술",
+            "Tier": "랭크",
+            "Requirements": "요구 사항",
             "Ability": "특성",
-            "Abilities": "특성"
+            "Abilities": "특성",
+            "Event": "이벤트",
+            "Random": "랜덤"
         },
         "zh_CN": {
+            "Pokemon": "宝可梦",
             "Species": "宝可梦",
             "Starter Cost": "费用",
             "Variant": "异色",
@@ -323,10 +354,15 @@ function getStaticTranslationTable(lang){
             "Biomes": "地区",
             "Moves": "招式",
             "Move": "招式",
+            "Tier": "级别",
+            "Requirements": "要求",
             "Ability": "特性",
-            "Abilities": "特性"
+            "Abilities": "特性",
+            "Event": "事件",
+            "Random": "随机"
         },
         "zh_TW": {
+            "Pokemon": "寶可夢",
             "Species": "寶可夢",
             "Starter Cost": "花費",
             "Variant": "異色",
@@ -357,10 +393,15 @@ function getStaticTranslationTable(lang){
             "Biomes": "區域",
             "Moves": "招式",
             "Move": "招式",
+            "Tier": "級別",
+            "Requirements": "要求",
             "Ability": "特性",
-            "Abilities": "特性"
+            "Abilities": "特性",
+            "Event": "Event",
+            "Random": "隨機"
         },
         "pt_BR": {
+            "Pokemon": "Pokémon",
             "Species": "Pokémon",
             "Starter Cost": "Custo",
             "Variant": "Brilhante",
@@ -391,8 +432,12 @@ function getStaticTranslationTable(lang){
             "Biomes": "Biomas",
             "Moves": "Movimentos",
             "Move": "Movimento",
+            "Tier": "nível",
+            "Requirements": "Requisitos",
             "Ability": "Habilidad",
-            "Abilities": "Habilidades"
+            "Abilities": "Habilidades",
+            "Event": "Evento",
+            "Random": "Aleatório"
         }
     }
 

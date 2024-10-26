@@ -13,17 +13,6 @@ function regexMovesDescription(jsonMovesDescription, moves){
 
 
 function regexMoves(textMoves, moves){
-    let flagArray = ["unimplemented","partial"]
-    const flagsMatch = textMoves.match(/this.setFlag\s*\(\s*MoveFlags\.\w+\s*,\s*\w+\s*\)/ig)
-    if(flagsMatch){
-        flagsMatch.forEach(flagMatch => {
-            const flag = flagMatch.match(/this.setFlag\s*\(\s*MoveFlags\.\w+\s*,\s*(\w+)\s*\)/i)[1]
-            if(flag !== "true" && flag !== "false"){
-                flagArray.push(flag)
-            }
-        })
-    }
-
     const textMovesMatch = textMoves.match(/new\s*\w+Move\(Moves\.\w+.*?(?=new\s*\w+Move\(Moves\.|$)/igs)
     if(textMovesMatch){
         textMovesMatch.forEach(moveMatch => {
@@ -76,9 +65,7 @@ function regexMoves(textMoves, moves){
             if(flags){
                 flags.forEach(flag => {
                     const flagName = flag.match(/\w+/)[0]
-                    if(flagArray.includes(flagName)){
-                        moves[moveName]["flags"].push(`FLAG_${flagName.replace(/([A-Z])/g, " $1").replace(/(\d+)/g, " $1").trim().replaceAll(" ", "_").toUpperCase()}`)
-                    }
+                    moves[moveName]["flags"].push(`FLAG_${flagName.replace(/([A-Z])/g, " $1").replace(/(\d+)/g, " $1").trim().replaceAll(" ", "_").toUpperCase()}`)
                 })
             }
             if(/.attr\s*\(\s*HighCritAttr/i.test(moveMatch)){

@@ -1,12 +1,12 @@
 async function getBiomes(locations){
     footerP("Fetching biomes")
-    const rawBiomes = await fetch(`https://raw.githubusercontent.com/${repo}/src/data/biomes.ts`)
+    const rawBiomes = await fetch(`https://raw.githubusercontent.com/${repo}/src/data/balance/biomes.ts`)
     const textBiomes = await rawBiomes.text()
 
     const rawBiomesForms = await fetch(`https://raw.githubusercontent.com/${repo}/src/field/arena.ts`)
     const textBiomesForms = await rawBiomesForms.text()
 
-    const rawBiomeTranslation = await fetch(`https://raw.githubusercontent.com/${repo}/src/locales/${lang}/biome.json`)
+    const rawBiomeTranslation = await fetch(`https://raw.githubusercontent.com/${localesRepo}/${lang}/biome.json`)
     const jsonBiomeTranslation = await rawBiomeTranslation.json()
 
     const conversionTable = await getBiomesFormsConverionTable(textBiomesForms)

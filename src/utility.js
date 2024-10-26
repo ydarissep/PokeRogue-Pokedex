@@ -7,6 +7,7 @@ fetch("https://raw.githubusercontent.com/ydarissep/dex-core/main/src/utility.js"
     text = text.replaceAll("${checkUpdate}", "${checkUpdate} ${lang}")
     text = text.replace('createFilter(filter.split(":")[1], filter.split(":")[0])', 'createFilter(filter.split(":")[1], returnFilterLabel(filter.split(":")[0]))')
     text = text.replace('function setDataList(', 'function setDatalistOld(')
+    text = text.replace("await fetchScripts()", "await fetchScripts()\nawait fetchEventsObj()")
     eval.call(window,text)
 }).catch(error => {
     console.warn(error)
@@ -32,6 +33,7 @@ async function getLang(urlParams){
     }
 
     window.staticTranslationTable = getStaticTranslationTable(lang)
+    eventsButton.innerText = staticTranslationTable["Event"] // timing :shrug:
 
     settings = settings.filter(setting => !/dexLang=\w+/.test(setting))
     settings.push(`dexLang=${lang}`)

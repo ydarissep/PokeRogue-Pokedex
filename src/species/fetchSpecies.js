@@ -6,27 +6,39 @@ async function getBaseStats(species){
     const rawMasterlist = await fetch(`https://raw.githubusercontent.com/${repo}/public/images/pokemon/variant/_masterlist.json`)
     const jsonMasterlist = await rawMasterlist.json()
 
-    species = regexBaseStats(textBaseStats, species, jsonMasterlist)
+    return regexBaseStats(textBaseStats, species, jsonMasterlist)
+}
 
-    return regexStarterAbility(textBaseStats, species)
+async function getSpeciesPassive(species){
+    const rawPassive = await fetch(`https://raw.githubusercontent.com/${repo}/src/data/balance/passives.ts`)
+    const textPassive = await rawPassive.text()
+
+    return regexSpeciesPassive(textPassive, species)
+}
+
+async function getSpeciesCost(species){
+    const rawCost = await fetch(`https://raw.githubusercontent.com/${repo}/src/data/balance/starters.ts`)
+    const textCost = await rawCost.text()
+
+    return regexSpeciesCost(textCost, species)
 }
 
 async function getLevelUpLearnsets(species){
-    const rawLevelUpLearnsets = await fetch(`https://raw.githubusercontent.com/${repo}/src/data/pokemon-level-moves.ts`)
+    const rawLevelUpLearnsets = await fetch(`https://raw.githubusercontent.com/${repo}/src/data/balance/pokemon-level-moves.ts`)
     const textLevelUpLearnsets = await rawLevelUpLearnsets.text()
 
     return regexLevelUpLearnsets(textLevelUpLearnsets, species)
 }
 
 async function getTMHMLearnsets(species){
-    const rawTMHMLearnsets = await fetch(`https://raw.githubusercontent.com/${repo}/src/data/tms.ts`)
+    const rawTMHMLearnsets = await fetch(`https://raw.githubusercontent.com/${repo}/src/data/balance/tms.ts`)
     const textTMHMLearnsets = await rawTMHMLearnsets.text()
 
     return regexTMHMLearnsets(textTMHMLearnsets, species)
 }
 
 async function getEvolution(species){
-    const rawEvolution = await fetch(`https://raw.githubusercontent.com/${repo}/src/data/pokemon-evolutions.ts`)
+    const rawEvolution = await fetch(`https://raw.githubusercontent.com/${repo}/src/data/balance/pokemon-evolutions.ts`)
     const textEvolution = await rawEvolution.text()
 
     const rawEvolutionForms = await fetch(`https://raw.githubusercontent.com/${repo}/src/data/pokemon-forms.ts`)
@@ -39,7 +51,7 @@ async function getEvolution(species){
 }
 
 async function getEggMovesLearnsets(species){
-    const rawEggMoves = await fetch(`https://raw.githubusercontent.com/${repo}/src/data/egg-moves.ts`)
+    const rawEggMoves = await fetch(`https://raw.githubusercontent.com/${repo}/src/data/balance/egg-moves.ts`)
     const textEggMoves = await rawEggMoves.text()
 
     return regexEggMovesLearnsets(textEggMoves, species)
@@ -50,13 +62,13 @@ async function getIngameNamme(species){
         return species
     }
 
-    const rawIngameName = await fetch(`https://raw.githubusercontent.com/${repo}/src/locales/${lang}/pokemon.json`)
+    const rawIngameName = await fetch(`https://raw.githubusercontent.com/${localesRepo}/${lang}/pokemon.json`)
     const jsonIngameName = await rawIngameName.json()
 
-    const rawPokemonForm = await fetch(`https://raw.githubusercontent.com/${repo}/src/locales/${lang}/pokemon-form.json`)
+    const rawPokemonForm = await fetch(`https://raw.githubusercontent.com/${localesRepo}/${lang}/pokemon-form.json`)
     const jsonPokemonForm = await rawPokemonForm.json()
 
-    const rawPokemonFormBattle = await fetch(`https://raw.githubusercontent.com/${repo}/src/locales/${lang}/pokemon-form-battle.json`)
+    const rawPokemonFormBattle = await fetch(`https://raw.githubusercontent.com/${localesRepo}/${lang}/pokemon-form-battle.json`)
     const jsonPokemonFormBattle = await rawPokemonFormBattle.json()
 
     return regexIngameName(jsonIngameName, jsonPokemonForm, jsonPokemonFormBattle, species)
@@ -85,6 +97,8 @@ async function getExp(species){
 async function buildSpeciesObj(){
     let species = {}
     species = await getBaseStats(species)
+    species = await getSpeciesPassive(species)
+    species = await getSpeciesCost(species)
     species = await getEvolution(species)
     species = await getLevelUpLearnsets(species)
     species = await getTMHMLearnsets(species)
@@ -92,6 +106,14 @@ async function buildSpeciesObj(){
     species = await getIngameNamme(species)
     species = await getExp(species)
     //species = await getChanges(species)
+
+    species["SPECIES_GIMMIGHOUL"]["evolution"] = [["EVO_PICK_UP_MONEY_ITEM_WHILE_IN_PARTY", "10", "SPECIES_GHOLDENGO"]]
+    species["SPECIES_GIMMIGHOUL_ROAMING"]["evolution"] = [["EVO_PICK_UP_MONEY_ITEM_WHILE_IN_PARTY", "10", "SPECIES_GHOLDENGO"]]
+    species["SPECIES_CASTFORM_SUNNY"]["evolution"] = []
+    species["SPECIES_CASTFORM_RAINY"]["evolution"] = []
+    species["SPECIES_CASTFORM_SNOWY"]["evolution"] = []
+    species["SPECIES_BASCULEGION"]["eggMovesLearnsets"] = species["SPECIES_BASCULIN"]["eggMovesLearnsets"]
+    species["SPECIES_BASCULEGION_FEMALE"]["eggMovesLearnsets"] = species["SPECIES_BASCULIN"]["eggMovesLearnsets"]
 
     await localStorage.setItem("species", LZString.compressToUTF16(JSON.stringify(species)))
     return species

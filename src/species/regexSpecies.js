@@ -372,8 +372,8 @@ function tryToFixSpeciesName(speciesName, species){
 
 
 
-function regexStarterAbility(textBaseStats, species){
-    const textStarterAbilityMatch = textBaseStats.match(/Species\.\w+\s*\].*?Abilities\.\w+/ig)
+function regexSpeciesPassive(textPassive, species){
+    const textStarterAbilityMatch = textPassive.match(/Species\.\w+\s*\].*?Abilities\.\w+/ig)
     if(textStarterAbilityMatch){
         textStarterAbilityMatch.forEach(starterAbilitity => {
             const speciesName = starterAbilitity.match(/Species\.\w+/)[0].toUpperCase().replace(".", "_")
@@ -385,7 +385,20 @@ function regexStarterAbility(textBaseStats, species){
         })
     }
 
-    const textStarterCostMatch = textBaseStats.match(/Species\.\w+\s*\]\s*:\s*\d+/ig)
+    return species
+}
+
+
+
+
+
+
+
+
+
+
+function regexSpeciesCost(textCost, species){
+    const textStarterCostMatch = textCost.match(/Species\.\w+\s*\]\s*:\s*\d+/ig)
     if(textStarterCostMatch){
         textStarterCostMatch.forEach(starterCost => {
             const speciesName = starterCost.match(/Species\.\w+/)[0].toUpperCase().replace(".", "_")

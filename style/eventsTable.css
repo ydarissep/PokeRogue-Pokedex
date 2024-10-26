@@ -1,0 +1,92 @@
+#eventsTable {
+    box-shadow: none !important;
+}
+
+#eventsTableTbody {
+    width: 1000px !important;
+    display: block !important;
+}
+
+.eventTable {
+    width: 100% !important;
+}
+
+.eventSummary {
+    font-size: 2em;
+    margin-top: 1em;
+    margin-left: 0;
+    margin-right: 0;
+    font-weight: bold;
+}
+
+.eventTableThead {
+    font-size: 22px;
+}
+
+.eventTierImg {
+    height: 20px;
+    filter: brightness(1.2);
+}
+
+.TOOLTIP_TITLE {
+    color: #e70808 !important;
+    text-shadow: 0.6px 0.6px #fec176 !important;
+    font-weight: 700;
+}
+
+.SUMMARY_BLUE {
+    color: #40c8f8;
+    font-weight: 700;
+}
+
+.SUMMARY_GREEN {
+    color: #78c850;
+    font-weight: 700;
+}
+
+.optionRow {
+    background: #2e2e33 !important;
+}
+
+.optionRow > td {
+    padding: 15px;
+}
+
+@media 
+only screen and (max-width: 1025px) {
+    #eventsTableTbody {
+        width: 100% !important;
+    }
+
+    .eventTable {
+        font-size: min(max(2.5vw, 16px), 20px) !important;
+    }
+}
+
+@media 
+only screen and (max-width: 1025px) {
+    #eventsTableTbody {
+        width: 100% !important;
+    }
+}
+
+@media 
+only screen and (max-width: 800px) {
+    .eventTable, .eventTableThead {
+        font-size: min(max(2.5vw, 15px), 18px) !important;
+    }
+}
+
+@media 
+only screen and (max-width: 600px) {
+    .eventSummary {
+        font-size: min(max(5vw, 25px), 30px) !important;
+    }
+}
+
+@media 
+only screen and (max-width: 450px) {
+    .eventSprite {
+        width: 250px !important;
+    }
+}

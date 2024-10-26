@@ -1,24 +1,19 @@
 async function getItems(){
     footerP("Fetching items")
-    const rawItems = await fetch(`https://raw.githubusercontent.com/${repo}/src/data/items.h`)
-    const textItems = await rawItems.text()
+    const rawItemDescriptions = await fetch(`https://raw.githubusercontent.com/${localesRepo}/${lang}/modifier-type.json`)
+    const jsonItemDescriptions = await rawItemDescriptions.json()
 
-    const descriptionConversionTable = await regexItems(textItems)
+    const modifierTypeTable = await regexItemDescriptions(jsonItemDescriptions)
 
-    const rawItemDescriptions = await fetch(`https://raw.githubusercontent.com/${repo}/src/data/text/item_descriptions.h`)
-    const textItemDescriptions = await rawItemDescriptions.text()
+    const rawItemsTier = await fetch(`https://raw.githubusercontent.com/${repo}/src/modifier/modifier-type.ts`)
+    const textItemsTier = await rawItemsTier.text()
 
-    await regexItemDescriptions(textItemDescriptions, descriptionConversionTable)
-}
+    await regexItemsTier(textItemsTier, modifierTypeTable, jsonItemDescriptions)
 
-async function getItemsIcon(){
-    const rawItemIconTable = await fetch(`https://raw.githubusercontent.com/${repo}/src/data/item_icon_table.h`)
-    const textItemIconTable = await rawItemIconTable.text()
+    const rawItemsIcon = await fetch(`https://raw.githubusercontent.com/${repo}/public/images/items.json`)
+    const jsonItemsIcon = await rawItemsIcon.json()
 
-    const rawItemsIcon = await fetch(`https://raw.githubusercontent.com/${repo}/src/data/graphics/items.h`)
-    const textItemsIcon = await rawItemsIcon.text()
-
-    await regexItemIcon(textItemIconTable, textItemsIcon)
+    await regexItemIcon(jsonItemsIcon)
 }
 
 async function getTrainers(){
@@ -31,10 +26,15 @@ async function getTrainers(){
 
 async function getTranslationTable(){
     footerP("Fetching translation table")
-    const rawPokemonInfo = await fetch(`https://raw.githubusercontent.com/${repo}/src/locales/${lang}/pokemon-info.json`)
+    const rawPokemonInfo = await fetch(`https://raw.githubusercontent.com/${localesRepo}/${lang}/pokemon-info.json`)
     const jsonPokemonInfo = await rawPokemonInfo.json()
 
     await regexPokemonInfo(jsonPokemonInfo)
+
+    const rawMenu = await fetch(`https://raw.githubusercontent.com/${localesRepo}/${lang}/menu.json`)
+    const jsonMenu = await rawMenu.json()
+
+    await regexMenu(jsonMenu)
 }
 
 async function buildScriptsObjs(){
@@ -46,16 +46,12 @@ async function buildScriptsObjs(){
 
     //await getTrainers()
 
-    /*
-    await getItems()
-
-    await getItemsIcon()
-    */
+    //await getItems()
 
     localStorage.setItem("translationTable", LZString.compressToUTF16(JSON.stringify(translationTable)))
     localStorage.setItem("trainers", LZString.compressToUTF16(JSON.stringify(trainers)))
     localStorage.setItem("items", LZString.compressToUTF16(JSON.stringify(items)))
-    //localStorage.setItem("locations", LZString.compressToUTF16(JSON.stringify(locations)))
+    //localStorage.setItem("locations", LZString.compressToUTF16(JSON.stringify(locations))) // do not uncomment
 }
 
 
