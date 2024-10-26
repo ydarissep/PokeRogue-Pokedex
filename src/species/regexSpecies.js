@@ -2,7 +2,7 @@ function regexBaseStats(textBaseStats, species, jsonMasterlist){
     const statsOrder = ["BST", "baseHP", "baseAttack", "baseDefense", "baseSpAttack", "baseSpDefense", "baseSpeed"]
     const shareSprite = [656, 657, 664, 665, 710, 711, 744, 854, 855, 1007, 1008, 1012, 1013]
     const spriteReset = ["SPECIES_PIKACHU_PARTNER", "SPECIES_EEVEE_PARTNER", "SPECIES_DEOXYS", "SPECIES_GRENINJA_BATTLE_BOND", "SPECIES_SCATTERBUG", "SPECIES_SPEWPA", "SPECIES_MEOWSTIC", "SPECIES_AEGISLASH", "SPECIES_ZYGARDE", "SPECIES_ZYGARDE_50_PC", "SPECIES_ORICORIO", "SPECIES_LYCANROC", "SPECIES_SILVALLY", "SPECIES_MINIOR", "SPECIES_MINIOR_ORANGE_METEOR", "SPECIES_MINIOR_YELLOW_METEOR", "SPECIES_MINIOR_GREEN_METEOR", "SPECIES_MINIOR_BLUE_METEOR", "SPECIES_MINIOR_INDIGO_METEOR", "SPECIES_MINIOR_VIOLET_METEOR", "SPECIES_TOXTRICITY", "SPECIES_SINISTEA", "SPECIES_POLTEAGEIST", "SPECIES_ALCREMIE", "SPECIES_INDEEDEE", "SPECIES_MORPEKO", "SPECIES_ZAMAZENTA", "SPECIES_ZACIAN", "SPECIES_URSHIFU", "SPECIES_BASCULEGION", "SPECIES_OINKOLOGNE", "SPECIES_DUDUNSPARCE", "SPECIES_GIMMIGHOUL", "SPECIES_PALDEA_TAUROS"]
-    const spriteReplace = {"493-unknown": "493-normal", "718-10-pc": "718-10", "778": "778-disguised", "1044": "2670", "1082": "8901"}
+    const spriteReplace = {"493-unknown": "493-normal", "718-10-pc": "718-10", "718-10-complete": "718-complete", "778": "778-disguised", "1044": "2670", "1082": "8901"}
     let counter = 0
 
     const textBaseStastMatch = textBaseStats.match(/new\s*PokemonSpecies\(Species\..*?(?=new\s*PokemonSpecies|;)/igs)
@@ -11,7 +11,7 @@ function regexBaseStats(textBaseStats, species, jsonMasterlist){
             counter++
             let originalSpecies = null
             let replaceOriginalSpecies = false
-            let speciesInitArray = initSpeciesMatch.match(/new\s*PokemonForm\(.*?\)/igs)
+            let speciesInitArray = initSpeciesMatch.match(/new\s*PokemonForm\(.*?$/gsm)
             if(speciesInitArray){
                 speciesInitArray.forEach(formString => {
                     initSpeciesMatch = initSpeciesMatch.replace(formString, "")
@@ -608,7 +608,13 @@ function regexEvolution(textEvolution, species){
                                         method = `${method}_MOVE_TYPE_${splitEvo[i].match(/Type\.(\w+)/i)[1]}`
                                     }
                                     else if(keywordsMatch[j] == "moveId"){
-                                        method = `${method}_MOVE_${splitEvo[i].match(/Moves\.(\w+)/i)[1]}`
+                                        const moveName = splitEvo[i].match(/moveId.*?Moves\.(\w+)/i)
+                                        if(moveName){
+                                            method = `${method}_MOVE_${moveName[1]}`
+                                        }
+                                        else{
+                                            method = `${method}_MOVE_${splitEvo[i].match(/Moves\.(\w+)/i)[1]}`
+                                        }
                                     }
                                     else if(keywordsMatch[j] == "dexData"){
                                         method = `${method}_${splitEvo[i].match(/dexData.*?Species\.(\w+)/i)[1]}_UNLOCKED`
