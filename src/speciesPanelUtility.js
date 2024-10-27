@@ -25,6 +25,7 @@ fetch("https://raw.githubusercontent.com/ydarissep/dex-core/main/src/speciesPane
     text = text.replaceAll('sanitizeString(moves[move[0]]["type"]).slice(0,3)', '(translationTable[sanitizeString(moves[move[0]]["type"])] ??= sanitizeString(moves[move[0]]["type"])).slice(0,3)')
     text = text.replace("function sortLearnsetsArray(", "function sortLearnsetsArrayOld(")
     text = text.replace("function buildSpeciesPanelSingleLearnsetsTable", "function buildSpeciesPanelSingleLearnsetsTableOld")
+    text = text.replace("function buildSpeciesPanelDoubleLearnsetsTable", "function buildSpeciesPanelDoubleLearnsetsTableOld")
     
     eval.call(window,text)
 }).catch(error => {
@@ -168,6 +169,97 @@ function createSpeciesStrategy(strategy, speciesName){
     return strategyContainer
 }
 
+
+
+
+
+
+
+function buildSpeciesPanelDoubleLearnsetsTable(table, name, input, label = "", asc = 0){
+
+    const Tbody = table.querySelector("tbody")
+    const THead = table.querySelector("thead")
+
+    if(!Tbody || !THead){
+        return
+    }
+
+    while(Tbody.firstChild){
+        Tbody.removeChild(Tbody.firstChild)
+    }
+
+    sortLearnsetsArray(THead, species[name][input], label, asc).forEach(move => {
+        const row = document.createElement("tr")
+
+        const level = document.createElement("td")
+        if(parseInt(move[1]) < 0){
+            const levelImg = document.createElement("img"); levelImg.src = `https://raw.githubusercontent.com/${repo}/public/images/items/big_mushroom.png`
+            level.append(levelImg)
+            levelImg.classList = "flexCenterContainer"; levelImg.style.margin = "auto"
+        }
+        else{
+            level.innerText = move[1]
+        }
+        row.append(level)
+
+        const moveName = document.createElement("td")
+        moveName.innerText = moves[move[0]]["ingameName"]
+        moveName.className = "bold"
+        row.append(moveName)
+
+        const typeContainer = document.createElement("td")
+        const type = document.createElement("div")
+        type.innerText = sanitizeString(moves[move[0]]["type"]).slice(0,3)
+        type.className = `${moves[move[0]]["type"]} backgroundSmall`
+        typeContainer.append(type)
+        row.append(typeContainer)
+
+        const splitContainer = document.createElement("td")
+        const splitIcon = document.createElement("img")
+        splitIcon.src = `src/moves/${moves[move[0]]["split"]}.png`
+        splitIcon.className = `${sanitizeString(moves[move[0]]["split"])} splitIcon`
+        splitContainer.append(splitIcon)
+        row.append(splitContainer)
+
+        const power = document.createElement("td")
+        power.className = "speciesPanelLearnsetsPower"
+        if(moves[move[0]]["power"] > 0){
+            power.innerText = moves[move[0]]["power"]
+        }
+        else{
+            power.innerText = "-"   
+        }
+        row.append(power)
+
+        const accuracy = document.createElement("td")
+        accuracy.className = "speciesPanelLearnsetsAccuracy"
+        if(moves[move[0]]["accuracy"] > 0){
+            accuracy.innerText = moves[move[0]]["accuracy"]
+        }
+        else{
+            accuracy.innerText = "-"   
+        }
+        row.append(accuracy)
+
+        const PP = document.createElement("td")
+        PP.className = "speciesPanelLearnsetsPP"
+        PP.innerText = moves[move[0]]["PP"]
+        row.append(PP)
+
+        const movedescription = document.createElement("td")
+        movedescription.className = "speciesPanelLearnsetsEffect"
+        movedescription.innerText = moves[move[0]]["description"].join("")
+
+        row.addEventListener('click', function () {
+            createPopupForMove(moves[move[0]])
+            overlay.style.display = "flex"
+        }) 
+
+        row.append(movedescription)
+
+        Tbody.append(row)
+    })
+}
 
 
 
