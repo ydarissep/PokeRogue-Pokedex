@@ -9,8 +9,8 @@ async function regexPokemonInfo(jsonPokemonInfo){
             translationTable[stat] = jsonPokemonInfo["Stat"][statsObj[stat]]
         })
 
-        if(["en", "fr", "es", "it", "de", "ko", "zh_CN", "zh_TW", "pt_BR"].includes(lang)){
-            translationTable["BST"] = {"en": "Sum", "fr": "Total", "es": "Total", "it": "BST", "de": "Summe", "ko": "합계", "zh_CN": "种族值", "zh_TW": "總計", "pt_BR": "Total"}[lang]
+        if(["en", "fr", "es", "it", "de", "ko", "zh-CN", "zh-TW", "pt-BR"].includes(lang)){
+            translationTable["BST"] = {"en": "Sum", "fr": "Total", "es": "Total", "it": "BST", "de": "Summe", "ko": "합계", "zh-CN": "种族值", "zh-TW": "總計", "pt-BR": "Total"}[lang]
         }
     }
 }

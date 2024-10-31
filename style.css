@@ -1,6 +1,6 @@
 @import url(https://ydarissep.github.io/dex-core/style.css);
 
-body.zh_CN #speciesTable .abilities div, body.zh_TW #speciesTable .abilities div {
+body.zh-CN #speciesTable .abilities div, body.zh-TW #speciesTable .abilities div {
     padding: 3px 0px 3px 0px;
 }
 
@@ -8,13 +8,13 @@ body img {
     image-rendering: pixelated;
 }
 
-body.zh_CN [class*="TYPE_"], body.ko [class*="TYPE_"], body.zh_TW [class*="TYPE_"] {
+body.zh-CN [class*="TYPE_"], body.ko [class*="TYPE_"], body.zh-TW [class*="TYPE_"] {
     font-size: 15px !important;
     padding-bottom: 4px !important;
 }
 
 @media only screen and (max-width: 500px) {
-    body.zh_CN #speciesPanelContainer .backgroundSmall[class*="TYPE_"], body.ko #speciesPanelContainer .backgroundSmall[class*="TYPE_"], body.zh_TW #speciesPanelContainer .backgroundSmall[class*="TYPE_"] {
+    body.zh-CN #speciesPanelContainer .backgroundSmall[class*="TYPE_"], body.ko #speciesPanelContainer .backgroundSmall[class*="TYPE_"], body.zh-TW #speciesPanelContainer .backgroundSmall[class*="TYPE_"] {
         font-size: 10px !important;
         letter-spacing: -0.3px !important;
     }

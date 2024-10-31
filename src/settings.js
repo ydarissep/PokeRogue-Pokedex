@@ -322,7 +322,7 @@ function getStaticTranslationTable(lang){
             "Event": "이벤트",
             "Random": "랜덤"
         },
-        "zh_CN": {
+        "zh-CN": {
             "Pokemon": "宝可梦",
             "Species": "宝可梦",
             "Starter Cost": "费用",
@@ -361,7 +361,7 @@ function getStaticTranslationTable(lang){
             "Event": "事件",
             "Random": "随机"
         },
-        "zh_TW": {
+        "zh-TW": {
             "Pokemon": "寶可夢",
             "Species": "寶可夢",
             "Starter Cost": "花費",
@@ -400,7 +400,7 @@ function getStaticTranslationTable(lang){
             "Event": "Event",
             "Random": "隨機"
         },
-        "pt_BR": {
+        "pt-BR": {
             "Pokemon": "Pokémon",
             "Species": "Pokémon",
             "Starter Cost": "Custo",

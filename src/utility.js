@@ -14,7 +14,7 @@ fetch("https://raw.githubusercontent.com/ydarissep/dex-core/main/src/utility.js"
 })
 
 async function getLang(urlParams){
-    const supportedLang = ["en", "fr", "es", "it", "de", "ko", "zh_CN", "zh_TW", "pt_BR"]
+    const supportedLang = ["en", "fr", "es", "it", "de", "ko", "zh-CN", "zh-TW", "pt-BR"]
 
     for(let i = 0; i < settings.length; i++){
         if(/dexLang=\w+/.test(settings[i])){
@@ -108,13 +108,13 @@ function getFlagSrc(langString){
     else if(langString === "ko"){
         return "https://flagcdn.com/kr.svg"
     }
-    else if(langString === "zh_CN"){
+    else if(langString === "zh-CN"){
         return "https://flagcdn.com/cn.svg"
     }
-    else if(langString === "zh_TW"){
+    else if(langString === "zh-TW"){
         return "https://flagcdn.com/tw.svg"
     }
-    else if(langString === "pt_BR"){
+    else if(langString === "pt-BR"){
         return "https://flagcdn.com/br.svg"
     }
 }
@@ -138,13 +138,13 @@ function getLangFullName(langString){
     else if(langString === "ko"){
         return "한국어"
     }
-    else if(langString === "zh_CN"){
+    else if(langString === "zh-CN"){
         return "汉语"
     }
-    else if(langString === "zh_TW"){
+    else if(langString === "zh-TW"){
         return "漢語"
     }
-    else if(langString === "pt_BR"){
+    else if(langString === "pt-BR"){
         return "português (BR)"
     }
     else{
