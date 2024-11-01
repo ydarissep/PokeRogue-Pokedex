@@ -244,7 +244,7 @@ function getStaticTranslationTable(lang){
             "Event": "Ereignis",
             "Random": "Zufällig"
         },
-        "es": {
+        "es-ES": {
             "Pokemon": "Pokémon",
             "Species": "Pokémon",
             "Starter Cost": "Costo",

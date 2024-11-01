@@ -14,7 +14,7 @@ fetch("https://raw.githubusercontent.com/ydarissep/dex-core/main/src/utility.js"
 })
 
 async function getLang(urlParams){
-    const supportedLang = ["en", "fr", "es", "it", "de", "ko", "zh-CN", "zh-TW", "pt-BR"]
+    const supportedLang = ["en", "fr", "es-ES", "it", "de", "ko", "zh-CN", "zh-TW", "pt-BR"]
 
     for(let i = 0; i < settings.length; i++){
         if(/dexLang=\w+/.test(settings[i])){
@@ -96,7 +96,7 @@ function getFlagSrc(langString){
     else if(langString === "fr"){
         return "https://flagcdn.com/fr.svg"
     }
-    else if(langString === "es"){
+    else if(langString === "es-ES"){
         return "https://flagcdn.com/es.svg"
     }
     else if(langString === "it"){
@@ -126,7 +126,7 @@ function getLangFullName(langString){
     else if(langString === "fr"){
         return "Français"
     }
-    else if(langString === "es"){
+    else if(langString === "es-ES"){
         return "español"
     }
     else if(langString === "it"){
