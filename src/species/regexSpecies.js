@@ -821,6 +821,9 @@ async function getEvolutionLine(species){
             species[speciesName]["starterAbility"] = species[targetSpecies]["starterAbility"]
         }
         if(species[speciesName]["starterCost"] == 0){
+            if(species[species[speciesName]["forms"][0]]["starterCost"] != 0){
+                targetSpecies = species[speciesName]["forms"][0]
+            }
             species[speciesName]["starterCost"] = species[targetSpecies]["starterCost"]
         }
     })

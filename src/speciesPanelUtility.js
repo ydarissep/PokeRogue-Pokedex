@@ -1044,12 +1044,50 @@ async function getSpriteInfo(speciesName, species, back = false, female = false)
     const context = canvas.getContext('2d')
 
     sprite.onload = async () => {
+        /*
         context.clearRect(0, 0, canvas.width, canvas.height)
         context.drawImage(sprite, -frameX, -frameY)
 
         if(!localStorage.getItem(`${extra}_${speciesName}`)){
             localStorage.setItem(`${extra}_${speciesName}`, await LZString.compressToUTF16(canvas.toDataURL()))
             localStorage.setItem(`spriteInfo${extra}${speciesName}`, spritesInfo[`${extra}_${speciesName}`])
+        }
+        sprites[`${extra}_${speciesName}`] = canvas.toDataURL()
+        */
+
+
+
+
+
+
+
+
+
+        context.clearRect(0, 0, canvas.width, canvas.height)
+        context.drawImage(sprite, -frameX, -frameY)
+
+        const imageData = context.getImageData(0, 0, canvas.width, canvas.height)
+        let spriteDataString = "", repeat = 1, pal = []
+        for (let i = 0; i < imageData.data.length; i += 4) {
+            if(!pal.includes(`${imageData.data[i]},${imageData.data[i + 1]},${imageData.data[i + 2]},${imageData.data[i + 3]}`)){
+                pal.push(`${imageData.data[i]},${imageData.data[i + 1]},${imageData.data[i + 2]},${imageData.data[i + 3]}`)
+            }
+
+            if(imageData.data[i] === imageData.data[i + 4] && imageData.data[i + 1] === imageData.data[i + 5] && imageData.data[i + 2] === imageData.data[i + 6] && imageData.data[i + 3] === imageData.data[i + 7]){
+                repeat++
+            }
+            else{
+                spriteDataString += `&${pal.indexOf(`${imageData.data[i]},${imageData.data[i + 1]},${imageData.data[i + 2]},${imageData.data[i + 3]}`)}*${repeat}`
+                repeat = 1
+            }
+        }
+        context.putImageData(imageData, 0, 0)
+
+        spriteDataString = `${canvas.width}&${canvas.height}&[${pal}]${spriteDataString}`
+
+        if(!localStorage.getItem(`${extra}_${speciesName}`)){
+            localStorage.setItem(`${extra}_${speciesName}`, LZString.compressToUTF16(spriteDataString))
+            localStorage.setItem(`spriteInfo${`${extra}${speciesName}`}`, spritesInfo[`${extra}_${speciesName}`])
         }
         sprites[`${extra}_${speciesName}`] = canvas.toDataURL()
     }
