@@ -1044,25 +1044,6 @@ async function getSpriteInfo(speciesName, species, back = false, female = false)
     const context = canvas.getContext('2d')
 
     sprite.onload = async () => {
-        /*
-        context.clearRect(0, 0, canvas.width, canvas.height)
-        context.drawImage(sprite, -frameX, -frameY)
-
-        if(!localStorage.getItem(`${extra}_${speciesName}`)){
-            localStorage.setItem(`${extra}_${speciesName}`, await LZString.compressToUTF16(canvas.toDataURL()))
-            localStorage.setItem(`spriteInfo${extra}${speciesName}`, spritesInfo[`${extra}_${speciesName}`])
-        }
-        sprites[`${extra}_${speciesName}`] = canvas.toDataURL()
-        */
-
-
-
-
-
-
-
-
-
         context.clearRect(0, 0, canvas.width, canvas.height)
         context.drawImage(sprite, -frameX, -frameY)
 
