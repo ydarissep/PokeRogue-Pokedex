@@ -333,6 +333,7 @@ GIFEncoder = function() {
 	 */
 
 	var analyzePixels = function analyzePixels() {
+		usedEntry = [];
 
 		var len = pixels.length;
 		var nPix = len / 3;
@@ -379,7 +380,7 @@ GIFEncoder = function() {
 			var dg = g - (colorTab[i++] & 0xff);
 			var db = b - (colorTab[i] & 0xff);
 			var d = dr * dr + dg * dg + db * db;
-			var index = i / 3;
+			var index = (i + 1) / 3;
 			if (usedEntry[index] && (d < dmin)) {
 				dmin = d;
 				minpos = index;

@@ -77,9 +77,11 @@ fetch('https://raw.githubusercontent.com/ydarissep/dex-core/main/index.html').th
                     encoder.setDelay(83)
                     encoder.setQuality(1)
                     encoder.start()
+                    encoder.setTransparent(0xff01ff)
 
                     Object.keys(spriteAnimation["frames"]).forEach(key => {
-                        context.clearRect(0, 0, canvas.width, canvas.height)
+                        context.fillStyle = "#ff01ff"
+                        context.fillRect(0, 0, canvas.width, canvas.height)
                         context.drawImage(sheet, spriteAnimation["frames"][key][2], spriteAnimation["frames"][key][3], spriteAnimation["frames"][key][0], spriteAnimation["frames"][key][1], spriteAnimation["frames"][key][4], spriteAnimation["frames"][key][5], spriteAnimation["frames"][key][0], spriteAnimation["frames"][key][1])
 
                         encoder.addFrame(context)
