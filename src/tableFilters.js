@@ -2,7 +2,7 @@ fetch("https://raw.githubusercontent.com/ydarissep/dex-core/main/src/tableFilter
     return response.text()
 }).then(text => {
     text = text.replace("if(!species[name][\"abilities\"].includes(abilityName)){", "if(!species[name][\"abilities\"].includes(abilityName)){\nif(species[name][\"starterAbility\"] == abilityName){continue}\n")
-    text = text.replace("createFilterGroup(createFilterArray([\"flags\"], moves), \"Flag\", [movesFilterList])", "createFilterGroup(createFilterArray([\"flags\"], moves), \"Flag\", [movesFilterList])\ncreateFilterGroup(createFilterArray([\"flags\"], abilities), \"Flag\", [abilitiesFilterList])\ncreateFilterGroup(Object.keys(locations), \"Biome\", [locationsFilterList])\n")
+    text = text.replace("createFilterGroup(createFilterArray([\"flags\"], moves), \"Flag\", [movesFilterList])", "createFilterGroup(createFilterArray([\"flags\"], moves), \"Flag\", [movesFilterList])\ncreateFilterGroup(createFilterArray([\"flags\"], abilities), \"Flag\", [abilitiesFilterList])\ncreateFilterGroup(Object.keys(locations), \"Biome\", [locationsFilterList, speciesFilterList])\n")
     text = text.replace(/else\s*if\(label\s*===\s*"Flag"\s*\)\s*\{\s*filterMovesFlags\s*\(\s*value,\s*label\s*\)\s*\}/is, "else if(label === \"Flag\"){if(tracker === abilitiesTracker){filterAbilitiesFlags(value, label)}else{filterMovesFlags(value, label)}}\nelse if(label === \"Biome\"){filterBiome(value, label)}")
     text = text.replace("function filterType(", "function filterTypeOld(")
     text = text.replace("function filterBaseStats(", "function filterBaseStatsOld(")
@@ -33,14 +33,27 @@ function filterAbilitiesFlags(value, label){
 
 
 function filterBiome(value, label){
-    for(let i = 0, j = tracker.length; i < j; i++){
-        if(tracker[i]["key"].split("\\")[0] in biomeTranslation){
-            if(biomeTranslation[tracker[i]["key"].split("\\")[0]] !== value){
-                tracker[i]["filter"].push(`filter${label}${value}`.replaceAll(" ", ""))
+    const table = document.getElementsByClassName("activeTable")[0]
+    if(table === speciesTable){
+        const biomeName = Object.keys(biomeTranslation).find(key => biomeTranslation[key] == value)
+        if(biomeName in locations){
+            for(let i = 0, j = tracker.length; i < j; i++){
+                if(!Object.keys(locations[biomeName]).find(key => Object.keys(locations[biomeName][key]).includes(tracker[i]["key"]))){
+                    tracker[i]["filter"].push(`filter${label}${value}`.replaceAll(" ", ""))
+                }
             }
         }
-        else if(tracker[i]["key"].split("\\")[0] !== value){
-            tracker[i]["filter"].push(`filter${label}${value}`.replaceAll(" ", ""))
+    }
+    else if(table === locationsTable){
+        for(let i = 0, j = tracker.length; i < j; i++){
+            if(tracker[i]["key"].split("\\")[0] in biomeTranslation){
+                if(biomeTranslation[tracker[i]["key"].split("\\")[0]] !== value){
+                    tracker[i]["filter"].push(`filter${label}${value}`.replaceAll(" ", ""))
+                }
+            }
+            else if(tracker[i]["key"].split("\\")[0] !== value){
+                tracker[i]["filter"].push(`filter${label}${value}`.replaceAll(" ", ""))
+            }
         }
     }
 }

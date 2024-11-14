@@ -83,3 +83,5 @@ body.zh-CN [class*="TYPE_"], body.ko [class*="TYPE_"], body.zh-TW [class*="TYPE_
     filter: brightness(75%);
     width: 36px !important;
 }
+
+.Biome {color: #64A1FF;}
