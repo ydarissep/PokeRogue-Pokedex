@@ -1,6 +1,6 @@
 window.repo = "pagefaultgames/pokerogue/main"
 window.localesRepo = "pagefaultgames/pokerogue-locales/refs/heads/main"
-window.checkUpdate = "36 PR"
+window.checkUpdate = "37 PR"
 window.lang = "en"
 
 
