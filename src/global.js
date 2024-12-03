@@ -1,6 +1,6 @@
 window.repo = "pagefaultgames/pokerogue/main"
 window.localesRepo = "pagefaultgames/pokerogue-locales/refs/heads/main"
-window.checkUpdate = "37 PR"
+window.checkUpdate = "38 PR"
 window.lang = "en"
 
 
@@ -22,9 +22,6 @@ fetch('https://raw.githubusercontent.com/ydarissep/dex-core/main/index.html').th
 
     document.getElementById("speciesPanelTablesContainer").insertBefore(document.getElementById("speciesPanelEggMovesTable"), document.getElementById("speciesPanelLevelUpFromPreviousEvoTable"))
     document.getElementById("locationsButton").innerText = "Biomes"
-
-    document.getElementById("changelogMode").classList.add("hide")
-    document.getElementById("onlyShowChangedPokemon").classList.add("hide")
 
     insertVariantsContainer()
 
